@@ -12,6 +12,9 @@ export default function JobDetailPage() {
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // Decode and clean the ID
+      const id = decodeURIComponent(params.id).trim();
+      console.log("Looking for job with ID:", id);
 
   // const url = `https://jsearch.p.rapidapi.com/search?query=developer%20jobs%20in%20chicago&page=1&num_pages=1&country=us&job_id=${id}`;
   // const options = {
@@ -21,6 +24,7 @@ export default function JobDetailPage() {
   //     "x-rapidapi-host": "jsearch.p.rapidapi.com",
   //   },
   // };
+  // console.log("data",job);
 
   // useEffect(() => {
   //   if (id) {
@@ -44,12 +48,10 @@ export default function JobDetailPage() {
         return;
       }
 
-      // Decode and clean the ID
-      const id = decodeURIComponent(params.id).trim();
-      console.log("Looking for job with ID:", id);
+      
 
       // Find job with exact match first, then try loose matching
-      let jobData = data.find((job) => job.job_id === id);
+      let jobData = job.find((job) => job.job_id === id);
 
       if (!jobData) {
         // Try trimmed comparison as fallback
@@ -75,7 +77,7 @@ export default function JobDetailPage() {
     }
   }, [params?.id]);
 
-  // console.log("route", job);
+  console.log("route", job);
 
   if (loading) {
     return (

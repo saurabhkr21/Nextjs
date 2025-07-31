@@ -54,16 +54,3 @@ export async function UpdateProdInDb(productData: any,id:any) {
     };
   }
 }
-
-
-// export async functioin EditProdInDb(id){
-//   try{
-//     await prismaClient.products.update({
-//       where:{
-//         id:id
-//       }
-//     })
-//   }catch(err){
-
-//   }
-// }

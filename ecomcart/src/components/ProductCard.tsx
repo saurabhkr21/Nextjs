@@ -40,12 +40,12 @@ const ProductCard = ({ item }) => {
                             fill
                             className="object-center group-hover:scale-105 transition-transform duration-300"
                         /> */}
-            <div className="w-[200px] h-[200px]">
+            {/* <div className="w-[200px] h-[200px]">
               <img src={item.image_url} alt="image" className="object-fill" />
-            </div>
-            {/* {!imageError ? (
+            </div> */}
+            {!imageError ? (
                             <Image
-                                src={item.thumbnail}
+                                src={item.image_url}
                                 alt={item.title}
                                 fill
                                 // width={100}
@@ -59,7 +59,7 @@ const ProductCard = ({ item }) => {
                                     <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                                 </svg>
                             </div>
-                        )} */}
+                        )}
           </div>
         </Link>
         <div className="flex gap-2 mt-3 overflow-x-auto">

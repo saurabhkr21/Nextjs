@@ -43,7 +43,10 @@ export default function Page() {
     }
 
     return (
-        <div className="flex items-center justify-center w-full min-h-screen bg-gray-50">
+        <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-200">
+            <div className="flex items-center justify-center mb-10 text-4xl font-bold italic text-blue-600">
+                <h1>Welcome to <b className="text-amber-700">Job</b> Portal</h1>
+            </div>
             <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
                 <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                     <h1 className="text-3xl font-bold text-center text-blue-600 mb-4">

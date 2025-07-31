@@ -21,7 +21,7 @@ export default async function Home({ searchParams }) {
     // const url = "https://dummyjson.com/products/search?q=" + query;
     // const response = await fetch(url);
     // data = await response.json();
-    data = await prismaClient.product.findMany({
+    data = await prismaClient.products.findMany({
       where: {
         title: {
           contains: query,
@@ -71,7 +71,7 @@ export default async function Home({ searchParams }) {
                 } */}
         {data.length > 0 ? (
           data.map((item, id) => (
-            <div className="flex w-[350px] shadow-2xl ">
+            <div className="flex w-[350px] shadow-2xl " key={id}>
               <ProductCard key={item.id} item={item} />
             </div>
           ))
