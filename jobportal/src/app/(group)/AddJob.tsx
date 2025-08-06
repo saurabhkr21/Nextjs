@@ -9,15 +9,15 @@ export default function AddJob() {
   const [jobType, setJobType] = useState("");
   const [job_location, setJob_location] = useState("");
 
-  async function handleSubmit(e : React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = {
-      title: jobTitle,
-      description: jobDescription,
-      price: salaryNum,
-      job_type: jobCategory,
-      employment_type: jobType,
-      location: job_location,
+      job_title: jobTitle,
+      job_description: jobDescription,
+      job_salary: salaryNum,
+      job_type: jobType,
+      employment_type: jobCategory,
+      job_location: job_location,
     };
 
     const res = await fetch("http://localhost:3000/api/job", {
@@ -41,10 +41,10 @@ export default function AddJob() {
   return (
     <>
       <button
-            className="bg-slate-100 hover:bg-gray-50 border border-gray-200 hover:border-gray-300 px-3 py-2 rounded-lg text-xs md:text-sm font-medium text-gray-700 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
+        className="bg-slate-100 hover:bg-gray-50 border border-gray-200 hover:border-gray-300 px-3 py-2 rounded-lg text-xs md:text-sm font-medium text-gray-700 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
         onClick={() => setShowModal(true)}
       >
-       🏪 Add Job
+        🏪 Add Job
       </button>
 
       {showModal && (
@@ -83,33 +83,35 @@ export default function AddJob() {
                 />
               </div>
               <div>
-                <label className="block font-semibold mb-1">Price</label>
+                <label className="block font-semibold mb-1">Salary</label>
                 <input
                   type="number"
                   value={salaryNum}
                   onChange={(e) => setSalaryNum(e.target.value)}
-                  placeholder="Price"
+                  placeholder="Salary"
                   className="w-full border rounded px-3 py-2"
                   required
                 />
               </div>
               <div>
-                <label className="block font-semibold mb-1">Image URL</label>
+                <label className="block font-semibold mb-1">
+                  Employment Type
+                </label>
                 <input
                   type="text"
                   value={jobCategory}
                   onChange={(e) => setJobCategory(e.target.value)}
-                  placeholder="Image URL"
+                  placeholder="e.g. Full-time, Part-time"
                   className="w-full border rounded px-3 py-2"
                 />
               </div>
               <div>
-                <label className="block font-semibold mb-1">Category</label>
+                <label className="block font-semibold mb-1">Job Type</label>
                 <input
                   type="text"
                   value={jobType}
                   onChange={(e) => setJobType(e.target.value)}
-                  placeholder="Category"
+                  placeholder="e.g. Tech, Marketing"
                   className="w-full border rounded px-3 py-2"
                 />
               </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '@radix-ui/themes';
 import {SendIcon} from 'lucide-react';
 
-export default function jobApplyBtn({job}:{job: {id: string}}) {
+export default function JobApplyBtn({job}:{job: {id: string}}) {
     async function handleApply() {
         // Logic to handle job application
         try{

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import SaveJob from "./SaveJob";
+import DeleteJobBtn from "./DeleteJobBtn";
 
 export default function JobCard({ item }) {
   const router = useRouter();
@@ -65,11 +66,14 @@ export default function JobCard({ item }) {
       )}
 
       <div className="flex flex-col flex-1 min-w-0">
-        <h2 className="font-semibold text-lg truncate" title={item.title}>
-          {item.title || "Untitled Job"}
+        <div className="flex justify-between items-start mb-2">
+          <h2 className="font-semibold text-lg truncate" title={item.job_title}>
+          {item.job_title || "Untitled Job"}
         </h2>
+        <DeleteJobBtn jobId={item.id} />
+        </div>
         <p className="line-clamp-2 text-gray-600 text-sm mb-2">
-          {item.description || "No description available"}
+          {item.job_description || "No description available"}
         </p>
         <div className="flex justify-between text-xs text-gray-500 mb-2">
           <p>By {item.job_publisher || item.employer_name || "Unknown"}</p>
@@ -97,7 +101,7 @@ export default function JobCard({ item }) {
             </span>
           )} */}
           <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded">
-              ${item.salary}
+              ${item.job_salary || "Not specified"}
             </span>
         </div>
         <div className="flex gap-2 mt-auto">

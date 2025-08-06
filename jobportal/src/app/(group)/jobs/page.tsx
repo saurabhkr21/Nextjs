@@ -21,11 +21,11 @@ export default async function Page({ searchParams }) {
   // const jobs = data.data;
     const jobs = await prismaClient.job.findMany({
       where: {
-        title: {
+        job_title: {
           contains: query,
           mode: "insensitive",
         },
-        salary: {
+        job_salary: {
           gte: ms,
           lte:max
         },

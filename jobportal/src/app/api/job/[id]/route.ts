@@ -1,11 +1,14 @@
+//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { job_id: string } }
+  { params }
 ) {
-  const id = params.job_id;
+
+  const id = params.id;
+  console.log("Fetching job details show for ID in routes:", id);
   try {
     const job = await prismaClient.job.findUnique({
       where: {
@@ -29,10 +32,10 @@ export async function GET(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { job_id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const jobId = params.job_id;
+    const jobId = params.id;
     const res = await prismaClient.job.delete({
       where: {
         id: jobId,
@@ -40,7 +43,7 @@ export async function DELETE(
     });
     return NextResponse.json({
       success: true,
-      message: "User deleted successfully",
+      message: "Job deleted successfully",
     });
   } catch (err: any) {
     return NextResponse.json({

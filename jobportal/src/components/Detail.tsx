@@ -2,7 +2,9 @@
 "use client";
 import { useRouter } from "next/navigation";
 import SaveJob from "./SaveJob";
-import jobApplyBtn from "./jobApplyBtn";
+import JobApplyBtn from "./jobApplyBtn";
+import { View } from "lucide-react";
+import ViewApplicants from "./ViewApplicants";
 
 export default function Detail({ job }) {
   const router = useRouter();
@@ -11,7 +13,7 @@ export default function Detail({ job }) {
       {/* Header Section */}
       <div className="flex items-start justify-between mb-6">
         <div className="flex items-center gap-4">
-          {job.employer_logo && (
+          {/* {job.employer_logo && (
             <img
               src={job.employer_logo}
               alt={`${job.employer_name} Logo`}
@@ -20,14 +22,15 @@ export default function Detail({ job }) {
                 e.target.style.display = "none";
               }}
             />
-          )}
+          )} */}
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">{job.title}</h1>
-            <p className="text-xl text-gray-700">{job.employer_name}</p>
+            <h1 className="text-3xl font-bold text-gray-800">{job.job_title}</h1>
+            <p className="text-xl text-gray-700">{job.job_employer_name}</p>
             <p className="text-lg text-gray-600">{job.location}</p>
           </div>
         </div>
         <div className="flex gap-2">
+          <ViewApplicants job={job} />
           <SaveJob item={job} />
           <button
             onClick={() => router.back()}
@@ -51,7 +54,7 @@ export default function Detail({ job }) {
           <div>
             <span className="font-semibold">Salary: </span>
             <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-sm">
-              ${job.salary}
+              ${job.job_salary}
             </span>
           </div>
         </div>
@@ -62,14 +65,13 @@ export default function Detail({ job }) {
         <h2 className="text-2xl font-bold mb-3">Job Description</h2>
         <div className="prose max-w-none">
           <p className="text-gray-700 whitespace-pre-line leading-relaxed">
-            {job.description}
+            {job.job_description}
           </p>
         </div>
       </div>
 
       {/* Apply Section */}
-          <jobApplyBtn job={job} />
-          <jobApplyBtn job={job} />
+          <JobApplyBtn job={job} />
 
       {/* {job.jobApplyLink && (
         <div className="border-t pt-6">
