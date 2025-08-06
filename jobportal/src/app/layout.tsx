@@ -2,7 +2,7 @@
 import { Theme } from "@radix-ui/themes";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
-import UserContextProvider from "@/contexts/UserContextProvider";
+import { JobProvider } from "../context";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,9 +26,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="light" >
-          <UserContextProvider>
+          <JobProvider>
             <Theme>{children}</Theme>
-          </UserContextProvider>
+          </JobProvider>
         </ThemeProvider>
       </body>
     </html>

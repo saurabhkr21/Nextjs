@@ -31,7 +31,7 @@ export default function SideBarSort() {
   }
 
   return (
-    <aside className="w-2/3 max-w-md h-screen bg-gray-50 dark:bg-gray-800 rounded-xl p-8 shadow-2xl flex flex-col gap-8 border border-gray-200 dark:border-gray-700">
+    <aside className="w-1/3 max-w-[350px] h-screen bg-gray-50 dark:bg-gray-800 rounded-xl p-8 shadow-2xl flex flex-col gap-8 border border-gray-200 dark:border-gray-700">
       <form onSubmit={handleSubmit} className="flex flex-col gap-8">
         <h2 className="text-3xl font-extrabold text-blue-500 dark:text-blue-400 mb-2 tracking-tight flex items-center gap-2">
           <svg

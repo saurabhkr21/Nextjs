@@ -15,9 +15,9 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const company = {
-      companyName: body.name,
-      companyDescription: body.description,
-      companyOwnerId: user.id,
+      name: body.name,
+      description: body.description,
+      ownerId: user.id,
     };
     const newCompany = await prismaClient.company.create({
       data: company,
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       message: "Company created successfully",
       data: newCompany,
     });
-  } catch (err : any) {
+  } catch (err: any) {
     return NextResponse.json({
       success: false,
       message: err.message,

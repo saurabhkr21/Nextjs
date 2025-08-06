@@ -1,15 +1,33 @@
+//@ts-nocheck
 "use client";
 import Header from "@/components/Header";
-import SideBarSort from "./SideBarSort";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+import { createContext, useEffect, useState } from "react";
+
+export const UserContext = createContext();
+
+export default function Layout({ children }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    async function getUser() {
+      const res = await fetch("/api/current-user");
+      const data = await res.json();
+      if (data.success) {
+        setUser(data.user);
+      }
+    }
+    getUser();
+  }, []);
+
   return (
     <div>
-      <Header />
-      <div className="flex">
-        <SideBarSort />
-        <main className="flex-1">{children}</main>
-      </div>
+      <UserContext.Provider value={{ user, setUser }}>
+       
+            <Header />
+            {children}
+          
+      </UserContext.Provider>
     </div>
   );
 }

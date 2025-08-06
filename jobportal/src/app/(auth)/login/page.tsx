@@ -1,17 +1,37 @@
 //@ts-nocheck
 "use client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Page() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState({});
+  const [error, setError] = useState<{
+    email?: string;
+    password?: string;
+    message?: string;
+  }>({});
   const router = useRouter();
-  // const {name,setName}=useJobContext();
 
-  const handleLogin = async () => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const errorObj: { email?: string; password?: string; message?: string } =
+      {};
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errorObj.email = "Please enter a valid email address.";
+    }
+    if (password.length < 8) {
+      errorObj.password = "Password should be at least 8 characters long";
+    }
+
+    if (errorObj.email || errorObj.password) {
+      setError(errorObj);
+      return;
+    }
+
+    setError({});
+
     try {
       const res = await fetch("/api/login", {
         method: "POST",
@@ -25,7 +45,6 @@ export default function Page() {
       });
       const data = await res.json();
       if (data.success) {
-        // Set token in cookie for client-side
         document.cookie = `token=${data.data.token}; path=/; max-age=3600`;
         router.push("/");
         router.refresh();
@@ -35,37 +54,6 @@ export default function Page() {
     } catch (error) {
       setError({ message: "Login failed. Please try again." });
     }
-  };
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const errorObj = {};
-    if (name.length < 3) {
-      errorObj.name = "Name should be at least 3 characters long";
-    }
-    if (email.length < 5) {
-      errorObj.email = "Email should be at least 5 characters long";
-    }
-    if (password.length < 8) {
-      errorObj.password = "Password should be at least 8 characters long";
-    }
-    if (errorObj.name || errorObj.email || errorObj.password) {
-      setError(errorObj);
-    } else {
-      const obj = { name, email, password };
-      const res = await fetch("http://localhost:3000/api/login", {
-        method: "POST",
-        body: JSON.stringify(obj),
-      });
-      console.log(res);
-      if (res.redirected) {
-        window.location.href = res.url;
-      } else {
-        setError({});
-        router.push(res.redirect || "/");
-      }
-    }
-    router.refresh();
   }
 
   return (
@@ -81,16 +69,6 @@ export default function Page() {
           <h1 className="text-3xl font-bold text-center text-blue-600 dark:text-blue-400 mb-4">
             Login
           </h1>
-          <input
-            type="text"
-            placeholder="Username"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 transition bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-            autoComplete="username"
-          />
-          {error.name && <p className="text-red-500 text-sm">{error.name}</p>}
           <input
             type="email"
             placeholder="Enter your email"
@@ -123,6 +101,15 @@ export default function Page() {
             <p className="text-red-500 text-center text-sm">{error.message}</p>
           )}
         </form>
+        <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
+          Don't have an account?{" "}
+          <Link
+            href="/signup"
+            className="text-blue-600 hover:underline dark:text-blue-400"
+          >
+            Sign up
+          </Link>
+        </p>
       </div>
     </div>
   );
