@@ -1,7 +1,8 @@
 "use client";
+import { Theme } from "@radix-ui/themes";
+import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
-import Header from "../components/Header";
-import { JobProvider } from "../context";
+import UserContextProvider from "@/contexts/UserContextProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,12 +25,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <JobProvider>
-          <Header/>
-          
-          {children}
-        </JobProvider>
-        
+        <ThemeProvider attribute="class" defaultTheme="light" >
+          <UserContextProvider>
+            <Theme>{children}</Theme>
+          </UserContextProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

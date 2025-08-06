@@ -12,6 +12,13 @@ export function JobProvider({ children }) {
   const [selectedJob, setSelectedJob] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [page,setPage]=useState(1);
+  const  [open, setOpen] = useState(false);
+  function handleOpen() {
+    setOpen(true);
+  }
+  function handleClose() {
+    setOpen(false);
+  }
   function handleIncrement(){
     setPage(page+1);
   }
@@ -51,19 +58,19 @@ export function JobProvider({ children }) {
   // Save a job
   const saveJob = (job) => {
     try {
-      if (!job || !job.job_id) {
+      if (!job || !job.id) {
         console.error('Invalid job data provided to saveJob');
         return false;
       }
 
-      const jobExists = savedJobs.find((j) => j.job_id === job.job_id);
+      const jobExists = savedJobs.find((j) => j.id === job.id);
       if (jobExists) {
-        console.log('Job already saved:', job.job_title);
+        console.log('Job already saved:', job.title);
         return false;
       }
 
       setSavedJobs(prevJobs => [...prevJobs, job]);
-      console.log('Job saved successfully:', job.job_title);
+      console.log('Job saved successfully:', job.title);
       return true;
     } catch (error) {
       console.error('Error saving job:', error);
@@ -72,21 +79,21 @@ export function JobProvider({ children }) {
   };
 
   // Remove a job
-  const removeJob = (job_id) => {
+  const removeJob = (id) => {
     try {
-      if (!job_id) {
+      if (!id) {
         console.error('Invalid job_id provided to removeJob');
         return false;
       }
 
-      const jobExists = savedJobs.find((j) => j.job_id === job_id);
+      const jobExists = savedJobs.find((j) => j.id === id);
       if (!jobExists) {
-        console.log('Job not found in saved jobs:', job_id);
+        console.log('Job not found in saved jobs:', id);
         return false;
       }
 
-      setSavedJobs(prevJobs => prevJobs.filter((j) => j.job_id !== job_id));
-      console.log('Job removed successfully:', job_id);
+      setSavedJobs(prevJobs => prevJobs.filter((j) => j.id !== id));
+      console.log('Job removed successfully:', id);
       return true;
     } catch (error) {
       console.error('Error removing job:', error);
@@ -98,7 +105,7 @@ export function JobProvider({ children }) {
   const selectJob = (job) => {
     try {
       setSelectedJob(job);
-      console.log('Job selected:', job?.job_title || 'None');
+      console.log('Job selected:', job?.title || 'None');
     } catch (error) {
       console.error('Error selecting job:', error);
     }
@@ -118,6 +125,10 @@ export function JobProvider({ children }) {
   return (
     <JobContext.Provider
       value={{
+        open,
+        handleOpen,
+        handleClose,
+        setOpen,
         page,
         setPage,
         handleDecrement,

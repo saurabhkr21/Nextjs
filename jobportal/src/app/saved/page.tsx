@@ -50,7 +50,7 @@ export default function SavedJobsPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {savedJobs.length > 0 ? (
-          savedJobs.map((item) => <JobCard key={item.job_id} item={item} />)
+          savedJobs.map((item) => <JobCard key={item.id} item={item} />)
         ) : (
           <div className="col-span-full text-center py-12">
             <div className="max-w-md mx-auto">
