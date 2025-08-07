@@ -1,12 +1,10 @@
 //@ts-nocheck
+import { getUserFromCookies } from "@/helper";
 import prismaClient from "@/services/prisma";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  req: NextRequest,
-  { params }
-) {
-
+export async function GET(req: NextRequest, { params }) {
   const id = params.id;
   console.log("Fetching job details show for ID in routes:", id);
   try {
@@ -18,6 +16,13 @@ export async function GET(
         company: true,
       },
     });
+
+    if (job) {
+      const finalData = {
+        ...job,
+      };
+    }
+
     return NextResponse.json({
       success: true,
       data: job,

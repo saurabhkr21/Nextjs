@@ -3,7 +3,7 @@
 
 import AddJob from "@/app/(group)/AddJob";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import AddCompany from "./AddCompany";
 import SearchInput from "./SearchInput";
@@ -37,6 +37,9 @@ export default function Header() {
   function handleThemeToggle() {
     setTheme(theme === "dark" ? "light" : "dark");
   }
+  function handleViewCompany() {
+    redirect("/company");
+  }
 
   function handleLogOut() {
     if (confirm("Are you sure you want to log out?")) {
@@ -64,6 +67,9 @@ export default function Header() {
     if (value === "professional") {
       router.push("/Job");
     }
+    if (value === "ViewApplication") {
+      router.push("/applied-jobs");
+    }
   }
 
   return (
@@ -79,6 +85,7 @@ export default function Header() {
               value="personal"
             >
               <option value="personal">👤 {name}</option>
+              <option value="ViewApplication">View Applications</option>
               <option value="AddCompany">Add Company</option>
               <option value="logout"> Logout</option>
             </select>
@@ -124,8 +131,11 @@ export default function Header() {
         <nav className="hidden sm:flex items-center gap-2">
           <AddJob />
           {/* <AddCompany /> */}
-          <button className="bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 px-3 py-2 rounded-lg text-xs md:text-sm font-medium text-gray-700 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md">
-            Orgs
+          <button
+            onClick={handleViewCompany}
+            className="bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 px-3 py-2 rounded-lg text-xs md:text-sm font-medium text-gray-700 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
+          >
+            Company
           </button>
           <button
             className="bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 px-3 py-2 rounded-lg text-xs md:text-sm font-medium text-gray-700 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"

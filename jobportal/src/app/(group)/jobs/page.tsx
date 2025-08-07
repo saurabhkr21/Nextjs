@@ -47,7 +47,7 @@ export default async function Page({ searchParams }) {
           No jobs found matching your filters.
         </div>
       )}
-      <NextPage disabled={jobs.length < 10} />
+      {/* <NextPage disabled={jobs.length < 10} /> */}
     </div>
   );
 }

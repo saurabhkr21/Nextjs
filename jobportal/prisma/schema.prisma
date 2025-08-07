@@ -15,21 +15,21 @@ datasource db {
 }
 
 model job {
-  id              String  @id @default(auto()) @map("_id") @db.ObjectId
-  job_title       String? @map("job_title")
-  job_description String? @map("job_description")
-  job_salary      Int?    @map("job_salary")
-  job_type        String? @map("job_type")
-  job_location    String? @map("job_location")
-  employment_type String? @default("fullTime")
-  employer_name   String? @map("employer_name")
-  employer_logo   String? @map("employer_logo")
-  jobApplyLink    String? @map("jobApplyLink")
-  companyId       String  @db.ObjectId
-  company         company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  job_title       String?       @map("job_title")
+  job_description String?       @map("job_description")
+  job_salary      Int?          @map("job_salary")
+  job_type        String?       @map("job_type")
+  job_location    String?       @map("job_location")
+  employment_type String?       @default("fullTime")
+  employer_name   String?       @map("employer_name")
+  employer_logo   String?       @map("employer_logo")
+  jobApplyLink    String?       @map("jobApplyLink")
+  companyId       String        @db.ObjectId
+  company         company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
   applications    application[]
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
 // model Resume {
@@ -72,7 +72,7 @@ model company {
   image_url   String?
   description String?
   owner       user    @relation("UserCompany", fields: [ownerId], references: [id], onDelete: Cascade)
-  jobs       job[]
+  jobs        job[]
 }
 
 model application {
@@ -82,6 +82,5 @@ model application {
   user    user   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   job     job    @relation(fields: [job_id], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
-  
   @@unique([user_id, job_id])
 }

@@ -47,7 +47,7 @@ export default function JobCard({ item }) {
   }
 
   return (
-    <div className="flex gap-3 border-1 rounded-xl p-2 overflow-hidden hover:shadow-md transition-shadow">
+    <div className="flex gap-3 border-2 border-gray-200 text-slate-300 rounded-xl p-2 overflow-hidden hover:shadow-md transition-shadow">
       {item.employer_logo ? (
         <img
           src={item.employer_logo}
@@ -117,6 +117,7 @@ export default function JobCard({ item }) {
             {isNavigating ? "Loading..." : "Detail"}
           </button>
           <SaveJob key={item.id} item={item} />
+          {}
         </div>
       </div>
     </div>

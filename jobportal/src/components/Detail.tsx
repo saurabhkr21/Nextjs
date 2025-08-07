@@ -6,7 +6,7 @@ import JobApplyBtn from "./jobApplyBtn";
 import { View } from "lucide-react";
 import ViewApplicants from "./ViewApplicants";
 
-export default function Detail({ job }) {
+export default function Detail({ job , p }) {
   const router = useRouter();
   return (
     <div className="max-w-4xl mx-auto p-6 border-slate-100 border  rounded shadow" key={job.id}>
@@ -71,7 +71,7 @@ export default function Detail({ job }) {
       </div>
 
       {/* Apply Section */}
-          <JobApplyBtn job={job} />
+          {p && <JobApplyBtn job={job} />}
 
       {/* {job.jobApplyLink && (
         <div className="border-t pt-6">
