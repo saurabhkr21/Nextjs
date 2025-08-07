@@ -36,7 +36,7 @@ export default async function JobDetailPage({
 
   return (
     <div className="w-full flex flex-col min-h-screen">
-      <h1 className="w-full  text-black backdrop-blur-md border-b-2 mb-2 text-4xl flex items-center justify-center font-bold pt-10">
+      <h1 className="w-full   backdrop-blur-md border-b-2 mb-2 text-4xl flex items-center justify-center font-bold pt-10">
         Job Details
       </h1>
 

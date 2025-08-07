@@ -9,11 +9,11 @@ import ViewApplicants from "./ViewApplicants";
 export default function Detail({ job , p }) {
   const router = useRouter();
   return (
-    <div className="max-w-4xl mx-auto p-6 border-slate-100 border  rounded shadow" key={job.id}>
+    <div className="max-w-4xl text-white mx-auto p-6 border-slate-100 border  rounded shadow" key={job.id}>
       {/* Header Section */}
       <div className="flex items-start justify-between mb-6">
         <div className="flex items-center gap-4">
-          {/* {job.employer_logo && (
+          {job.employer_logo && (
             <img
               src={job.employer_logo}
               alt={`${job.employer_name} Logo`}
@@ -22,9 +22,9 @@ export default function Detail({ job , p }) {
                 e.target.style.display = "none";
               }}
             />
-          )} */}
+          )}
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">{job.job_title}</h1>
+            <h1 className="text-3xl font-bold text-gray-400">{job.job_title}</h1>
             <p className="text-xl text-gray-700">{job.job_employer_name}</p>
             <p className="text-lg text-gray-600">{job.location}</p>
           </div>
