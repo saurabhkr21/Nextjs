@@ -36,9 +36,9 @@ export default async function JobDetailPage({
 
   return (
     <div className="w-full flex flex-col min-h-screen">
-      <h1 className="w-full   backdrop-blur-md border-b-2 mb-2 text-4xl flex items-center justify-center font-bold pt-10">
+      {/* <h1 className="w-full mb-2 p-4  backdrop-blur-md border-b-2 text-4xl flex items-center justify-center font-bold pt-10">
         Job Details
-      </h1>
+      </h1> */}
 
       <Detail job={job} p={userHasApplied} />
       <div className="flex flex-col bg-amber-500 text-black gap-4 px-10">

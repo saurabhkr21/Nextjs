@@ -1,24 +1,23 @@
-import { cookies } from "next/headers";
 import prismaClient from "./services/prisma";
 import { verifyToken } from "./services/jwt";
+import { cookies } from "next/headers";
 
 export async function getUserFromCookies() {
   const userCookies = await cookies();
   const token = userCookies.get("token")?.value;
-  // const email=userCookies.get("token")?.value;
 
   if (!token) {
-    return null; // Token is not present
+    return null;
   }
-  const data = verifyToken(token);
+  const res = verifyToken(token) as { id: string } | null;
 
-  if (!data) {
-    return null; // Token is invalid
+  if (!res) {
+    return null;
   }
 
   const user = await prismaClient.user.findUnique({
     where: {
-      id: data.id,
+      id: res?.id,
     },include:{
       company:true,
     },omit:{

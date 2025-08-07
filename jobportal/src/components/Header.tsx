@@ -2,37 +2,40 @@
 "use client";
 
 import AddJob from "@/app/(group)/AddJob";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import AddCompany from "./AddCompany";
 import SearchInput from "./SearchInput";
-import { useTheme } from "next-themes";
+import DeleteJobBtn from "./DeleteJobBtn";
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
-  const [name, setName] = useState("Guest");
+  const [name, setName] = useState("");
+  const [user, setUser] = useState(null);
+
 
   useEffect(() => {
-    if (typeof document !== "undefined") {
-      const rawCookies = document.cookie;
-      console.log("Current Cookies:", rawCookies); // Debugging line
-
-      const cookies = rawCookies.split("; ");
-      const nameCookie = cookies.find((cookie) =>
-        cookie.trim().startsWith("name=")
-      );
-
-      if (nameCookie) {
-        const [, value] = nameCookie.split("=");
-        if (value) {
-          const decodedName = decodeURIComponent(value.trim());
-          setName(decodedName || "Guest");
+    async function fetchUser() {
+      try {
+        const res = await fetch("/api/user");
+        const data = await res.json();
+        if (data && data.user && data.user.email) {
+          setUser(data.user);
+          setName(data.user.email);
+        } else {
+          setUser(null);
+          setName("Guest");
         }
+      } catch (error) {
+        setUser(null);
+        setName("Guest");
       }
     }
+    fetchUser();
   }, []);
+  console.log("User:", user);
 
   function handleThemeToggle() {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -43,9 +46,10 @@ export default function Header() {
 
   function handleLogOut() {
     if (confirm("Are you sure you want to log out?")) {
-      document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       document.cookie =
-        "password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      setName("Guest");
+      setUser(null);
       console.log("Logged out successfully");
       router.push("/login");
       router.refresh();
@@ -103,6 +107,7 @@ export default function Header() {
                   d="M19 9l-7 7-7-7"
                 />
               </svg>
+              
             </div>
           </div>
 

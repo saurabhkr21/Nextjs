@@ -1,6 +1,7 @@
+//@ts-nocheck
 import jwt from 'jsonwebtoken';
 
-export const createToken = (data:Data) => {
+export const createToken = (data) => {
     //@ts-ignore
     const token=jwt.sign(data, process.env.JWT_SECRET, {
         expiresIn: '1h',

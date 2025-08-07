@@ -1,32 +1,41 @@
-//@ts-nocheck
+// @ts-nocheck
 "use client";
 import { useRouter } from "next/navigation";
 import SaveJob from "./SaveJob";
 import JobApplyBtn from "./jobApplyBtn";
-import { View } from "lucide-react";
 import ViewApplicants from "./ViewApplicants";
+import { Briefcase, MapPin, Building2, ArrowLeft } from "lucide-react";
 
-export default function Detail({ job , p }) {
+export default function Detail({ job, p }) {
   const router = useRouter();
+
   return (
-    <div className="max-w-4xl text-white mx-auto p-6 border-slate-100 border  rounded shadow" key={job.id}>
-      {/* Header Section */}
+    <div className=" mx-auto p-6 my-6 rounded-xl shadow-md w-full   dark:border-zinc-700 transition-colors duration-300">
+      {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div className="flex items-center gap-4">
           {job.employer_logo && (
             <img
               src={job.employer_logo}
               alt={`${job.employer_name} Logo`}
-              className="h-16 w-16 rounded-xl object-contain"
+              className="h-16 w-16 rounded-xl object-contain border"
               onError={(e) => {
                 e.target.style.display = "none";
               }}
             />
           )}
           <div>
-            <h1 className="text-3xl font-bold text-gray-400">{job.job_title}</h1>
-            <p className="text-xl text-gray-700">{job.job_employer_name}</p>
-            <p className="text-lg text-gray-600">{job.location}</p>
+            <h1 className="text-3xl font-bold text-zinc-800 dark:text-zinc-100">
+              {job.job_title}
+            </h1>
+            <p className="text-lg text-zinc-600 dark:text-zinc-300 flex items-center gap-1">
+              <Building2 size={16} />
+              {job.employer_name}
+            </p>
+            <p className="text-zinc-500 dark:text-zinc-400 flex items-center gap-1">
+              <MapPin size={16} />
+              {job.job_location || "Remote"}
+            </p>
           </div>
         </div>
         <div className="flex gap-2">
@@ -34,65 +43,74 @@ export default function Detail({ job , p }) {
           <SaveJob item={job} />
           <button
             onClick={() => router.back()}
-            className="bg-gray-500 text-white px-1 py-0.5 rounded hover:bg-gray-600"
+            className="flex items-center gap-1 text-sm bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-100 px-3 py-1 rounded hover:bg-zinc-300 dark:hover:bg-zinc-600"
           >
+            <ArrowLeft size={14} />
             Back
           </button>
         </div>
       </div>
 
-      {/* Job Details */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div className="space-y-3">
-          <div>
-            <span className="font-semibold">Employment Type: </span>
-            <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm">
-              {job.employment_type}
-            </span>
-          </div>
-
-          <div>
-            <span className="font-semibold">Salary: </span>
-            <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-sm">
-              ${job.job_salary}
-            </span>
-          </div>
-        </div>
+      {/* Info Section */}
+      <div className="flex justify-between gap-4 mb-6">
+        <InfoItem label="Employment Type" value={job.employment_type} color="blue" />
+        <InfoItem label="Job Type" value={job.job_type} color="purple" />
       </div>
-
-      {/* Job Description */}
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold mb-3">Job Description</h2>
-        <div className="prose max-w-none">
-          <p className="text-gray-700 whitespace-pre-line leading-relaxed">
-            {job.job_description}
-          </p>
-        </div>
+      <div className="flex justify-between gap-4 mb-6">
+        <InfoItem label="Salary" value={`$${job.job_salary}`} color="green" />
       </div>
+      {/* Description */}
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold text-zinc-800 dark:text-zinc-100 mb-2">
+          Job Description
+        </h2>
+        <p className="whitespace-pre-line leading-relaxed text-zinc-600 dark:text-zinc-300">
+          {job.job_description}
+        </p>
+      </section>
 
-      {/* Apply Section */}
-          {p && <JobApplyBtn job={job} />}
-
-      {/* {job.jobApplyLink && (
-        <div className="border-t pt-6">
-          <div className="flex items-center justify-between">
+      {job.jobApplyLink && (
+        <section className="border-t pt-6 mt-6">
+          <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h3 className="text-lg font-semibold mb-2">Ready to Apply?</h3>
-              <p className="text-gray-600">
-                Click the button below to apply for this position.
+              <h3 className="text-lg font-semibold text-zinc-800 dark:text-zinc-100 mb-1">
+                Ready to Apply?
+              </h3>
+              <p className="text-sm text-zinc-600 dark:text-zinc-300">
+                Click the button below to apply directly.
               </p>
             </div>
-            <a
-              href={job.jobApplyLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors"
-            >
-              Apply Now
-            </a>
+            <JobApplyBtn job={job} />
+
           </div>
-        </div>
-      )} */}
+        </section>
+      )}
+    </div>
+  );
+}
+
+// Reusable info item
+function InfoItem({ label, value, color }) {
+  const bg = {
+    blue: "bg-blue-100 dark:bg-blue-900",
+    green: "bg-green-100 dark:bg-green-900",
+    purple: "bg-purple-100 dark:bg-purple-900",
+  }[color];
+
+  const text = {
+    blue: "text-blue-700 dark:text-blue-300",
+    green: "text-green-700 dark:text-green-300",
+    purple: "text-purple-700 dark:text-purple-300",
+  }[color];
+
+  return (
+    <div>
+      <span className="font-medium text-zinc-700 dark:text-zinc-200">
+        {label}:{" "}
+      </span>
+      <span className={`inline-block px-2 py-1 rounded text-sm ${bg} ${text}`}>
+        {value || "N/A"}
+      </span>
     </div>
   );
 }
