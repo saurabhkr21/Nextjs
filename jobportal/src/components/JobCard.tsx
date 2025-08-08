@@ -27,7 +27,7 @@ export default function JobCard({ item }) {
   }
 
   return (
-    <div className="flex gap-4 border rounded-xl p-4 hover:shadow transition-shadow">
+    <div className="flex h-[30vh] gap-4 border rounded-xl p-4 hover:shadow transition-shadow">
       {/* Logo */}
       {item.employer_logo ? (
         <img

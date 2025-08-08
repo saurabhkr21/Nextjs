@@ -84,3 +84,4 @@ model application {
   createdAt DateTime @default(now())
   @@unique([user_id, job_id])
 }
+

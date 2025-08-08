@@ -15,11 +15,10 @@ export default async function Home() {
             {/* Jobs Grid */}
             <div className="relative">
               {/* Background Pattern */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-50/30 to-indigo-50/30 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl -z-10"></div>
 
               {/* Jobs Container */}
-              <div className="relative bg-white/40 dark:bg-gray-800/40 backdrop-blur-sm rounded-2xl p-4 lg:p-6 shadow-lg border border-white/50 dark:border-white/10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
+              <div className="relative text-black  backdrop-blur-sm rounded-2xl p-4 lg:p-6 shadow-lg dark:text-white">
+                <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 lg:gap-6">
                   {data.map((item, index) => (
                     <div
                       key={item.id}

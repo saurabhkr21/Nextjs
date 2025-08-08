@@ -17,6 +17,7 @@ export async function POST(req: NextRequest) {
     const company = {
       name: body.name,
       description: body.description,
+      image_url: body.image_url || null,
       ownerId: user.id,
     };
     const newCompany = await prismaClient.company.create({

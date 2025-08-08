@@ -41,6 +41,7 @@ export default function Detail({ job, p }) {
         <div className="flex gap-2">
           <ViewApplicants job={job} />
           <SaveJob item={job} />
+          <JobApplyBtn job={job} />
           <button
             onClick={() => router.back()}
             className="flex items-center gap-1 text-sm bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-100 px-3 py-1 rounded hover:bg-zinc-300 dark:hover:bg-zinc-600"
@@ -48,6 +49,7 @@ export default function Detail({ job, p }) {
             <ArrowLeft size={14} />
             Back
           </button>
+          
         </div>
       </div>
 
@@ -80,8 +82,7 @@ export default function Detail({ job, p }) {
                 Click the button below to apply directly.
               </p>
             </div>
-            <JobApplyBtn job={job} />
-
+            
           </div>
         </section>
       )}

@@ -49,6 +49,7 @@ export async function DELETE(
   { params }: { params: {id: string }}
 ) {
   const id = params.id;
+  console.log("Deleting company with ID:", id);
   const user = await getUserFromCookies();
   
   if (user?.company?.id == id) {

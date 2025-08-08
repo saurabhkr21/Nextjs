@@ -1,6 +1,8 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUserContext } from "@/contexts/UserContextProvider";
+import Link from "next/link";
 
 const AddCompany = () => {
   const [name, setName] = useState("");
@@ -10,6 +12,7 @@ const AddCompany = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const router = useRouter();
+  const { userData } = useUserContext();
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -53,7 +56,7 @@ const AddCompany = () => {
         setName("");
         setDescription("");
         setImage_url("");
-        
+
         // Redirect to company page or dashboard after 2 seconds
         setTimeout(() => {
           router.push("/");
@@ -68,6 +71,31 @@ const AddCompany = () => {
       setLoading(false);
     }
   };
+
+  if (userData === undefined) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-lg">Loading user data...</p>
+      </div>
+    );
+  }
+
+  if (userData?.company) {
+    return (
+      <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md text-center">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          You Already Own a Company
+        </h2>
+        <p className="text-gray-600 mb-6">
+          You cannot add another company. You can view your existing company
+          details.
+        </p>
+        <Link href="/company" className="text-blue-500 hover:underline">
+          View My Company
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
@@ -159,8 +187,12 @@ const AddCompany = () => {
           {loading ? "Adding Company..." : "Add Company"}
         </button>
       </form>
+      {success && (
+        <div className="mt-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+          {success}
+        </div>
+      )}
     </div>
   );
 };
-
 export default AddCompany;

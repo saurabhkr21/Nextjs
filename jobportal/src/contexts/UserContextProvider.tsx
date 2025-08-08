@@ -20,7 +20,11 @@ export default function UserContextProvider({
     async function getData() {
       const res = await fetch("http://localhost:3000/api/current-user");
       const data = await res.json();
-      data.success && setUserData(data.data);
+      if (data.success) {
+        setUserData(data.data);
+      } else {
+        console.error("Failed to fetch user data");
+      }
     }
     getData();
   }, []);

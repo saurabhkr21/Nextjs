@@ -28,7 +28,7 @@ export default function DeleteJobBtn({ jobId }) {
       {/* Trigger Button */}
       <button
         onClick={() => setOpen(true)}
-        className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium py-2 px-4 rounded transition-colors"
+        className=" hover:bg-red-400 text-white text-sm font-medium py-2 px-4 rounded transition-colors"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
