@@ -1,0 +1,31 @@
+<svg width="550" height="512" viewBox="-25 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A855F7" />
+      <stop offset="100%" stop-color="#0EA5E9" />
+    </linearGradient>
+  </defs>
+
+  <!-- Chat Bubble -->
+  <path
+    d="M60 60h300c33 0 60 27 60 60v160c0 33-27 60-60 60H160l-60 60v-60H60c-33 0-60-27-60-60V120c0-33 27-60 60-60z"
+    fill="none" stroke="url(#grad)" stroke-width="24" stroke-linejoin="round" />
+
+  <!-- BLOG Text -->
+  <text x="90" y="160" font-size="80" font-family="Segoe UI, sans-serif" fill="url(#grad)"
+    font-weight="bold">BLOG </text>
+  <text x="70" y="260" font-size="80" font-family="Segoe UI, sans-serif" fill="url(#grad)"
+    font-weight="bold">Explorin</text>
+
+  <!-- Lines -->
+  <line x1="90" y1="200" x2="260" y2="200" stroke="url(#grad)" stroke-width="16"
+    stroke-linecap="round" />
+  <line x1="90" y1="240" x2="220" y2="240" stroke="url(#grad)" stroke-width="16"
+    stroke-linecap="round" />
+
+  <!-- Pencil Icon -->
+  <g transform="translate(300,100) rotate(45)">
+    <rect x="0" y="0" width="140" height="20" rx="5" fill="url(#grad)" />
+    <polygon points="140,0 160,10 140,20" fill="url(#grad)" />
+  </g>
+</svg>

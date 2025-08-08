@@ -1,8 +1,10 @@
+//@ts-nocheck
 "use client";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import Link from "next/link";
+import { blog } from "../../generated/prisma";
 
-export default function BlogCard({ item }) {
+export default function BlogCard({ item }:{item:blog}) {
   const { id, title, content, image_url, createdAt } = item;
   // Ensure createdAt is a string in ISO format for Date parsing
   const formatDate = (dateInput: string | Date) => {
@@ -20,7 +22,7 @@ export default function BlogCard({ item }) {
   return (
     <article
       className={`
-        group max-w-lg mx-auto rounded-2xl overflow-hidden border transition-all duration-500 ease-out
+        group max-w-lg mx-auto  rounded-2xl overflow-hidden border transition-all duration-500 ease-out
         hover:scale-[1.02] hover:-translate-y-1 cursor-pointer
       `}
       //   onClick={() => onReadMore && onReadMore(item)}
@@ -64,7 +66,7 @@ export default function BlogCard({ item }) {
         {/* Title */}
         <h2
           className={`
-          text-xl font-bold mb-3 leading-tight line-clamp-2 transition-colors duration-200
+          text-xl font-bold mb-3 leading-tight line-clamp-1 transition-colors duration-200
           
         `}
         >

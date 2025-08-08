@@ -1,0 +1,30 @@
+import { MenuIcon } from "lucide-react";
+import { useState } from "react";
+import DialogMenu from "./DialogMenu";
+
+export default function Header() {
+  return (
+    <div className="flex items-center justify-between w-full rounded-b-2xl sticky top-0   opacity-80 bg-white dark:bg-gray-800 p-2 shadow-lg z-50">
+      <img src="/blog.svg" alt="Blog Logo" width={70} />
+
+      <form
+        action={"/search"}
+        className="flex items-center gap-2 w-full max-w-lg mx-auto"
+      >
+        <input
+          className="border border-gray-300 rounded-l-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          type="search"
+          placeholder="Search blogs..."
+          name="q"
+        />
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded-r-md font-semibold hover:bg-blue-700 transition"
+        >
+          Search
+        </button>
+      </form>
+      <DialogMenu />
+    </div>
+  );
+}
