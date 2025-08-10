@@ -6,10 +6,11 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const user = await getUserFromCookies();
+  console.log("User in review route:", user);
 
   const reviewToSave = {
     ...body,
-    user_id: user.id,
+    user_id: user?.id,
   };
 
   try {

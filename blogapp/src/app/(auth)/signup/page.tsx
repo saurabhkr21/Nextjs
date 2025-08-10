@@ -1,9 +1,16 @@
 "use client";
+import gqlClient from "@/services/gql";
+import { gql } from "graphql-request";
 import { LockIcon, MailIcon, UserIcon } from "lucide-react"; // Add icons
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+const SIGN_UP = gql`
+  mutation SignUpUser($name: String!, $email: String!, $password: String!) {
+    signUpUser(name: $name, email: $email, password: $password)
+  }
+`;
 export default function page() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -50,24 +57,15 @@ export default function page() {
       password,
     };
 
-    try {
-      const res = await fetch("/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-      const data = await res.json();
-      if (data.success) {
-        router.push("/login");
-      } else {
-        setError({ message: data.message || "Signup failed." });
-      }
-    } catch (err) {
-      setError({ message: "Network error. Please try again." });
+    const data: any = await gqlClient.request(SIGN_UP, user);
+
+    if (data.errors) {
+      setError({ message: data.errors[0].message });
+    } else {
+      alert("User created successfully!");
+      router.push("/login");
     }
-    setLoading(false); // End loading
+    setLoading(false);
   }
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-300 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">

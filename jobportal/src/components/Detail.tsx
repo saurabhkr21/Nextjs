@@ -14,6 +14,7 @@ import SaveJob from "./SaveJob";
 import ViewApplicants from "./ViewApplicants";
 import DeleteJobBtn from "./DeleteJobBtn";
 import { useUserContext } from "@/contexts/UserContextProvider";
+import Reviews from "./Reviews";
 
 export default function Detail({ job }) {
   const router = useRouter();
@@ -53,17 +54,19 @@ export default function Detail({ job }) {
           </div>
         </div>
         <div className="flex gap-2 flex-wrap items-center">
-          <ViewApplicants job={job} />
           <SaveJob item={job} />
-          <JobApplyBtn job={job} />
+
           <button
             onClick={() => router.back()}
             className="flex items-center gap-1 text-sm bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-100 px-4 py-2 rounded hover:bg-zinc-300 dark:hover:bg-zinc-600 transition"
           >
             <ArrowLeft size={16} />
-            Back
           </button>
         </div>
+      </div>
+      <div className="flex gap-2 flex-wrap items-center">
+        <JobApplyBtn job={job} />
+        <ViewApplicants job={job} />
       </div>
 
       <hr className="mb-8 border-zinc-200 dark:border-zinc-700" />
@@ -128,6 +131,9 @@ export default function Detail({ job }) {
           <DeleteJobBtn jobId={job.id} job={job} />
         </div>
       )}
+
+      <hr className="mb-8 border-zinc-200 dark:border-zinc-700" />
+      {/* <Reviews company={job} reviews={user.owner.reviews} /> */}
     </div>
   );
 }

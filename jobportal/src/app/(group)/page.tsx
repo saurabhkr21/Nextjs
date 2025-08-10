@@ -3,7 +3,11 @@ import prismaClient from "@/services/prisma";
 import JobCard from "../../components/JobCard";
 
 export default async function Home() {
-  const data = await prismaClient.job.findMany();
+  const data = await prismaClient.job.findMany({
+    include:{
+      company:true
+    }
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-black">

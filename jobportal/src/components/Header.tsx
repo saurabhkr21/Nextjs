@@ -23,7 +23,8 @@ export default function Header() {
         const data = await res.json();
         if (data && data.user && data.user.email) {
           setUser(data.user);
-          setName(data.user.email);
+          const emailDomain = data.user.email.split("@")[0];
+          setName(emailDomain);
         } else {
           setUser(null);
           setName("Guest");
@@ -35,8 +36,7 @@ export default function Header() {
     }
     fetchUser();
   }, []);
-  console.log("User:", user);
-
+  
   function handleThemeToggle() {
     setTheme(theme === "dark" ? "light" : "dark");
   }
@@ -85,9 +85,11 @@ export default function Header() {
         {/* Left Section - User Controls & Navigation */}
         <div className="flex items-center gap-3">
           {/* User Profile Dropdown */}
-          <div className="relative hidden sm:flex">
+          <div className="relative hidden sm:flex rounded-3xl">
             <select
-              className="appearance-none bg-slate-400 dark:bg-amber-600 border  border-blue-200 hover:border-blue-300 px-4 py-2 pr-8 rounded-lg text-sm font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+              className="appearance-none bg-slate-400 dark:bg-slate-700 border  border-blue-200
+               hover:border-blue-300 px-4 py-2 pr-8 rounded-lg text-sm font-medium  focus:outline-none
+               focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 cursor-pointer"
               onChange={handleSelectChange}
               value="personal"
             >
@@ -131,14 +133,14 @@ export default function Header() {
 
         {/* Right Section - Secondary Navigation (hide on mobile) */}
         <nav className="hidden sm:flex items-center gap-2">
-          <button
+          {/* <button
             onClick={handleViewCompany}
             className={`relative group overflow-hidden px-3 py-1.5 rounded-xl border-2 font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl ${
               isDark ? "text-white border-gray-700 " : "border-gray-300"
             }`}
           >
             Company
-          </button>
+          </button> */}
           <AddJob />
         </nav>
 

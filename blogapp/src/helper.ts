@@ -1,6 +1,6 @@
-import prismaClient from "./services/prisma";
-import { verifyToken } from "./services/jwt";
 import { cookies } from "next/headers";
+import { verifyToken } from "./services/jwt";
+import prismaClient from "./services/prisma";
 
 export async function getUserFromCookies() {
   const userCookies = await cookies();
@@ -19,14 +19,14 @@ export async function getUserFromCookies() {
     where: {
       id: res?.id,
     },
-    omit: {
-      password: true
-    }
   });
 
   // If user is not found
   if (!user) {
     return null;
   }
-  return user;
+
+  // Remove password before returning
+  const { password, ...safeUser } = user;
+  return safeUser;
 }

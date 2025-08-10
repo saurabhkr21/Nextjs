@@ -4,7 +4,7 @@ import prismaClient from "@/services/prisma";
 export default async function page() {
   const companies = await prismaClient.company.findMany({
     include: {
-      owner: true,
+      owner: true
     },
   });
   

@@ -1,5 +1,5 @@
 //@ts-nocheck
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import {
   Calendar,
@@ -9,12 +9,41 @@ import {
   Bookmark,
   Eye,
   User,
+  DeleteIcon,
+  Edit2Icon,
 } from "lucide-react";
+import { gql } from "graphql-request";
+import gqlClient from "@/services/gql";
+import EditBlog from "./Button/EditBlog";
+
+const DELETE_BLOG = gql`
+  mutation Mutation($deleteBlogId: String!) {
+    deleteBlog(id: $deleteBlogId)
+  }
+`;
 
 export default function BlogDetail({ blog }) {
-    const darkMode = true; // Replace with your dark mode state
+  const darkMode = true; // Replace with your dark mode state
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
+
+  async function handleDelete() {
+    const confirmed = confirm("Are you sure you want to delete this blog?");
+    if (confirmed) {
+      try {
+        const data = await gqlClient.request(DELETE_BLOG, {
+          deleteBlogId: blog.id,
+        });
+        if (data.deleteBlog) {
+          alert("Blog deleted successfully.");
+        } else {
+          alert("Failed to delete blog.");
+        }
+      } catch (error) {
+        console.error("Error deleting blog:", error);
+      }
+    }
+  }
 
   function onBack() {
     window.history.back();
@@ -120,6 +149,7 @@ export default function BlogDetail({ blog }) {
             </button>
 
             <div className="flex items-center gap-2">
+              <EditBlog blog={blog} />
               <button
                 onClick={() => setIsBookmarked(!isBookmarked)}
                 className={`p-2 rounded-lg transition-all duration-200 ${
@@ -134,6 +164,17 @@ export default function BlogDetail({ blog }) {
                   size={20}
                   fill={isBookmarked ? "currentColor" : "none"}
                 />
+              </button>
+
+              <button
+                onClick={handleDelete}
+                className={`p-2 rounded-lg transition-colors duration-200 ${
+                  darkMode
+                    ? "text-gray-400 hover:text-white hover:bg-gray-700"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                }`}
+              >
+                <DeleteIcon size={20} />
               </button>
 
               <button

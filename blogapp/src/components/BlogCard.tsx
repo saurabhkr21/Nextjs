@@ -1,8 +1,16 @@
-//@ts-nocheck
 "use client";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import Link from "next/link";
 import { blog } from "../../generated/prisma";
+import request, { gql } from "graphql-request";
+import gqlClient from "@/services/gql";
+
+
+const DELETE_BLOG = gql`
+  mutation Mutation($deleteBlogId: String!) {
+    deleteBlog(id: $deleteBlogId)
+  }
+`;
 
 export default function BlogCard({ item }:{item:blog}) {
   const { id, title, content, image_url, createdAt } = item;
@@ -19,6 +27,24 @@ export default function BlogCard({ item }:{item:blog}) {
     });
   };
 
+  async function handleDelete() {
+    const confirmed = confirm("Are you sure you want to delete this blog?");
+    if (confirmed) {
+      try {
+        const data:any = await gqlClient.request(DELETE_BLOG, {
+          deleteBlogId: id
+        });
+        if (data.deleteBlog) {
+          alert("Blog deleted successfully.");
+        } else {
+          alert("Failed to delete blog.");
+        }
+      } catch (error) {
+        console.error("Error deleting blog:", error);
+      }
+    }
+  }
+
   return (
     <article
       className={`
@@ -30,7 +56,7 @@ export default function BlogCard({ item }:{item:blog}) {
       {/* Image Section */}
       <div className="relative h-48 overflow-hidden">
         <img
-          src={image_url}
+          src={image_url ? image_url : "/placeholder.jpg"}
           alt={title}
           className={`w-full h-full object-cover transition-opacity duration-300 `}
         />
@@ -91,8 +117,10 @@ export default function BlogCard({ item }:{item:blog}) {
           `}
           >
             <Calendar size={14} />
-            <time dateTime={createdAt}>{formatDate(createdAt)}</time>
+            {/* <time dateTime={createdAt}>{formatDate(createdAt)}</time> */}
           </div>
+
+          <button onClick={handleDelete}>Delete</button>
 
           {/* Action Indicator */}
           <Link href={`/blog/${id}`} className="text-blue-500 hover:underline">

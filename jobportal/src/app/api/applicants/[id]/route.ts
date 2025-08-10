@@ -2,13 +2,15 @@ import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  const job_id =params.id;
+  const id = params.id;
+  console.log("Fetching applications for job ID:", id); // Log the job ID being fetched
   try {
     const applications = await prismaClient.application.findMany({
       where: {
-        job_id: job_id,
+        job_id: id,
       },
       include: {
+        job: true,
         user: true,
       },
     });

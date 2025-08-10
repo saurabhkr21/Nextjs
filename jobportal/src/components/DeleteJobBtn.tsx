@@ -1,13 +1,14 @@
 // @ts-nocheck
 "use client";
 import { useUserContext } from "@/contexts/UserContextProvider";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function DeleteJobBtn({ job, jobId }) {
   const {userData} = useUserContext();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  
+  const router = useRouter();
 
   async function handleDelete() {
     setLoading(true);
@@ -17,7 +18,7 @@ export default function DeleteJobBtn({ job, jobId }) {
       });
       const data = await res.json();
       alert(data.message);
-      window.location.reload();
+      router.push("/jobs");
     } catch (err) {
       alert("Error: " + err.message);
     } finally {
@@ -33,7 +34,6 @@ export default function DeleteJobBtn({ job, jobId }) {
         onClick={() => setOpen(true)}
         className=" hover:bg-red-400 flex justify-center text-white text-sm items-center mx-auto font-medium py-2 px-4 rounded transition-colors"
       >
-        Delete job
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

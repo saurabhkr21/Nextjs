@@ -80,7 +80,7 @@ model application {
   user_id String @db.ObjectId
   job_id  String @db.ObjectId
   user    user   @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  job     job    @relation(fields: [job_id], references: [id], onDelete: Cascade)
+  job     job?    @relation(fields: [job_id], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   @@unique([user_id, job_id])
 }

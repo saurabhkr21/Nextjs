@@ -5,6 +5,7 @@ import { useState } from "react";
 import SaveJob from "./SaveJob";
 import DeleteJobBtn from "./DeleteJobBtn";
 import { InfoIcon } from "lucide-react";
+import Link from "next/link";
 
 export default function JobCard({ item }) {
   const router = useRouter();
@@ -20,8 +21,12 @@ export default function JobCard({ item }) {
     return (
       <div className="flex gap-3 border rounded-xl p-4">
         <div className="w-full text-center">
-          <p className="text-red-600 dark:text-red-400 font-semibold">Invalid Job Data</p>
-          <p className="text-sm text-red-500 dark:text-red-300">Unable to display job information.</p>
+          <p className="text-red-600 dark:text-red-400 font-semibold">
+            Invalid Job Data
+          </p>
+          <p className="text-sm text-red-500 dark:text-red-300">
+            Unable to display job information.
+          </p>
         </div>
       </div>
     );
@@ -55,7 +60,6 @@ export default function JobCard({ item }) {
           >
             {item.job_title || "Untitled Job"}
           </h2>
-          
         </div>
 
         {/* Description */}
@@ -87,19 +91,27 @@ export default function JobCard({ item }) {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2 mt-auto">
-          <button
-            className={`px-3 py-1 rounded text-sm font-medium transition-colors border ${
-              isNavigating
-                ? "text-gray-500 cursor-not-allowed"
-                : "text-blue-600 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-400"
-            }`}
-            onClick={handleDetailClick}
-            disabled={isNavigating}
+        <div className="flex justify-between items-center-safe gap-2 mt-auto">
+          <div className="flex gap-2">
+            <button
+              className={`px-3 py-1 rounded text-sm font-medium transition-colors border ${
+                isNavigating
+                  ? "text-gray-500 cursor-not-allowed"
+                  : "text-blue-600 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-400"
+              }`}
+              onClick={handleDetailClick}
+              disabled={isNavigating}
+            >
+              {isNavigating ? "Loading..." : <InfoIcon size={14} />}
+            </button>
+            <SaveJob key={item.id} item={item} />
+          </div>
+          <Link
+            href={"/company/" + item.company.id}
+            className="text-sm text-gray-500 dark:text-gray-400 hover:cursor-pointer hover:text-blue-600 dark:hover:text-blue-400"
           >
-            {isNavigating ? "Loading..." : <InfoIcon size={14} />}
-          </button>
-          <SaveJob key={item.id} item={item} />
+            {item.company.name}
+          </Link>
         </div>
       </div>
     </div>

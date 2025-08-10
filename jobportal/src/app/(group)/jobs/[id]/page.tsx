@@ -1,5 +1,5 @@
 import Detail from "@/components/Detail";
-import ViewApplicants from "@/components/ViewApplicants";
+import JobActionsClient from "@/components/JobActionsClient";
 import { getUserFromCookies } from "@/helper";
 import prismaClient from "@/services/prisma";
 import { notFound } from "next/navigation";
@@ -36,14 +36,17 @@ export default async function JobDetailPage({
 
   return (
     <div className="w-full flex flex-col min-h-screen">
-      {/* <h1 className="w-full mb-2 p-4  backdrop-blur-md border-b-2 text-4xl flex items-center justify-center font-bold pt-10">
+      <h1 className="w-full mb-2 p-4  backdrop-blur-md border-b-2 text-4xl flex items-center justify-center font-bold pt-10">
         Job Details
-      </h1> */}
+        {user?.company?.id === job.company.id && (
+          <div className="ml-auto flex items-center gap-2">
+            <JobActionsClient job={job} jobId={job.id} />
+          </div>
+        )}
+      </h1>
 
-      <Detail job={job} p={userHasApplied} />
-      <div className="flex flex-col bg-amber-500 text-black gap-4 px-10">
-        {/* <EditDeleteJob job={job} /> */}
-      </div>
+      <Detail job={job} />
+      <div className="flex flex-col bg-amber-500 text-black gap-4 px-10"></div>
     </div>
   );
 }

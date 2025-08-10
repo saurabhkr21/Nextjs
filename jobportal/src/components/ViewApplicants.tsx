@@ -5,12 +5,14 @@ import { useUserContext } from "@/contexts/UserContextProvider";
 import { DeleteIcon, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { application } from "../../generated/prisma";
+import { useRouter } from "next/navigation";
 
 export default function ViewApplicants({ job }) {
   const { userData } = useUserContext();
   const [applicants, setApplicants] = useState<application[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function getApplicants() {
@@ -50,14 +52,14 @@ export default function ViewApplicants({ job }) {
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 dark:bg-opacity-80"
+          className="fixed inset-30 z-50 flex items-center justify-center bg-black bg-opacity-60 dark:bg-opacity-80"
           onClick={() => setOpen(false)}
         >
           <div
             className="w-full max-w-md p-4 rounded-lg shadow-lg overflow-y-auto max-h-[90vh] bg-white dark:bg-gray-900"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-2">
               <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
                 Job Applicants
               </h2>
@@ -68,7 +70,8 @@ export default function ViewApplicants({ job }) {
                 <DeleteIcon />
               </button>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+            
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
               List of top Applicants
             </p>
 

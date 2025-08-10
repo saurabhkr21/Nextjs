@@ -1,9 +1,10 @@
 "use client";
 import { MenuIcon } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import AddBlog from "./AddBlog";
+import AddBlog from "./Button/AddBlog";
 import { useRouter } from "next/navigation";
 import { useDialog } from "@/contexts/DialogContextProvider";
+import Link from "next/link";
 
 export default function DialogMenu() {
   //@ts-ignore
@@ -51,7 +52,7 @@ export default function DialogMenu() {
         className="p-2 rounded-full hover:bg-gray-700 transition outline-fuchsia-300 focus:ring-2 focus:ring-blue-400 relative"
         aria-label="Open menu"
         tabIndex={0}
-        onClick={() => setOpen((prev:any) => !prev)}
+        onClick={() => setOpen((prev: any) => !prev)}
       >
         <MenuIcon />
         <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition pointer-events-none">
@@ -74,6 +75,12 @@ export default function DialogMenu() {
                 <p className="text-xs text-sky-200">Welcome back!</p>
                 {name || "Guest"}
               </div>
+              <Link
+                href="/myblog "
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+              >
+                My Blogs
+              </Link>
               <AddBlog onAdd={() => setOpen(false)} />
               <button
                 onClick={handleLogout}

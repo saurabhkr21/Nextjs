@@ -1,21 +1,29 @@
 //@ts-nocheck
 "use client";
 import { Button, Dialog, Flex, Text, TextField } from "@radix-ui/themes";
-import { useState } from "react";
+import { use, useState } from "react";
 import { AddJob } from "../../../generated/prisma";
 import { useUserContext } from "@/contexts/UserContextProvider";
+import { Edit } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-export default function EditJobBtn() {
-  const [job_title, setTitle] = useState<string>("");
-  const [job_type, setJobType] = useState<string>("");
-  const [job_description, setDescription] = useState<string>("");
-  const [job_salary, setSalary] = useState("");
-  const [employment_type, setEmpType] = useState<string>("");
-  const [job_location, setLocation] = useState<string>("");
-
-  async function handleAddJob() {
+export default function EditJobBtn({ job }) {
+  const [job_title, setTitle] = useState<string>(job.job_title);
+  const [job_type, setJobType] = useState<string>(job.job_type);
+  const [job_description, setDescription] = useState<string>(
+    job.job_description
+  );
+  const [job_salary, setSalary] = useState<string>(job.job_salary.toString());
+  const [employment_type, setEmpType] = useState<string>(job.employment_type);
+  const [job_location, setLocation] = useState<string>(job.job_location);
+  const [employerName, setEmployerName] = useState<string>(job.employer_name);
+  const [employerLogoUrl, setEmployerLogoUrl] = useState<string>(
+    job.employer_logo
+  );
+  const router = useRouter();
+  async function handleEditJob() {
     const parsedSalary = parseFloat(job_salary) || 0;
-    const jobData: AddJob = {
+    const jobData: EditJob = {
       job_title,
       job_type,
       job_description,
@@ -25,7 +33,7 @@ export default function EditJobBtn() {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/api/job", {
+      const res = await fetch("http://localhost:3000/api/job/" + job.id, {
         method: "POST",
         body: JSON.stringify(jobData),
       });
@@ -35,26 +43,22 @@ export default function EditJobBtn() {
       alert(err.message);
     }
 
-    setTitle("");
-    setJobType("");
-    setDescription("");
-    setSalary("");
-    setEmpType("");
-    setLocation("");
+    router.refresh();
+
   }
 
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <button className="w-25 px-2 text-sm font-medium rounded bg-btn-primary hover:bg-btn-hover dark:hover:bg-gray-700 transition cursor-pointer ">
-          Edit Job
+        <button className=" px-2 py-2 text-sm font-medium rounded bg-btn-primary hover:bg-btn-hover dark:hover:bg-gray-700 transition cursor-pointer ">
+          <Edit size={16} />
         </button>
       </Dialog.Trigger>
 
       <Dialog.Content maxWidth="450px">
-        <Dialog.Title>Add Job</Dialog.Title>
+        <Dialog.Title>Edit Job</Dialog.Title>
         <Dialog.Description size="2" mb="4">
-          Add a Job
+          Edit Job
         </Dialog.Description>
 
         <Flex direction="column" gap="3">
@@ -78,7 +82,7 @@ export default function EditJobBtn() {
               placeholder="Enter job description"
             />
           </label>
-          <label>
+          {/* <label>
             <Text as="div" size="2" mb="1" weight="bold">
               Job Type
             </Text>
@@ -94,7 +98,8 @@ export default function EditJobBtn() {
               <option value="On site">On-site</option>
               <option value="Remote">Remote</option>
             </select>
-          </label>
+          </label> */}
+
           <label>
             <Text as="div" size="2" mb="1" weight="bold">
               Salary (in lakhs)
@@ -105,6 +110,16 @@ export default function EditJobBtn() {
               value={job_salary}
               onChange={(e) => setSalary(e.target.value)}
               placeholder="Enter salary"
+            />
+          </label>
+          <label>
+            <Text as="div" size="2" mb="1" weight="bold">
+              Employer Name
+            </Text>
+            <TextField.Root
+              value={employerName}
+              onChange={(e) => setEmployerName(e.target.value)}
+              placeholder="Enter employer name"
             />
           </label>
           <label>
@@ -127,6 +142,8 @@ export default function EditJobBtn() {
               </option>
               <option value="Full-Time">Full-Time</option>
               <option value="Part-Time">Part-Time</option>
+              <option value="Contract">Contract</option>
+              <option value="Freelance">Freelance</option>
               <option value="Internship">Internship</option>
             </select>
           </label>
@@ -140,6 +157,16 @@ export default function EditJobBtn() {
               placeholder="City, Country"
             />
           </label>
+          <label>
+            <Text as="div" size="2" mb="1" weight="bold">
+              Company Logo URL
+            </Text>
+            <TextField.Root
+              value={employerLogoUrl}
+              onChange={(e) => setEmployerLogoUrl(e.target.value)}
+              placeholder="Enter company logo URL"
+            />
+          </label>
         </Flex>
 
         <Flex gap="3" mt="4" justify="end">
@@ -149,7 +176,7 @@ export default function EditJobBtn() {
             </Button>
           </Dialog.Close>
           <Dialog.Close>
-            <Button onClick={handleAddJob}>Add</Button>
+            <Button onClick={handleEditJob}>Update</Button>
           </Dialog.Close>
         </Flex>
       </Dialog.Content>

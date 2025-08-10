@@ -14,30 +14,32 @@ export default async function Page({ searchParams }) {
   const jobType = searchParams?.type?.toLowerCase() || "";
   const page = parseInt(searchParams?.page || 1);
 
-  // const res = await fetch(
-  //   `https://localhost/api/jobs?ms=${ms}&max=${max}&type=${jobType}`
-  // );
-  // const data = await res.json();
-  // const jobs = data.data;
-    const jobs = await prismaClient.job.findMany({
-      where: {
-        job_title: {
-          contains: query,
-          mode: "insensitive",
-        },
-        job_salary: {
-          gte: ms,
-          lte:max
-        },
-        employment_type:{
-          contains:jobType,
-          mode:"insensitive"
-        }
-
+  const jobs = await prismaClient.job.findMany({
+    where: {
+      job_title: {
+        contains: query,
+        mode: "insensitive",
       },
-    });
-
-
+      job_salary: {
+        gte: ms,
+        lte: max,
+      },
+      employment_type: {
+        contains: jobType,
+        mode: "insensitive",
+      },
+    },
+    include: {
+        company: true,
+      },
+  });
+  if (!jobs) {
+    return (
+      <div className="text-center text-gray-500">
+        No jobs found matching your filters.
+      </div>
+    );
+  }
   return (
     <div className="grid grid-cols-1 gap-7 lg:grid-cols-2 p-3 shadow-2xl  hover:onfocus:shadow-2xl">
       {jobs.length > 0 ? (
@@ -51,4 +53,3 @@ export default async function Page({ searchParams }) {
     </div>
   );
 }
-

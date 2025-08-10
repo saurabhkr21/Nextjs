@@ -24,14 +24,13 @@ export default function JobApplyBtn({job}:{job: {id: string}}) {
         }
     }
   return (
-    <div>
       <button
         onClick={handleApply}
-        className="flex items-center fixed top-0 right-0 gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+        className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg transition-colors"
       >
         <SendIcon size={16} /> Apply Now
       </button>
-    </div>
+    
   )
 }
 

@@ -3,6 +3,11 @@ import { ApolloServer } from "@apollo/server";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { gql } from "graphql-tag";
 import { NextRequest } from "next/server";
+import { getBlogById, getBlogs } from "./resolvers/route";
+import { createBlog, deleteBlog, updateBlog } from "./resolvers/blog";
+import typeDefs from "./typeDefs";
+import { currentUser, loginUser, signUpUser } from "./resolvers/user";
+import { getUserFromCookies } from "@/helper";
 
 const blogsArr = [
   {
@@ -34,42 +39,39 @@ const blog = {
   createdAt: "2023-01-01",
 };
 
-const typeDefs = gql`
-  type Blog {
-    id: String
-    title: String
-    content: String
-    image_url: String
-    createdAt: String
-  }
-  type Query {
-    blog(id: String): Blog
-    blogs(q: String): [Blog]
-  }
-`;
+// const typeDefs = gql`
+//   type Blog {
+//     id: String
+//     title: String
+//     content: String
+//     image_url: String
+//     createdAt: String
+//   }
+//   type Mutation {
+//     createBlog(title: String!, content: String!, image_url: String): Blog
+//     deleteBlog(id: String!): Boolean!
+//     updateBlog(id: String!, title: String, content: String, image_url: String): Blog
+//   }
+//   type Query {
+//     blog(id: String): Blog
+//     blogs(q: String): [Blog]
+//   }
+// `;
 
 const resolvers = {
+  
   Query: {
-    blog: async (x: any, { id }: { id: string }) => {
-      const blog = await prismaClient.blog.findUnique({
-        where: {
-          id: id,
-        },
-      });
-      return blog;
-    },
-    blogs: async (x: any, { q }: { q?: string }) => {
-      const where = q
-        ? {
-            title: {
-              contains: q,
-              mode: "insensitive" as const,
-            },
-          }
-        : undefined;
-      const blogs = await prismaClient.blog.findMany({ where });
-      return blogs;
-    },
+    blog: getBlogById,
+    blogs: getBlogs,
+    currentUser: getUserFromCookies,
+    currentUserBlogs: currentUser,
+  },
+  Mutation: {
+    createBlog,
+    deleteBlog,
+    updateBlog,
+    signUpUser,
+    loginUser,
   },
 };
 

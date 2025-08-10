@@ -1,8 +1,16 @@
 "use client";
+import gqlClient from "@/services/gql";
+import { gql } from "graphql-request";
 import { LockIcon, MailIcon, PenLineIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+const LOGIN_USER = gql`
+  mutation LoginUser($email: String!, $password: String!) {
+    loginUser(email: $email, password: $password)
+  }
+`;
 
 export default function page() {
   const [email, setEmail] = useState("");
@@ -35,26 +43,41 @@ export default function page() {
 
     setError({});
 
-    try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+    // try {
+    //   const res = await fetch("/api/login", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       email,
+    //       password,
+    //     }),
+    //   });
+    //   const data = await res.json();
+    //   if (data.success) {
+    //     document.cookie = `token=${data.data.token}; path=/; max-age=3600`;
+    //     router.push("/");
+    //     router.refresh();
+    //   } else {
+    //     setError({ message: data.message });
+    //   }
+    // } catch (error) {
+    //   setError({ message: "Login failed. Please try again." });
+    // }
+
+    try{
+      const data: any = await gqlClient.request(LOGIN_USER, {
+        email,
+        password
       });
-      const data = await res.json();
-      if (data.success) {
-        document.cookie = `token=${data.data.token}; path=/; max-age=3600`;
+      if(data.loginUser) {
         router.push("/");
         router.refresh();
       } else {
         setError({ message: data.message });
       }
-    } catch (error) {
+    }catch (error) {
       setError({ message: "Login failed. Please try again." });
     }
     setLoading(false);

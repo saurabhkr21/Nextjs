@@ -1,4 +1,5 @@
 //@ts-nocheck
+import data from "@/components/JobFetcher";
 import { getUserFromCookies } from "@/helper";
 import prismaClient from "@/services/prisma";
 import { cookies } from "next/headers";
@@ -48,6 +49,7 @@ export async function DELETE(
     });
     return NextResponse.json({
       success: true,
+      data: res,
       message: "Job deleted successfully",
     });
   } catch (err: any) {

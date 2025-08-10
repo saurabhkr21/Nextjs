@@ -25,14 +25,14 @@ export default async function page({ params }: { params: { id: string } }) {
       <ViewCompanyDetail company={company} />
       <Tabs.Root defaultValue="account" className="w-full">
         <Tabs.List>
-          <Tabs.Trigger value="openings">Job Openings</Tabs.Trigger>
+          <Tabs.Trigger value="openings">Jobs</Tabs.Trigger>
           <Tabs.Trigger value="reviews">Reviews</Tabs.Trigger>
         </Tabs.List>
 
         <Box pt="3">
           <Tabs.Content value="openings">
             <div className="flex flex-col gap-4">
-              <h2 className="text-2xl font-medium">Recent Openings </h2>
+              <h2 className="text-2xl font-medium">Recent Jobs </h2>
               {/* @ts-ignore */}
               {company.jobs.map((job) => (
                 <JobCard key={job.id} item={job} />
