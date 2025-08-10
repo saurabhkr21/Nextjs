@@ -12,24 +12,24 @@ export async function GET(
       where: {
         id: id,
       },
-      include: {  // true hona tha yaha pr hi but password bhi omit krna hai isiliye esa kiya...
+      include: {
         owner: {
-          include : {
-            review : true
+          include: {
+            reviews: true,
           },
           omit: {
             password: true,
           },
         },
-        jobs : {              // it is not neccessary to do these unnecessary calls because on company page we can easily get this same data using company api call.
-          include : {
-            company : {
-              include : {
-                  owner : true
-              } 
-            }
-          }
-        }
+        jobs: {
+          include: {
+            company: {
+              include: {
+                owner: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -46,12 +46,12 @@ export async function GET(
 
 export async function DELETE(
   req: NextResponse,
-  { params }: { params: {id: string }}
+  { params }: { params: { id: string } }
 ) {
   const id = params.id;
   console.log("Deleting company with ID:", id);
   const user = await getUserFromCookies();
-  
+
   if (user?.company?.id == id) {
     await prismaClient.company.delete({
       where: {

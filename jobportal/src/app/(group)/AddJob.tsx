@@ -83,10 +83,8 @@ export default function AddJob() {
     <div className={theme}>
       <div className="flex items-center gap-3">
         <button
-          className={`relative group overflow-hidden px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl ${
-            isDark
-              ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-              : "bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white"
+          className={`relative group overflow-hidden px-3 py-1.5 rounded-xl border-2 font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl ${
+            isDark ? "text-white border-gray-700 " : "border-gray-300"
           }`}
           onClick={() => setShowModal(true)}
         >
@@ -97,7 +95,7 @@ export default function AddJob() {
           </div>
         </button>
 
-        <button
+        {/* <button
           onClick={() => setIsDark(!isDark)}
           className={`p-2 rounded-lg transition-all duration-300 ${
             isDark
@@ -106,7 +104,7 @@ export default function AddJob() {
           }`}
         >
           {isDark ? <Sun size={16} /> : <Moon size={16} />}
-        </button>
+        </button> */}
       </div>
 
       {showModal && (

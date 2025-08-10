@@ -6,6 +6,10 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const user = await getUserFromCookies();
+    // const dataToSave={
+    //   ...body,
+    //   companyid: user?.company.id
+    // }
     if (!user) {
       return NextResponse.json(
         { success: false, message: "Unauthorized" },

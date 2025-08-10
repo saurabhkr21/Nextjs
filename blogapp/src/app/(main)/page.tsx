@@ -19,7 +19,6 @@ export default async function Home() {
   //@ts-ignore
   const data: { blogs: Blog[] } = await gqlClient.request(GET_BLOGS);
   const blogs = data.blogs;
-  console.log(data);
   if (!blogs || blogs.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-96 text-gray-500">

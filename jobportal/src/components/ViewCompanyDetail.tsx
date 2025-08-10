@@ -12,26 +12,19 @@ import { useRouter } from "next/navigation";
 import JobApplyBtn from "./jobApplyBtn";
 import SaveJob from "./SaveJob";
 import ViewApplicants from "./ViewApplicants";
-import DeleteJobBtn from "./DeleteJobBtn";
-import { useUserContext } from "@/contexts/UserContextProvider";
 
-export default function Detail({ job }) {
+export default function ViewCompanyDetail({ company }) {
   const router = useRouter();
-  const { userData } = useUserContext();
 
-  const isOwner = userData?.id && job?.id === userData.id;
-  console.log("Job Detail:", isOwner);
-  console.log("user data:", userData?.id);
-  console.log("Job User ID:", job?.id);
   return (
-    <div className="mx-auto p-8 my-8 rounded-2xl shadow-lg w-full max-w-4xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 transition-colors duration-300">
+    <div className="mx-auto p-8 my-8 rounded-2xl shadow-lg w-full max-w-6xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 transition-colors duration-300">
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start justify-between mb-8 gap-6">
         <div className="flex items-center gap-6">
-          {job.employer_logo && (
+          {company.image_url && (
             <img
-              src={job.employer_logo}
-              alt={`${job.employer_name} Logo`}
+              src={company.image_url}
+              alt={`${company.name} Logo`}
               className="h-20 w-20 rounded-2xl object-contain border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800"
               onError={(e) => {
                 e.target.style.display = "none";
@@ -40,28 +33,26 @@ export default function Detail({ job }) {
           )}
           <div>
             <h1 className="text-4xl font-extrabold text-zinc-800 dark:text-zinc-100 mb-2">
-              {job.job_title}
+              {company.name}
             </h1>
             <p className="text-lg text-zinc-600 dark:text-zinc-300 flex items-center gap-2">
               <Building2 size={18} />
-              {job.employer_name}
+              {company.owner.email}
             </p>
-            <p className="text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
+            {/* <p className="text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
               <MapPin size={18} />
               {job.job_location || "Remote"}
-            </p>
+            </p> */}
           </div>
         </div>
         <div className="flex gap-2 flex-wrap items-center">
-          <ViewApplicants job={job} />
-          <SaveJob item={job} />
-          <JobApplyBtn job={job} />
+          <ViewApplicants job={company} />
+          <SaveJob item={company} />
           <button
             onClick={() => router.back()}
             className="flex items-center gap-1 text-sm bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-100 px-4 py-2 rounded hover:bg-zinc-300 dark:hover:bg-zinc-600 transition"
           >
-            <ArrowLeft size={16} />
-            Back
+            <ArrowLeft size={18} />
           </button>
         </div>
       </div>
@@ -69,10 +60,10 @@ export default function Detail({ job }) {
       <hr className="mb-8 border-zinc-200 dark:border-zinc-700" />
 
       {/* Info Section */}
-      <div className="flex flex-col md:flex-row justify-between gap-6 mb-8">
+      {/* <div className="flex flex-col md:flex-row justify-between gap-6 mb-8">
         <InfoItem
           label="Employment Type"
-          value={job.employment_type}
+          value={company.description}
           color="blue"
           icon={<BadgeInfo size={16} />}
         />
@@ -88,19 +79,19 @@ export default function Detail({ job }) {
           color="green"
           icon={<DollarSign size={16} />}
         />
-      </div>
+      </div> */}
 
       {/* Description */}
       <section className="mb-8">
         <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100 mb-3">
-          Job Description
+          Company Description
         </h2>
         <p className="whitespace-pre-line leading-relaxed text-zinc-600 dark:text-zinc-300 text-base">
-          {job.job_description}
+          {company.description}
         </p>
       </section>
 
-      {job.jobApplyLink && (
+      {/* {company.jobApplyLink && (
         <section className="border-t pt-8 mt-8">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
@@ -121,13 +112,7 @@ export default function Detail({ job }) {
             </a>
           </div>
         </section>
-      )}
-
-      {isOwner && (
-        <div className="flex items-center z-100 gap-2">
-          <DeleteJobBtn jobId={job.id} job={job} />
-        </div>
-      )}
+      )} */}
     </div>
   );
 }

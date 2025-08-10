@@ -19,7 +19,7 @@ model job {
   job_title       String?       @map("job_title")
   job_description String?       @map("job_description")
   job_salary      Int?          @map("job_salary")
-  job_type        String?       @map("job_type")
+  job_type        String?       @default("fullTime") @map("job_type")
   job_location    String?       @map("job_location")
   employment_type String?       @default("fullTime")
   employer_name   String?       @map("employer_name")
@@ -85,3 +85,4 @@ model application {
   @@unique([user_id, job_id])
 }
 
+ 

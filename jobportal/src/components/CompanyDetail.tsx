@@ -1,15 +1,23 @@
 "use client";
 
+import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { company, user } from "../../generated/prisma";
 import DeleteCompanyBtn from "./DeleteCompanyBtn";
 
 type CompanyWithOwner = company & { owner: user };
 
-export default function CompanyList({
+export default function CompanyDetail({
   companies,
 }: {
   companies: CompanyWithOwner[];
 }) {
+  const router = useRouter();
+
+  function handleDetailClick(item: CompanyWithOwner) {
+    if (!item?.id) return;
+    router.push(`/company/${encodeURIComponent(item.id)}`);
+  }
   return (
     <>
       {companies.length > 0 ? (
@@ -31,13 +39,19 @@ export default function CompanyList({
                   </h2>
                   <DeleteCompanyBtn company={comp} id={comp.id} />
                 </div>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
+                <p className="text-gray-700 dark:text-gray-300 mb-4 line-clamp-3">
                   {comp.description}
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Owner: {comp.owner.email}
                 </p>
               </div>
+              <button
+                onClick={() => handleDetailClick(comp)}
+                className="mt-4 text-white px-2 py-1 rounded-lg hover:bg-slate-700 transition-colors"
+              >
+                <ArrowRight />
+              </button>
             </div>
           ))}
         </div>

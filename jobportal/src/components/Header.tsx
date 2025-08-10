@@ -7,14 +7,14 @@ import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import SearchInput from "./SearchInput";
-import DeleteJobBtn from "./DeleteJobBtn";
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
   const [name, setName] = useState("");
   const [user, setUser] = useState(null);
-
+  const [isDark, setIsDark] = useState(theme === "dark");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     async function fetchUser() {
@@ -65,6 +65,9 @@ export default function Header() {
     if (value === "logout") {
       handleLogOut();
     }
+    if (value === "SaveJob") {
+      router.push("/saved");
+    }
     if (value === "AddCompany") {
       handleCompany();
     }
@@ -82,13 +85,14 @@ export default function Header() {
         {/* Left Section - User Controls & Navigation */}
         <div className="flex items-center gap-3">
           {/* User Profile Dropdown */}
-          <div className="relative">
+          <div className="relative hidden sm:flex">
             <select
-              className="appearance-none bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 hover:border-blue-300 px-4 py-2 pr-8 rounded-lg text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+              className="appearance-none bg-slate-400 dark:bg-amber-600 border  border-blue-200 hover:border-blue-300 px-4 py-2 pr-8 rounded-lg text-sm font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 cursor-pointer"
               onChange={handleSelectChange}
               value="personal"
             >
               <option value="personal">👤 {name}</option>
+              <option value="SaveJob">Saved Job</option>
               <option value="ViewApplication">View Applications</option>
               <option value="AddCompany">Add Company</option>
               <option value="logout"> Logout</option>
@@ -110,17 +114,11 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Primary Navigation */}
-          <nav className="flex items-center gap-2">
+          {/* Primary Navigation (hide on mobile) */}
+          <nav className="hidden sm:flex items-center gap-2">
             <Link href="/">
               <button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-2 py-2 rounded-lg text-sm font-medium transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg">
                 Home
-              </button>
-            </Link>
-
-            <Link href="/saved">
-              <button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-2 py-2 rounded-lg text-xs sm:text-sm font-xs transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg">
-                Saved Jobs
               </button>
             </Link>
           </nav>
@@ -131,32 +129,27 @@ export default function Header() {
           <SearchInput />
         </div>
 
-        {/* Right Section - Secondary Navigation */}
+        {/* Right Section - Secondary Navigation (hide on mobile) */}
         <nav className="hidden sm:flex items-center gap-2">
-          <AddJob />
-          {/* <AddCompany /> */}
           <button
             onClick={handleViewCompany}
-            className="bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 px-3 py-2 rounded-lg text-xs md:text-sm font-medium text-gray-700 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
+            className={`relative group overflow-hidden px-3 py-1.5 rounded-xl border-2 font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl ${
+              isDark ? "text-white border-gray-700 " : "border-gray-300"
+            }`}
           >
             Company
           </button>
-          <button
-            className="bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 px-3 py-2 rounded-lg text-xs md:text-sm font-medium text-gray-700 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
-            onClick={handleThemeToggle}
-          >
-            {theme === "dark" ? "Light" : "Dark"}
-          </button>
-
-          <button className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-3 py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg">
-            API
-          </button>
+          <AddJob />
         </nav>
 
-        {/* Mobile Menu Button (for future mobile menu) */}
-        <button className="sm:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+        {/* Mobile Menu Icon */}
+        <button
+          className="sm:hidden p-2 rounded-lg  hover:bg-gray-500 transition-colors duration-200 absolute left-4 top-4 z-50"
+          onClick={() => setMobileMenuOpen(true)}
+          aria-label="Open menu"
+        >
           <svg
-            className="w-5 h-5 text-gray-600"
+            className={`w-6 h-6  ${isDark ? "text-gray-100" : "text-gray-700"}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -170,6 +163,80 @@ export default function Header() {
           </svg>
         </button>
       </div>
+
+      {/* Mobile Menu Dialog */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[100] flex items-start justify-end bg-black bg-opacity-40">
+          <div className="bg-white dark:bg-gray-900 rounded-l-2xl shadow-2xl w-72 max-w-full h-full p-0 flex flex-col overflow-y-auto">
+            {/* Close Button */}
+            <div className="flex justify-end p-4 border-b border-gray-200 dark:border-gray-800">
+              <button
+                className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                <svg
+                  className="w-6 h-6 text-gray-600 dark:text-gray-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            {/* User Profile Dropdown */}
+            <div className="px-6 pt-2 pb-4">
+              <select
+                className="w-full appearance-none bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 hover:border-blue-300 px-4 py-3 pr-8 rounded-lg text-base font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+                onChange={handleSelectChange}
+                value="personal"
+              >
+                <option value="personal">👤 {name}</option>
+                <option value="SaveJob">Saved Job</option>
+                <option value="ViewApplication">View Applications</option>
+                <option value="AddCompany">Add Company</option>
+                <option value="logout"> Logout</option>
+              </select>
+            </div>
+            <hr className="border-gray-200 dark:border-gray-800 mx-6" />
+            {/* Navigation Buttons */}
+            <div className="flex flex-col gap-3 px-6 py-4">
+              <Link href="/" onClick={() => setMobileMenuOpen(false)}>
+                <button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-3 rounded-lg text-base font-semibold transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  Home
+                </button>
+              </Link>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleViewCompany();
+                }}
+                className={`w-full relative group overflow-hidden px-4 py-3 rounded-lg border-2 font-semibold text-base transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  isDark ? "text-white border-gray-700 " : "border-gray-300"
+                }`}
+              >
+                Company
+              </button>
+              <div>
+                <AddJob />
+              </div>
+            </div>
+          </div>
+          {/* Click outside to close */}
+          <div
+            className="flex-1"
+            onClick={() => setMobileMenuOpen(false)}
+            tabIndex={-1}
+            aria-label="Close menu"
+          />
+        </div>
+      )}
     </header>
   );
 }

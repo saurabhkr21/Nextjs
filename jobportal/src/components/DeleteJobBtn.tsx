@@ -1,10 +1,13 @@
 // @ts-nocheck
 "use client";
+import { useUserContext } from "@/contexts/UserContextProvider";
 import { useState } from "react";
 
-export default function DeleteJobBtn({ jobId }) {
+export default function DeleteJobBtn({ job, jobId }) {
+  const {userData} = useUserContext();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  
 
   async function handleDelete() {
     setLoading(true);
@@ -28,8 +31,9 @@ export default function DeleteJobBtn({ jobId }) {
       {/* Trigger Button */}
       <button
         onClick={() => setOpen(true)}
-        className=" hover:bg-red-400 text-white text-sm font-medium py-2 px-4 rounded transition-colors"
+        className=" hover:bg-red-400 flex justify-center text-white text-sm items-center mx-auto font-medium py-2 px-4 rounded transition-colors"
       >
+        Delete job
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

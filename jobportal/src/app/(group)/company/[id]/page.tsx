@@ -1,5 +1,8 @@
+import DeleteCompanyBtn from "@/components/DeleteCompanyBtn";
 import Detail from "@/components/Detail";
 import JobCard from "@/components/JobCard";
+import Reviews from "@/components/Reviews";
+import ViewCompanyDetail from "@/components/ViewCompanyDetail";
 // import Reviews from "@/components/sections/Reviews";
 // import DeleteCompanyBtn from "@/components/ui/DeleteCompanyBtn";
 import { Box, Tabs, Text, TextArea } from "@radix-ui/themes";
@@ -18,12 +21,8 @@ export default async function page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="py-20 min-h-screen px-10 flex flex-col gap-4  items-center">
-      {/* {JSON.stringify(company)} */}
-      <Detail job={company} />
-
-      {/* <DeleteCompanyBtn id={company?.id} company={company}/> */}
-
+    <div className="py-10 min-h-screen px-10 flex flex-col gap-4  items-center">
+      <ViewCompanyDetail company={company} />
       <Tabs.Root defaultValue="account" className="w-full">
         <Tabs.List>
           <Tabs.Trigger value="openings">Job Openings</Tabs.Trigger>
@@ -41,7 +40,7 @@ export default async function page({ params }: { params: { id: string } }) {
             </div>
           </Tabs.Content>
 
-          {/* <Reviews company={company} reviews={company.owner.review}/> */}
+          <Reviews company={company} reviews={company.owner.review}/>
         </Box>
       </Tabs.Root>
     </div>

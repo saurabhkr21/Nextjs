@@ -31,7 +31,7 @@ export default function SideBarSort() {
   }
 
   return (
-    <aside className="w-full h-screen bg-gray-50 dark:bg-gray-800 rounded-xl p-8 shadow-2xl flex flex-col gap-8 border border-gray-200 dark:border-gray-700">
+    <aside className="w-full bg-gray-50 dark:bg-gray-900 rounded-xl p-10 shadow-2xl flex flex-col gap-4 border border-gray-200 dark:border-gray-700">
       <form onSubmit={handleSubmit} className="flex flex-col gap-8">
         <h2 className="text-3xl font-extrabold text-blue-500 dark:text-blue-400 mb-2 tracking-tight flex items-center gap-2">
           <svg
@@ -92,9 +92,11 @@ export default function SideBarSort() {
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition shadow-sm bg-white dark:bg-gray-700 dark:text-white"
           >
             <option value="">All Types</option>
-            <option value="remote">Online</option>
-            <option value="offline">Offline</option>
-            <option value="hybrid">Hybrid</option>
+            <option value="fullTime">Full-Time</option>
+            <option value="partTime">Part-Time</option>
+            <option value="contract">Contract</option>
+            <option value="freelance">Freelance</option>
+            <option value="internship">Internship</option>
           </select>
         </div>
 

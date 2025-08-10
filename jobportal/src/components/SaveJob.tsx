@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { useJobContext } from "../context";
 import { title } from "process";
+import { BookCheck, Bookmark, Loader } from "lucide-react";
 
 export default function SaveJob({ item }) {
   const { savedJobs, saveJob, removeJob, isLoading } = useJobContext();
@@ -27,7 +28,7 @@ export default function SaveJob({ item }) {
 
     try {
       let success = false;
-      
+
       if (!isSaved) {
         success = saveJob(item);
         if (success) {
@@ -58,7 +59,7 @@ export default function SaveJob({ item }) {
           disabled
           className="px-1 py-0.5 rounded bg-gray-300 text-gray-500 cursor-not-allowed"
         >
-          Loading...
+          <Loader />
         </button>
       </div>
     );
@@ -83,19 +84,15 @@ export default function SaveJob({ item }) {
       <button
         onClick={handleClick}
         disabled={isProcessing}
-        className={`px-1 py-0.5 rounded transition-colors duration-200 ${
+        className={`px-2 py-1.5 rounded transition-colors duration-200 ${
           isProcessing
-            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+            ? "hover:bg-zinc-300 text-gray-500 dark:hover:bg-zinc-600 cursor-not-allowed"
             : isSaved
-            ? "bg-red-300 text-white hover:bg-red-400"
-            : "bg-blue-400 text-white hover:bg-blue-500"
+            ? "text-zinc-700  hover:bg-zinc-300"
+            : "bg-slate-400 text-white dark:bg-zinc-700"
         }`}
       >
-        {isProcessing
-          ? "Processing..."
-          : isSaved
-          ? "Unsave Job"
-          : "Save Job"}
+        {isProcessing ? "Processing..." : isSaved ? <Bookmark className="bg-amber-500" size={16} /> : <Bookmark size={16} />}
       </button>
     </div>
   );

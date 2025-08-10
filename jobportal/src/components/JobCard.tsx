@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import SaveJob from "./SaveJob";
 import DeleteJobBtn from "./DeleteJobBtn";
+import { InfoIcon } from "lucide-react";
 
 export default function JobCard({ item }) {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function JobCard({ item }) {
           onError={(e) => (e.target.style.display = "none")}
         />
       ) : (
-        <div className="h-12 w-12 rounded-xl flex items-center justify-center text-xs text-gray-500 dark:text-gray-400">
+        <div className="h-12 w-12 rounded-xl flex items-center justify-center text-xs text-gray-600 dark:text-gray-200">
           No Logo
         </div>
       )}
@@ -54,14 +55,11 @@ export default function JobCard({ item }) {
           >
             {item.job_title || "Untitled Job"}
           </h2>
-          <div className="flex items-center z-100 gap-2">
-            <DeleteJobBtn jobId={item.id} />
-
-          </div>
+          
         </div>
 
         {/* Description */}
-        <p className="line-clamp-2 text-sm text-gray-700 dark:text-gray-300 mb-2">
+        <p className="line-clamp-2 text-sm p-1 text-gray-700 dark:text-gray-300 mb-2">
           {item.job_description || "No description available"}
         </p>
 
@@ -99,7 +97,7 @@ export default function JobCard({ item }) {
             onClick={handleDetailClick}
             disabled={isNavigating}
           >
-            {isNavigating ? "Loading..." : "Detail"}
+            {isNavigating ? "Loading..." : <InfoIcon size={14} />}
           </button>
           <SaveJob key={item.id} item={item} />
         </div>

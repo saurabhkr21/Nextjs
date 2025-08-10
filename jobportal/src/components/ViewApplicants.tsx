@@ -2,9 +2,9 @@
 "use client";
 
 import { useUserContext } from "@/contexts/UserContextProvider";
+import { DeleteIcon, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { application } from "../../generated/prisma";
-import {  DeleteIcon, Trash } from "lucide-react";
 
 export default function ViewApplicants({ job }) {
   const { userData } = useUserContext();
@@ -18,6 +18,7 @@ export default function ViewApplicants({ job }) {
       try {
         const res = await fetch("/api/applicants/" + job.id);
         const data = await res.json();
+        console.log("Applicants data:", data);
         if (data.success) {
           setApplicants(data.data);
         } else {
@@ -36,20 +37,26 @@ export default function ViewApplicants({ job }) {
     }
   }, [open, job.id]);
 
-  if (userData?.company?.id === job.company.id) return null;
+  // if (userData?.company?.id === job.company.id) return null;
 
   return (
     <>
       <button
         onClick={() => setOpen(true)}
-        className="px-2 py-2.5 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition duration-200"
+        className="flex items-center gap-1 text-sm bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-100 px-4 py-2 rounded hover:bg-zinc-300 dark:hover:bg-zinc-600 transition"
       >
         View Applicants
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-75 backdrop-blur-md">
-          <div className=" w-full max-w-md p-4 rounded-lg shadow-lg overflow-y-auto max-h-[90vh]">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 dark:bg-opacity-80"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="w-full max-w-md p-4 rounded-lg shadow-lg overflow-y-auto max-h-[90vh] bg-white dark:bg-gray-900"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
                 Job Applicants
@@ -78,11 +85,14 @@ export default function ViewApplicants({ job }) {
                   >
                     <div className="flex items-center justify-between mb-2">
                       <p className="text-sm text-gray-700 dark:text-gray-200">
-                      <strong>Applicant ID:</strong> {app.id}
-                    </p>
-                    <button onClick={() => console.log("Delete applicant", app.id)} className=" hover:text-red-700">
-                      <Trash className="h-4 w-4"  />
-                    </button>
+                        <strong>Applicant ID:</strong> {app.id}
+                      </p>
+                      <button
+                        onClick={() => console.log("Delete applicant", app.id)}
+                        className=" hover:text-red-700"
+                      >
+                        <Trash className="h-4 w-4" />
+                      </button>
                     </div>
                     <p className="text-sm text-gray-700 dark:text-gray-200">
                       <strong>User ID:</strong> {app.user.email || app.user.id}
