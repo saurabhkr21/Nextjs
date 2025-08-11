@@ -11,6 +11,11 @@ const GET_BLOGS = gql`
       id
       image_url
       title
+      user {
+        id
+        name
+        email
+      }
     }
   }
 `;

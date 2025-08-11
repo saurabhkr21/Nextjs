@@ -10,7 +10,7 @@ export async function getBlogById(parent: any, args: any) {
   return blog;
 }
 
-export async function getBlogs(parent: any, args: any) {
+export async function getBlogs(blog: any, args: any) {
   const q = args?.q || "";
   const blogs = await prismaClient.blog.findMany({
     where: {

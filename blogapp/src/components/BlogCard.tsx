@@ -4,6 +4,8 @@ import Link from "next/link";
 import { blog } from "../../generated/prisma";
 import request, { gql } from "graphql-request";
 import gqlClient from "@/services/gql";
+import { useContext } from "react";
+import { UserContext } from "@/app/(main)/layout";
 
 
 const DELETE_BLOG = gql`
@@ -44,6 +46,8 @@ export default function BlogCard({ item }:{item:blog}) {
       }
     }
   }
+  //@ts-ignore
+  const {user}=useContext(UserContext);
 
   return (
     <article
@@ -119,13 +123,12 @@ export default function BlogCard({ item }:{item:blog}) {
             <Calendar size={14} />
             {/* <time dateTime={createdAt}>{formatDate(createdAt)}</time> */}
           </div>
+                  {/* <button onClick={handleDelete}>Delete</button> */}
 
-          <button onClick={handleDelete}>Delete</button>
-
-          {/* Action Indicator */}
-          <Link href={`/blog/${id}`} className="text-blue-500 hover:underline">
-            <div
-              className={`
+              {/* Action Indicator */}
+              <Link href={`/blog/${id}`} className="text-blue-500 hover:underline">
+                <div
+                  className={`
             opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0
           `}
             >

@@ -4,59 +4,11 @@ import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { gql } from "graphql-tag";
 import { NextRequest } from "next/server";
 import { getBlogById, getBlogs } from "./resolvers/route";
-import { createBlog, deleteBlog, updateBlog } from "./resolvers/blog";
+import { createBlog, deleteBlog, getBlogUser, updateBlog } from "./resolvers/blog";
 import typeDefs from "./typeDefs";
 import { currentUser, loginUser, signUpUser } from "./resolvers/user";
 import { getUserFromCookies } from "@/helper";
 
-const blogsArr = [
-  {
-    id: "101",
-    title: "title",
-    content: "learn smartly",
-    createdAt: "2023-01-01",
-    author: "Author 1",
-  },
-  {
-    id: "102",
-    title: "title2",
-    content: "learn smartly2",
-    author: "Author 2",
-    createdAt: "2023-01-02",
-  },
-  {
-    id: "103",
-    title: "title3",
-    content: "learn smartly3",
-    createdAt: "2023-01-03",
-    author: "Author 3",
-  },
-];
-const blog = {
-  id: "101",
-  title: "title",
-  content: "learn smartly",
-  createdAt: "2023-01-01",
-};
-
-// const typeDefs = gql`
-//   type Blog {
-//     id: String
-//     title: String
-//     content: String
-//     image_url: String
-//     createdAt: String
-//   }
-//   type Mutation {
-//     createBlog(title: String!, content: String!, image_url: String): Blog
-//     deleteBlog(id: String!): Boolean!
-//     updateBlog(id: String!, title: String, content: String, image_url: String): Blog
-//   }
-//   type Query {
-//     blog(id: String): Blog
-//     blogs(q: String): [Blog]
-//   }
-// `;
 
 const resolvers = {
   
@@ -66,6 +18,7 @@ const resolvers = {
     currentUser: getUserFromCookies,
     currentUserBlogs: currentUser,
   },
+
   Mutation: {
     createBlog,
     deleteBlog,
@@ -73,6 +26,22 @@ const resolvers = {
     signUpUser,
     loginUser,
   },
+
+  Blog:{
+    User:getBlogUser
+  },
+
+  User:{
+    blogs:async (blog:any) => {
+      const userId = blog.userId;
+      return await prismaClient.blog.findMany({
+        where: {
+          userId: userId
+        }
+      });
+    }
+  }
+
 };
 
 const server = new ApolloServer({

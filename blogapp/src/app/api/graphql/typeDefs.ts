@@ -7,6 +7,8 @@ const typeDefs = gql`
     content: String
     image_url: String
     createdAt: String
+    userId: String
+    user
   }
   type Mutation {
     createBlog(
@@ -27,7 +29,7 @@ const typeDefs = gql`
   type Query {
     blog(id: String): Blog
     blogs(q: String): [Blog]
-    currentUser: User,
+    currentUser: User
     currentUserBlogs: [Blog]
   }
   type User {
@@ -37,6 +39,7 @@ const typeDefs = gql`
     createdAt: String
     blogs: [Blog]
   }
+  
 `;
 
 export default typeDefs;

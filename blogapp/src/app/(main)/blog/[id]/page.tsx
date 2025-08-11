@@ -10,6 +10,7 @@ const GET_BLOG = gql`
       content
       image_url
       createdAt
+      user
     }
   }
 `;
@@ -21,8 +22,7 @@ export default async function page({
 }) {
   const p = await params;
   const id = p.id;
-  //@ts-ignore
-  const data: { blog: Blog } = await gqlClient.request(GET_BLOG, {
+  const data: any = await gqlClient.request(GET_BLOG, {
     blogId: id,
   });
   const blog = data.blog;
@@ -30,11 +30,7 @@ export default async function page({
 
   return (
     <div>
-      {/* <h1>{blog.title}</h1>
-      <p>{blog.content}</p>
-      <img src={blog.image_url} alt={blog.title} />
-      <time>{new Date(blog.createdAt).toLocaleDateString()}</time> */}
-      <BlogDetail blog={blog}  />
+      <BlogDetail blog={blog} />
     </div>
   );
 }

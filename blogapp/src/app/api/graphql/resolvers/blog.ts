@@ -1,10 +1,13 @@
 import { getUserFromCookies } from "@/helper";
 import prismaClient from "@/services/prisma";
 
-export async function createBlog(x: any, args: any) {
+export async function createBlog(x: any, args: {
+  title: string;
+  content: string;
+  image_url?: string;
+}) {
   const user = await getUserFromCookies();
   if (!user || !user.id) {
-    // User not authenticated, return null or error
     return null;
   }
 
@@ -12,7 +15,7 @@ export async function createBlog(x: any, args: any) {
     title: args.title,
     content: args.content,
     image_url: args.image_url,
-    userId: user.id, // <-- use userId only if user exists
+    userId: user.id,
   };
   try {
     const blog = await prismaClient.blog.create({
@@ -49,7 +52,6 @@ export async function updateBlog(
     image_url?: string;
   }
 ) {
-  // const { id, title, content, image_url } = args;
   const dataToUpdate = {
     title: args.title,
     content: args.content,
@@ -69,3 +71,20 @@ export async function updateBlog(
     return false;
   }
 }
+
+export async function getBlogUser(blog:any){
+    const userId = blog.userId;
+    try{
+      const user=await prismaClient.user.findUnique({
+        where:{
+          id: userId
+          },omit:{
+            password:true
+          }
+        })
+      }catch (error) {
+        console.error("Error fetching user:", error);
+        return null;
+      }
+    }
+  

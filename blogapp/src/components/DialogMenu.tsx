@@ -1,45 +1,47 @@
 "use client";
 import { MenuIcon } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import AddBlog from "./Button/AddBlog";
 import { useRouter } from "next/navigation";
 import { useDialog } from "@/contexts/DialogContextProvider";
 import Link from "next/link";
+import { UserContext } from "@/app/(main)/layout";
 
 export default function DialogMenu() {
   //@ts-ignore
   const { open, setOpen, closeDialog } = useDialog();
   const btnRef = useRef<HTMLButtonElement>(null);
   const router = useRouter();
-  const [name, setName] = useState("Guest");
-  const [user, setUser] = useState(null);
+  //@ts-ignore
+  const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    async function fetchUserdata() {
-      try {
-        const res = await fetch("/api/user");
-        const data = await res.json();
-        if (data && data.user && data.user.name) {
-          setUser(data.user);
-          setName(data.user.name);
-        } else {
-          setUser(null);
-          setName("Guest");
-        }
-      } catch (err) {
-        console.error("Error fetching user data:", err);
-        setUser(null);
-        setName("Guest");
-      }
-    }
 
-    fetchUserdata();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchUserdata() {
+  //     try {
+  //       const res = await fetch("/api/user");
+  //       const data = await res.json();
+  //       if (data && data.user && data.user.name) {
+  //         setUser(data.user);
+  //         setName(data.user.name);
+  //       } else {
+  //         setUser(null);
+  //         setName("Guest");
+  //       }
+  //     } catch (err) {
+  //       console.error("Error fetching user data:", err);
+  //       setUser(null);
+  //       setName("Guest");
+  //     }
+  //   }
+
+  //   fetchUserdata();
+  // }, []);
 
   function handleLogout() {
     if (confirm("Are you sure you want to log out?")) {
-      document.cookie =
-        "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      // document.cookie =
+      //   "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       router.push("/login");
       router.refresh();
     }
@@ -73,7 +75,7 @@ export default function DialogMenu() {
             <div className="flex flex-col gap-3">
               <div className="font-bold text-lg text-gray-800 shadow-amber-500 dark:text-gray-100">
                 <p className="text-xs text-sky-200">Welcome back!</p>
-                {name || "Guest"}
+                {user?.name || "Guest"}
               </div>
               <Link
                 href="/myblog "

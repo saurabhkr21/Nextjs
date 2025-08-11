@@ -1,19 +1,19 @@
 //@ts-nocheck
 "use client";
-import React, { useState, useEffect } from "react";
+import { UserContext } from "@/app/(main)/layout";
+import gqlClient from "@/services/gql";
+import { gql } from "graphql-request";
 import {
+  ArrowLeft,
+  Bookmark,
   Calendar,
   Clock,
-  ArrowLeft,
-  Share2,
-  Bookmark,
-  Eye,
-  User,
   DeleteIcon,
-  Edit2Icon,
+  Eye,
+  Share2,
+  User,
 } from "lucide-react";
-import { gql } from "graphql-request";
-import gqlClient from "@/services/gql";
+import { useContext, useEffect, useState } from "react";
 import EditBlog from "./Button/EditBlog";
 
 const DELETE_BLOG = gql`
@@ -26,6 +26,9 @@ export default function BlogDetail({ blog }) {
   const darkMode = true; // Replace with your dark mode state
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
+  const { user } = useContext(UserContext);
+  console.log("Blog Detail page use", user);
+  console.log("Blog detail page blog id", blog);
 
   async function handleDelete() {
     const confirmed = confirm("Are you sure you want to delete this blog?");
@@ -149,7 +152,6 @@ export default function BlogDetail({ blog }) {
             </button>
 
             <div className="flex items-center gap-2">
-              <EditBlog blog={blog} />
               <button
                 onClick={() => setIsBookmarked(!isBookmarked)}
                 className={`p-2 rounded-lg transition-all duration-200 ${
@@ -165,18 +167,22 @@ export default function BlogDetail({ blog }) {
                   fill={isBookmarked ? "currentColor" : "none"}
                 />
               </button>
-
-              <button
-                onClick={handleDelete}
-                className={`p-2 rounded-lg transition-colors duration-200 ${
-                  darkMode
-                    ? "text-gray-400 hover:text-white hover:bg-gray-700"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                }`}
-              >
-                <DeleteIcon size={20} />
-              </button>
-
+              {/* Only show edit/delete buttons for the blog owner */}
+              {blog?.userId === user?.id && (
+                <div className="flex gap-2">
+                  <EditBlog blog={blog} />
+                  <button
+                    onClick={handleDelete}
+                    className={`p-2 rounded-lg transition-colors duration-200 ${
+                      darkMode
+                        ? "text-gray-400 hover:text-white hover:bg-gray-700"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                    }`}
+                  >
+                    <DeleteIcon size={20} />
+                  </button>
+                </div>
+              )}
               <button
                 onClick={handleShare}
                 className={`p-2 rounded-lg transition-colors duration-200 ${
