@@ -1,13 +1,19 @@
 import { getUserFromCookies } from "@/helper";
 import prismaClient from "@/services/prisma";
 
-export async function createBlog(x: any, args: {
-  title: string;
-  content: string;
-  image_url?: string;
-}) {
+export async function createBlog(
+  x: any,
+  args: {
+    title: string;
+    content: string;
+    image_url?: string;
+  }
+) {
   const user = await getUserFromCookies();
+  console.log("User from cookies in createBlog:", user); // Add this log
+
   if (!user || !user.id) {
+    console.error("No authenticated user found. Cannot set userId.");
     return null;
   }
 
@@ -23,6 +29,7 @@ export async function createBlog(x: any, args: {
     });
     return blog;
   } catch (e) {
+    console.error("Error creating blog:", e);
     return null;
   }
 }
@@ -72,19 +79,20 @@ export async function updateBlog(
   }
 }
 
-export async function getBlogUser(blog:any){
-    const userId = blog.userId;
-    try{
-      const user=await prismaClient.user.findUnique({
-        where:{
-          id: userId
-          },omit:{
-            password:true
-          }
-        })
-      }catch (error) {
-        console.error("Error fetching user:", error);
-        return null;
-      }
-    }
-  
+export async function getBlogUser(blog: any) {
+  const userId = blog.userId;
+  try {
+    const user = await prismaClient.user.findUnique({
+      where: {
+        id: userId,
+      },
+      omit: {
+        password: true,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    return null;
+  }
+}

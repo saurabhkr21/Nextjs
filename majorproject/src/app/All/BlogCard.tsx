@@ -17,21 +17,16 @@ export default function BlogCard({ item }: { item: blog }) {
   const { id, title, content, image_url, createdAt } = item;
   // Ensure createdAt is a string in ISO format for Date parsing
   const formatDate = (dateInput: string | Date) => {
-    const date = new Date(Number(dateInput));
-    if (isNaN(date.getTime()))
-      return { short: "Invalid Date", full: "", time: "" };
-    return {
-      short: date.toLocaleDateString("en-IN", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      }),
-      full: date.toLocaleString(),
-      time: date.toLocaleTimeString(),
-    };
-  };
+    const date = new Date(dateInput);
+    if (isNaN(date.getTime())) return "Invalid Date";
 
-  const dateInfo = formatDate(createdAt);
+    // Format to your local timezone
+    return date.toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
 
   async function handleDelete() {
     const confirmed = confirm("Are you sure you want to delete this blog?");
@@ -53,21 +48,13 @@ export default function BlogCard({ item }: { item: blog }) {
   //@ts-ignore
   const { user } = useContext(UserContext);
 
-  const getReadingTime = (text: string) => {
-    if (!text || typeof text !== "string") return 1;
-    const wordsPerMinute = 100;
-    const words = text.trim().split(/\s+/).length;
-    const minutes = Math.max(1, Math.ceil(words / wordsPerMinute));
-    return minutes;
-  };
-
   return (
     <article
       className={`
         group max-w-lg mx-auto  rounded-2xl overflow-hidden border transition-all duration-500 ease-out
         hover:scale-[1.02] hover:-translate-y-1 cursor-pointer
       `}
-      // onClick={() => onReadMore && onReadMore(item)}
+      //   onClick={() => onReadMore && onReadMore(item)}
     >
       {/* Image Section */}
       <div className="relative h-48 overflow-hidden">
@@ -85,7 +72,7 @@ export default function BlogCard({ item }: { item: blog }) {
           href={`/blog/${id}`}
           className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
         >
-          <div className="bg-white/90 hover:bg-blue-400 hover:text-red-700 backdrop-blur-sm text-gray-800 px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-1.5 shadow-lg">
+          <div className="bg-white/90 backdrop-blur-sm text-gray-800 px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-1.5 shadow-lg">
             Read More
             <ArrowRight
               size={14}
@@ -98,11 +85,10 @@ export default function BlogCard({ item }: { item: blog }) {
         <div className="absolute top-4 left-4">
           <div
             className={`
-            px-2.5 py-1 hover:bg-slate-700 rounded-full text-xs font-medium backdrop-blur-sm flex items-center gap-1
+            px-2.5 py-1 rounded-full text-xs font-medium backdrop-blur-sm flex items-center gap-1
           `}
           >
-            <Clock size={12} />
-            {getReadingTime(content)} min read
+            <Clock size={12} />2 min read
           </div>
         </div>
       </div>
@@ -137,10 +123,10 @@ export default function BlogCard({ item }: { item: blog }) {
           `}
           >
             <Calendar size={14} />
-            <time dateTime={String(createdAt)} title={dateInfo.full}>
-              {dateInfo.short}
-            </time>
+            {/* <time dateTime={createdAt}>{formatDate(createdAt)}</time> */}
           </div>
+          {/* <button onClick={handleDelete}>Delete</button> */}
+
           {/* Action Indicator */}
           <Link href={`/blog/${id}`} className="text-blue-500 hover:underline">
             <div

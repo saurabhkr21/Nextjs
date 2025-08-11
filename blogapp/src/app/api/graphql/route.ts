@@ -1,13 +1,12 @@
+import { getUserFromCookies } from "@/helper";
 import prismaClient from "@/services/prisma";
 import { ApolloServer } from "@apollo/server";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
-import { gql } from "graphql-tag";
 import { NextRequest } from "next/server";
-import { getBlogById, getBlogs } from "./resolvers/route";
 import { createBlog, deleteBlog, getBlogUser, updateBlog } from "./resolvers/blog";
-import typeDefs from "./typeDefs";
+import { getBlogById, getBlogs } from "./resolvers/route";
 import { currentUser, loginUser, signUpUser } from "./resolvers/user";
-import { getUserFromCookies } from "@/helper";
+import typeDefs from "./typeDefs";
 
 
 const resolvers = {

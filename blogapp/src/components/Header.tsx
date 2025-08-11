@@ -1,15 +1,14 @@
-import { MenuIcon } from "lucide-react";
-import { useState } from "react";
 import DialogMenu from "./DialogMenu";
 import Link from "next/link";
 
 export default function Header() {
   return (
     <div
-      className="flex items-center justify-between w-full rounded-b-2xl sticky top-0   opacity-80 bg-white dark:bg-gray-800 p-2 shadow-lg z-50"
+      className="flex items-center-safe justify-between w-full rounded-b-2xl sticky top-0   opacity-80 bg-white dark:bg-gray-800 p-0.5 shadow-lg z-50"
     >
-      <Link href="/">
-        <img src="/blog.svg" alt="Blog Logo" width={70} />
+      <Link href="/" className="ml-4 flex items-center">
+        <img src="/blog.svg" alt="Blog Logo" width={65} />
+        Blog Exploring
       </Link>
 
       <form

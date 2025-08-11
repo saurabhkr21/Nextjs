@@ -24,6 +24,13 @@ const UPDATE_BLOG = gql`
       content
       image_url
       createdAt
+      userId
+      User {
+        id
+        name
+        email
+        createdAt
+      }
     }
   }
 `;
@@ -38,7 +45,7 @@ export default function EditBlog({
 }) {
   const [title, setTitle] = useState(blog.title);
   const [content, setContent] = useState(blog.content);
-  const [image_Url, setImageUrl] = useState(blog.image_url || "");
+  const [imageUrl, setImageUrl] = useState(blog.image_url || "");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -54,7 +61,7 @@ export default function EditBlog({
         updateBlogId: blog.id,
         title,
         content,
-        image_Url,
+        imageUrl,
       });
       console.log("Updated Blog Data", blogData);
 
@@ -111,7 +118,7 @@ export default function EditBlog({
           <input
             type="text"
             placeholder="Image URL"
-            value={image_Url}
+            value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             className="w-full border rounded p-2"
             required

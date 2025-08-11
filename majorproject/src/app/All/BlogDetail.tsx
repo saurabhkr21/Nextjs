@@ -13,22 +13,22 @@ import {
   Share2,
   User,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import EditBlog from "./Button/EditBlog";
 
 const DELETE_BLOG = gql`
-  mutation DeleteBlog($deleteBlogId: String!) {
+  mutation Mutation($deleteBlogId: String!) {
     deleteBlog(id: $deleteBlogId)
   }
 `;
 
 export default function BlogDetail({ blog }) {
-  const darkMode = true;
+  const darkMode = true; // Replace with your dark mode state
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
-  const router = useRouter();
   const { user } = useContext(UserContext);
+  console.log("Blog Detail page use", user);
+  console.log("Blog detail page blog id", blog);
 
   async function handleDelete() {
     const confirmed = confirm("Are you sure you want to delete this blog?");
@@ -39,7 +39,6 @@ export default function BlogDetail({ blog }) {
         });
         if (data.deleteBlog) {
           alert("Blog deleted successfully.");
-          router.push("/");
         } else {
           alert("Failed to delete blog.");
         }
@@ -68,19 +67,29 @@ export default function BlogDetail({ blog }) {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-
     return {
-      short: date.toLocaleDateString(),
-      full: date.toLocaleString(),
-      time: date.toLocaleTimeString(),
+      full: date.toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
+      short: date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      }),
+      time: date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
     };
   };
 
-  const getReadingTime = (text: string) => {
-    if (!text || typeof text !== "string") return 1;
+  const getReadingTime = (text) => {
     const wordsPerMinute = 200;
-    const words = text.trim().split(/\s+/).length;
-    const minutes = Math.max(1, Math.ceil(words / wordsPerMinute));
+    const words = text.split(" ").length;
+    const minutes = Math.ceil(words / wordsPerMinute);
     return minutes;
   };
 
@@ -102,7 +111,7 @@ export default function BlogDetail({ blog }) {
     }
   };
 
-  const dateInfo = formatDate(Number(blog.createdAt));
+  const dateInfo = formatDate(blog.createdAt);
 
   return (
     <div
@@ -159,7 +168,7 @@ export default function BlogDetail({ blog }) {
                 />
               </button>
               {/* Only show edit/delete buttons for the blog owner */}
-              {blog?.User.id === user?.id && (
+              {blog?.userId === user?.id && (
                 <div className="flex gap-2">
                   <EditBlog blog={blog} />
                   <button

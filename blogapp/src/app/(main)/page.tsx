@@ -4,17 +4,18 @@ import { gql, GraphQLClient } from "graphql-request";
 
 const gqlClient = new GraphQLClient("http://localhost:3000/api/graphql");
 const GET_BLOGS = gql`
-  query Blog {
+  query Query {
     blogs {
-      content
-      createdAt
       id
-      image_url
       title
-      user {
-        id
+      content
+      image_url
+      createdAt
+      userId
+      User {
         name
         email
+        id
       }
     }
   }

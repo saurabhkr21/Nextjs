@@ -1,6 +1,6 @@
 import BlogDetail from "@/components/BlogDetail";
 import gqlClient from "@/services/gql";
-import { gql, GraphQLClient } from "graphql-request";
+import { gql } from "graphql-request";
 
 const GET_BLOG = gql`
   query Blog($blogId: String) {
@@ -10,23 +10,20 @@ const GET_BLOG = gql`
       content
       image_url
       createdAt
-      user
+      User{
+        id
+      }
     }
   }
 `;
 
-export default async function page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const p = await params;
-  const id = p.id;
+export default async function Page({ params }: { params: { id: string } }) {
+  const id = params.id;
   const data: any = await gqlClient.request(GET_BLOG, {
     blogId: id,
   });
   const blog = data.blog;
-  console.log(data);
+  console.log("data blog:", data);
 
   return (
     <div>

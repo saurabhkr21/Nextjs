@@ -8,14 +8,10 @@ const typeDefs = gql`
     image_url: String
     createdAt: String
     userId: String
-    user
+    User: User
   }
   type Mutation {
-    createBlog(
-      title: String!
-      content: String!
-      image_url: String
-    ): Blog
+    createBlog(title: String!, content: String!, image_url: String): Blog
     deleteBlog(id: String!): Boolean!
     updateBlog(
       id: String!
@@ -39,7 +35,6 @@ const typeDefs = gql`
     createdAt: String
     blogs: [Blog]
   }
-  
 `;
 
 export default typeDefs;

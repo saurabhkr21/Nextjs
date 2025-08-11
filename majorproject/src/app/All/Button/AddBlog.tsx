@@ -2,30 +2,28 @@
 
 import gqlClient from "@/services/gql";
 import { gql } from "graphql-request";
-import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 const CREATE_BLOG = gql`
   mutation CreateBlog($title: String!, $content: String!, $imageUrl: String) {
-    createBlog(title: $title, content: $content, image_url: $imageUrl) {
-      content
-      createdAt
-      id
-      image_url
-      title
-      userId
-    }
+  createBlog(title: $title, content: $content, image_url: $imageUrl) {
+    id
+    title
+    content
+    image_url
+    createdAt
   }
+}
 `;
 
 export default function AddBlog({ onAdd }: { onAdd?: () => void }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [image_Url, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -34,7 +32,7 @@ export default function AddBlog({ onAdd }: { onAdd?: () => void }) {
       const blogData: any = await gqlClient.request(CREATE_BLOG, {
         title,
         content,
-        imageUrl: imageUrl ? imageUrl : null,
+        image_url: image_Url ? image_Url : null,
       });
       console.log("Blog Data", blogData);
 
@@ -44,8 +42,7 @@ export default function AddBlog({ onAdd }: { onAdd?: () => void }) {
         setContent("");
         setImageUrl("");
         dialogRef.current?.close();
-        router.refresh();
-        if (onAdd) onAdd();
+        if (onAdd) onAdd(); // Close parent dialog
       } else {
         setMessage("Something went wrong.");
       }
@@ -91,7 +88,7 @@ export default function AddBlog({ onAdd }: { onAdd?: () => void }) {
           <input
             type="text"
             placeholder="Image URL"
-            value={imageUrl}
+            value={image_Url}
             onChange={(e) => setImageUrl(e.target.value)}
             className="w-full border rounded p-2"
             required
