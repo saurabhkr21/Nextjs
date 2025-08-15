@@ -1,6 +1,6 @@
 import { getUserFromCookies } from "@/helper";
-import { generateToken } from "@/services/jwt";
-import prismaClient from "@/services/prisma";
+import { generateToken } from "@/lib/services/jwt";
+import prismaClient from "@/lib/services/prisma";
 import { cookies } from "next/headers";
 import { RoleType } from "../../../../../generated/prisma";
 
@@ -10,9 +10,16 @@ export async function loginUser(
 ) {
   try {
     const cookiesStore = await cookies();
-    const user = await prismaClient.user.findUnique({
+    const user = await prismaClient.user.findFirst({
       where: {
-        email: args.userCred,
+        OR: [
+          {
+            email: args.userCred,
+          },
+          {
+            username: args.userCred,
+          },
+        ],
       },
     });
     if (!user) return false;
@@ -37,6 +44,7 @@ export async function createUser(
     email: string;
     username: string;
     password: string;
+    role: RoleType;
   }
 ) {
   try {
@@ -88,21 +96,36 @@ export async function updateUserProfile(
 ) {
   try {
     const user = await getUserFromCookies();
-    const dataToSave={
-        name: args.name,
-        email: args.email,
-        username: args.username,
-        avatar: args.avatar,
-    }
+    const dataToSave = {
+      name: args.name,
+      email: args.email,
+      username: args.username,
+      avatar: args.avatar,
+    };
     if (user?.role != "admin" && user?.id != args.userId) return false;
 
     await prismaClient.user.update({
       where: { id: args.userId },
-      data: dataToSave
+      data: dataToSave,
     });
     return true;
   } catch (error) {
     console.error("Error updating user profile:", error);
+    return null;
+  }
+}
+
+export async function getAllUsers() {
+  try {
+    const users = await prismaClient.user.findMany({
+      where: {
+        role: {
+          not: "admin",
+        },
+      },
+    });
+    return users;
+  } catch (error) {
     return null;
   }
 }

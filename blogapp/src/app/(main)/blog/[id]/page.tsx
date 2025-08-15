@@ -12,6 +12,8 @@ const GET_BLOG = gql`
       createdAt
       User{
         id
+        name
+        email
       }
     }
   }

@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
-import prismaClient from "./services/prisma";
-import { verifyToken } from "./services/jwt";
+import { verifyToken } from "./lib/services/jwt";
+import prismaClient from "./lib/services/prisma";
 
 export async function getUserFromCookies() {
   try {
@@ -9,13 +9,16 @@ export async function getUserFromCookies() {
     if (!token) {
       return null;
     }
-    const data= verifyToken(token);
+    const data = verifyToken(token);
     if (!data?.id) {
       return null;
     }
     const user = await prismaClient.user.findUnique({
       where: {
         id: data?.id,
+      },
+      omit: {
+        password: true,
       },
     });
     if (!user) return null;

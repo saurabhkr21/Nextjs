@@ -1,19 +1,19 @@
 "use client";
 
-import gqlClient from "@/services/gql";
+import gqlClient from "@/lib/services/gql";
 import { gql } from "graphql-request";
 import { useRef, useState } from "react";
 
 const CREATE_BLOG = gql`
   mutation CreateBlog($title: String!, $content: String!, $imageUrl: String) {
-  createBlog(title: $title, content: $content, image_url: $imageUrl) {
-    id
-    title
-    content
-    image_url
-    createdAt
+    createBlog(title: $title, content: $content, image_url: $imageUrl) {
+      id
+      title
+      content
+      image_url
+      createdAt
+    }
   }
-}
 `;
 
 export default function AddBlog({ onAdd }: { onAdd?: () => void }) {

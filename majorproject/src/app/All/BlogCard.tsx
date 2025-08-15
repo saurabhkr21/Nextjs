@@ -1,6 +1,6 @@
 "use client";
 import { UserContext } from "@/app/layout";
-import gqlClient from "@/services/gql";
+import gqlClient from "@/lib/services/gql";
 import { gql } from "graphql-request";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import Link from "next/link";

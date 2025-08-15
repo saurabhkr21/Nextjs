@@ -53,6 +53,7 @@ export default function EditBlog({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    router.refresh();
     setLoading(true);
     setMessage("");
 
@@ -63,9 +64,8 @@ export default function EditBlog({
         content,
         imageUrl,
       });
-      console.log("Updated Blog Data", blogData);
-
       if (blogData.updateBlog) {
+        router.refresh();
         setMessage("Blog post updated!");
         setTitle("");
         setContent("");

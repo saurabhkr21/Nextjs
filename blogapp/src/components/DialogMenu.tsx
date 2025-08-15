@@ -14,13 +14,14 @@ export default function DialogMenu() {
   const router = useRouter();
   //@ts-ignore
   const { user } = useContext(UserContext);
-
-  const tag = user?.name?.split(" ")[0]?.charAt(0) || "";
+  
+  const tag = user?.name?.split(" ")[0]?.charAt(0) || "U";
+  console.log("DialogMenu user", tag, "user",{ user });
   function handleLogout() {
     if (confirm("Are you sure you want to log out?")) {
       // Delete token cookie
       document.cookie =
-        "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        "token1=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       router.push("/login");
       router.refresh();
     }

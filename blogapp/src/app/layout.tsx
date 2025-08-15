@@ -8,6 +8,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { createContext, useEffect, useState } from "react";
 import { user } from "../../generated/prisma";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 const CURRENT_USER = gql`
   query CurrentUser {
@@ -79,6 +80,7 @@ export default function RootLayout({
             <DialogContextProvider>
               <Header />
               {children}
+              <Footer />
             </DialogContextProvider>
           </UserContext.Provider>
         </Theme>

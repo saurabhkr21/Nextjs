@@ -1,6 +1,6 @@
 "use client";
 
-import gqlClient from "@/services/gql";
+import gqlClient from "@/lib/services/gql";
 import { gql } from "graphql-request";
 import { Edit2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";

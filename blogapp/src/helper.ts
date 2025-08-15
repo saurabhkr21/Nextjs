@@ -3,7 +3,7 @@ import prismaClient from "./services/prisma";
 
 export async function getUserFromCookies() {
   const userCookies = await cookies();
-  const id = userCookies.get("token")?.value;
+  const id = userCookies.get("token1")?.value;
 
   if (!id) {
     return null;
