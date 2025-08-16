@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Product } from "../../../generated/prisma";
-import gql from "graphql-tag";
 import gqlClient from "@/lib/services/gql";
 import { CREATE_SALE } from "@/lib/gql/queries";
+import { ProductsWithSales } from "@/type";
 
-export default function AddSaleButton({ product }: { product: Product }) {
+export default function AddSaleButton({ product }: { product: ProductsWithSales }) {
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");

@@ -2,7 +2,7 @@ import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { ApolloServer } from "@apollo/server";
 import { NextRequest } from "next/server";
 import typeDefs from "./typeDefs";
-import { createUser, getAllUsers, loginUser, updateUserProfile, updateUserRole } from "./resolvers/user";
+import { createUser, getAllUsers, getUser, loginUser, updateUserProfile, updateUserRole } from "./resolvers/user";
 import { getUserFromCookies } from "@/helper";
 import { addProducts, createSale, deleteProduct, getAllProducts, getProduct, updateProduct } from "./resolvers/products";
 
@@ -12,7 +12,8 @@ const resolvers = {
     currentUser: getUserFromCookies,
     getAllUsers,
     getAllProducts,
-    getProduct
+    getProduct,
+    getUser
   },
   Mutation: {
     createUser,

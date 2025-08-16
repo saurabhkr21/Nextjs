@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Product } from "../../../generated/prisma";
 import EditProductBtn from "../Botton/EditProduct";
+import DeleteProduct from "../Botton/DeleteProduct";
 
 export default function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -19,6 +20,7 @@ export default function ProductList() {
     };
     fetchProducts();
   }, []);
+  
 
   // function isNewProduct(item: Product) {
   //   if (!item.createdAt) return false;
@@ -34,7 +36,7 @@ export default function ProductList() {
       {products.map((item) => {
         // const newTag = isNewProduct(item) && item.stock > 0;
         return (
-          <Box width="250px" className="transition-transform hover:scale-105">
+          <Box width="250px" className="transition-transform hover:scale-105" key={item.id}>
             <Card className="p-4 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 relative h-[350px] flex flex-col justify-between">
               <Link
                 href={`/product/${item.id}`}
@@ -94,9 +96,6 @@ export default function ProductList() {
                 >
                   Stock: {item.stock}
                 </Text>
-              </div>
-              <div>
-                <EditProductBtn product={item} />
               </div>
             </Card>
           </Box>

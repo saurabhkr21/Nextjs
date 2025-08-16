@@ -37,7 +37,13 @@ export default function AddProductButton() {
       );
       if (product?.addProducts) {
         alert("product created successfully");
-      }else{
+        setTitle("");
+        setDescription("");
+        setPrice(undefined);
+        setStock(undefined);
+        setImageUrl("");
+        setCategory("others");
+      } else {
         alert("error in creating product");
       }
     } catch {

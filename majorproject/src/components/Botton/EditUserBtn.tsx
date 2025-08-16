@@ -37,10 +37,9 @@ export default function EditUserBtn({ user }: { user: userWithoutRole }) {
       <Dialog.Root>
         <Dialog.Trigger>
           <Button
-            color="blue"
-            variant="soft"
-            className="mt-2 text-xs tracking-wide px-3 py-1 rounded-full flex items-center"
-            size="1"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white dark:text-white px-6 py-4 rounded-lg shadow"
+            style={{ width: "fit-content" }}
+            size={"4"}
           >
             <Edit2Icon size={18} className="align-middle" />
           </Button>

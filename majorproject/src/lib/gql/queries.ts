@@ -57,3 +57,15 @@ export const CREATE_SALE = gql`
     createSale(id: $id, quantity: $quantity)
   }
 `;
+
+export const GET_USER = gql`
+  query GetUser($id: String!) {
+    getUser(id: $id) {
+      id
+      name
+      email
+      username
+      role
+    }
+  }
+`;

@@ -123,6 +123,14 @@ export async function updateProduct(
 
 export async function deleteProduct(_: any, args: { id: string }) {
   try {
+    const saleCount = await prismaClient.sale.count({
+      where: { productId: args.id },
+    });
+    if (saleCount > 0) {
+      await prismaClient.sale.deleteMany({
+        where: { productId: args.id },
+      });
+    }
     const deletedProduct = await prismaClient.product.delete({
       where: { id: args.id },
     });

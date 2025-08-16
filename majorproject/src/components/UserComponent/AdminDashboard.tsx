@@ -35,13 +35,13 @@ export default function AdminDashboard() {
         <div className="flex items-center justify-end m-1">
           <AddUserBtn />
         </div>
-        <div className="flex flex-col m-2 gap-2 h-full overflow-y-scroll scrollbar-hide">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="flex flex-col m-2 gap-2 h-full items-end overflow-y-scroll scrollbar-hide">
+          <ul className="flex flex-col gap-2">
             {/* User Cards */}
             {users.map((user) => (
               <UserCard key={user.id} user={user} />
             ))}
-          </div>
+          </ul>
         </div>
       </div>
       <style jsx global>{`

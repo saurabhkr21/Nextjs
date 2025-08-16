@@ -1,8 +1,9 @@
 "use client";
 
 import { Avatar, Badge, Box, Card, Flex, Text } from "@radix-ui/themes";
-import { Mail, User as UserIcon } from "lucide-react";
+import { DessertIcon, Info, Mail, User as UserIcon } from "lucide-react";
 import EditUserBtn from "../Botton/EditUserBtn";
+import Link from "next/link";
 
 export default function UserCard({
   user,
@@ -48,7 +49,7 @@ export default function UserCard({
               </Text>
             </Flex>
 
-            <div className="mt-3 flex items-center justify-center gap-0.5">
+            <div className="mt-3 flex items-center gap-2">
               {user?.role && (
                 <Badge
                   color="blue"
@@ -58,9 +59,9 @@ export default function UserCard({
                   {user.role}
                 </Badge>
               )}
-              <span className="inline-flex items-center justify-center ml-2">
-                <EditUserBtn user={user} />
-              </span>
+              <Link href={`/user/${user.id}`}>
+                <Info size={16} className="text-gray-500 dark:text-gray-400" />
+              </Link>
             </div>
           </Box>
         </Flex>

@@ -48,15 +48,15 @@ export default function EditProductBtn({ product }: { product?: Product }) {
     <div>
       <Dialog.Root>
         <Dialog.Trigger>
-          <Button>
+          <Button color="gray">
             <Edit2 />
           </Button>
         </Dialog.Trigger>
 
         <Dialog.Content maxWidth="450px">
-          <Dialog.Title>Add Product</Dialog.Title>
+          <Dialog.Title>Update Product</Dialog.Title>
           <Dialog.Description size="2" mb="4">
-            Add new product
+            Update existing product
           </Dialog.Description>
 
           <Flex direction="column" gap="3">

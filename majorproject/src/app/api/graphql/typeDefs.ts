@@ -5,6 +5,7 @@ const typeDefs = gql`
     loginUser(userCred: String!, password: String!): Boolean
     currentUser: User
     getAllUsers: [User]
+    getUser(id: String!): User
     getAllProducts: [Product]
     getProduct(id: String!): Product
 

@@ -99,3 +99,15 @@ export const PRODUCT_UPDATE = gql`
     }
   }
 `;
+
+export const UPDATE_USER_ROLE = gql`
+  mutation UpdateUserRole($userId: String!, $role: String!) {
+    updateUserRole(userId: $userId, role: $role)
+  }
+`;
+
+export const DELETE_PRODUCT=gql`
+mutation DeleteProduct($deleteProductId: String!) {
+  deleteProduct(id: $deleteProductId)
+}
+`

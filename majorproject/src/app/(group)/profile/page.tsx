@@ -1,10 +1,14 @@
+//@ts-nocheck
+import CurrentUserDetail from '@/components/Cards/CurrentUserDetail';
+import { getUserFromCookies } from '@/helper'
 import React from 'react'
 
-export default function page() {
+export default async function page() {
+  const user = await getUserFromCookies();
+  console.log("User Profile Page - User:", user);
   return (
     <div>
-      <h1>User Profile</h1>
-      <p>Welcome to your profile page!</p>
+      <CurrentUserDetail user={user} />
     </div>
   )
 }

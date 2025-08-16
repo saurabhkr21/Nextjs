@@ -129,3 +129,15 @@ export async function getAllUsers() {
     return null;
   }
 }
+
+export async function getUser(_: any, args: { id: string }) {
+  try {
+    const user = await prismaClient.user.findUnique({
+      where: { id: args.id },
+    });
+    return user;
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    return null;
+  }
+}
