@@ -59,6 +59,17 @@ export const CREATE_SALE = gql`
   }
 `;
 
+export const GET_ALL_SALES = gql`
+  query GetAllSales {
+    getAllSales {
+      id
+      productId
+      quantity
+      createdAt
+    }
+  }
+`;
+
 export const GET_USER = gql`
   query GetUser($id: String!) {
     getUser(id: $id) {

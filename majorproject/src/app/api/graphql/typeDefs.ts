@@ -8,6 +8,7 @@ const typeDefs = gql`
     getUser(id: String!): User
     getAllProducts: [Product]
     getProduct(id: String!): Product
+    getAllSales: [Sale]
 
     # getProductSales(id: String!): [Sales]
   }

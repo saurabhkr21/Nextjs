@@ -1,9 +1,9 @@
 "use client";
 
-import { UserDetailCardProps } from "@/type";
+import { CurrentUser, UserDetailCardProps } from "@/type";
 import { User } from "../../../generated/prisma";
 
-export default function CurrentUserDetail({ user }: { user: User }) {
+export default function CurrentUserDetail({ user }: CurrentUser) {
   const current = user;
   if (!current) {
     return (
@@ -22,7 +22,7 @@ export default function CurrentUserDetail({ user }: { user: User }) {
         <div className="flex flex-col items-center border-b border-blue-100 dark:border-slate-700 pb-8 mb-8">
           <div className="relative group">
             <img
-              src={current.avatar || "/default-avatar.png"}
+              src={current?.avatar || "/default-avatar.png"}
               alt="User Avatar"
               className="w-36 h-36 rounded-full border-4 border-blue-300 dark:border-blue-500 shadow-xl object-cover transition-all duration-300 group-hover:scale-105"
             />

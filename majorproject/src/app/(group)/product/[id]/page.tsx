@@ -44,18 +44,16 @@ export default function page() {
   }, []);
   // console.log("product in product details page : ", product);
 
-  const chartData =
-    product?.sales?.map((sale) => {
-      const date = new Date(Number(sale.createdAt));
-      const format =
-        date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-      const quantity = sale.quantity;
-      const obj = {
-        date: format,
-        quantity,
-      };
-      return obj;
-    }) || [];
+  const chartData = (() => {
+      if (!product?.sales) return [];
+      const grouped: Record<string, number> = {};
+      product.sales.forEach((sale) => {
+        const dateObj = new Date(Number(sale.createdAt));
+        const day = `${dateObj.getDate()}/${dateObj.getMonth() + 1}/${dateObj.getFullYear()}`;
+        grouped[day] = (grouped[day] || 0) + sale.quantity;
+      });
+      return Object.entries(grouped).map(([date, quantity]) => ({ date, quantity }));
+    })() || [];
   // console.log("chartData in product details page : ", chartData);
 
   return (

@@ -19,19 +19,9 @@ export default function ProductList() {
     fetchProducts();
   }, []);
 
-  // function isNewProduct(item: Product) {
-  //   if (!item.createdAt) return false;
-  //   const created = new Date(Number(item.createdAt));
-  //   const now = new Date();
-  //   const diffDays =
-  //     (now.getTime() - created.getTime()) / (1000 * 60 * 60 * 24);
-  //   return diffDays <= 7;
-  // }
-
   return (
-    <div className="flex flex-wrap gap-2 w-full ">
+    <div className="flex flex-wrap gap-2 w-full justify-center ">
       {products.map((item) => {
-        // const newTag = isNewProduct(item) && item.stock > 0;
         return (
           <Box
             width="250px"
@@ -44,7 +34,6 @@ export default function ProductList() {
                 key={item.id}
                 className="no-underline"
               >
-                {/* Image wrapper with fixed height */}
                 <div className="relative flex justify-center mb-3 h-[180px]">
                   <Image
                     sizes="(max-width: 250px) 100vw, 250px"
@@ -54,14 +43,8 @@ export default function ProductList() {
                     priority
                     className="rounded-lg object-cover border border-gray-300 dark:border-slate-700"
                   />
-                  {/* {newTag && (
-                    <span className="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow">
-                      New
-                    </span>
-                  )} */}
                 </div>
 
-                {/* Content */}
                 <div className="flex flex-col flex-1">
                   <Text
                     as="div"
@@ -85,7 +68,6 @@ export default function ProductList() {
                 </div>
               </Link>
 
-              {/* Footer */}
               <div className="flex justify-between items-center mt-auto pt-2 border-t border-gray-200 dark:border-slate-700">
                 <Text
                   as="div"

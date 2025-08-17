@@ -4,7 +4,8 @@ import { NextRequest } from "next/server";
 import typeDefs from "./typeDefs";
 import { createUser, getAllUsers, getUser, loginUser, updateUserProfile, updateUserRole } from "./resolvers/user";
 import { getUserFromCookies } from "@/helper";
-import { addProducts, createSale, deleteProduct, getAllProducts, getProduct, updateProduct } from "./resolvers/products";
+import { addProducts, createSale, deleteProduct, getAllProducts, getAllSales, getProduct, updateProduct } from "./resolvers/products";
+import { get } from "http";
 
 const resolvers = {
   Query: {
@@ -13,7 +14,8 @@ const resolvers = {
     getAllUsers,
     getAllProducts,
     getProduct,
-    getUser
+    getUser,
+    getAllSales
   },
   Mutation: {
     createUser,

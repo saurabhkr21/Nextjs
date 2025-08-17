@@ -59,6 +59,16 @@ export async function getProduct(_: any, args: { id: string }) {
   }
 }
 
+export async function getAllSales() {
+  try {
+    const sales = await prismaClient.sale.findMany();
+    return sales;
+  } catch (error) {
+    console.error("Error fetching sales:", error);
+    throw new Error("Failed to fetch sales");
+  }
+}
+
 export async function createSale(
   _: any,
   args: {
