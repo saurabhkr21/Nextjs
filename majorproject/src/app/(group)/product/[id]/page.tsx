@@ -9,7 +9,6 @@ import { GET_PRODUCT } from "@/lib/gql/queries";
 import gqlClient from "@/lib/services/gql";
 import { ProductsWithSales } from "@/type";
 import { Box, Card, Text } from "@radix-ui/themes";
-import { Edit } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -60,7 +59,7 @@ export default function page() {
   // console.log("chartData in product details page : ", chartData);
 
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 p-4 lg:p-8 gap-8 w-full">
+    <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen  p-4 lg:p-8 gap-8 w-full">
       <Box
         maxWidth="550px"
         key={product?.id}

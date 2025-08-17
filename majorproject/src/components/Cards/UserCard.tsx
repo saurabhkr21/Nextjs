@@ -1,8 +1,7 @@
 "use client";
 
 import { Avatar, Badge, Box, Card, Flex, Text } from "@radix-ui/themes";
-import { DessertIcon, Info, Mail, User as UserIcon } from "lucide-react";
-import EditUserBtn from "../Botton/EditUserBtn";
+import { Info, Mail, User as UserIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function UserCard({
@@ -18,13 +17,14 @@ export default function UserCard({
     password: string;
   };
 }) {
+  // console.log("User Card - User:", user);
   return (
     <Box maxWidth="320px" className="transition-transform hover:scale-105">
       <Card className="bg-white dark:bg-slate-900 shadow-md rounded-xl border border-gray-200 dark:border-slate-800 p-4 hover:shadow-lg transition-shadow">
         <Flex gap="3" align="center">
           <Avatar
             size="4"
-            src=""
+            src={user?.avatar || "/default-avatar.png"}
             radius="full"
             fallback={user?.name?.charAt(0).toUpperCase() || "U"}
             className="border-2 border-blue-400"

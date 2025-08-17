@@ -23,10 +23,11 @@ export default function page() {
       }
       fetchUserData();
     }, [id]);
+  console.log("User Detail Page - User asdfg:", user);
 
   return (
     <div>
-      {user?.role === "admin" ? (
+      {user ? (
         <div>
             <UserDetailCard user={user} />
         </div>

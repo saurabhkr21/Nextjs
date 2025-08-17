@@ -29,8 +29,8 @@ export default function AddSaleButton({ product }: { product: ProductsWithSales 
   }
 
   return (
-    <div className="flex flex-col items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl shadow-md border border-gray-200 dark:border-slate-700 w-full max-w-xs">
-      <label className="w-full text-sm font-semibold text-gray-700 dark:text-white mb-1">
+    <div className="flex flex-col items-center gap-3 p-4  rounded-xl shadow-md border border-gray-200 dark:border-slate-700 w-full max-w-xs">
+      <label className="w-full text-sm font-semibold mb-1">
         Quantity To Sale
       </label>
       <input
@@ -40,7 +40,7 @@ export default function AddSaleButton({ product }: { product: ProductsWithSales 
         min={1}
         max={product?.stock}
         placeholder="Add quantity"
-        className="w-full px-3 py-2 border rounded-lg text-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-800"
+        className="w-full px-3 py-2 border rounded-lg  focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-400"
       />
       <button
         onClick={handleSale}

@@ -7,7 +7,6 @@ import AddProductBtn from "../Botton/Add-Products-Btn";
 import AddUserBtn from "../Botton/Add-User-Btn";
 import ProductList from "../Cards/ProductList";
 import UserCard from "../Cards/UserCard";
-import EditUserBtn from "../Botton/EditUserBtn";
 
 export default function AdminDashboard() {
   const [users, setUsers] = React.useState<User[]>([]);
@@ -23,11 +22,16 @@ export default function AdminDashboard() {
   }, []);
 
   return (
-    <div className="flex justify-between p-4 w-full h-screen bg-gradient-to-br from-blue-50 via-white to-pink-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-      <div className="flex-1 flex flex-col w-2/3 gap-4 h-full overflow-y-scroll scrollbar-hide">
-        <AddProductBtn />
-        <div className="flex-1 flex flex-col justify-center items-center">
-          <ProductList />
+    <div className="flex p-4 w-full h-screen ">
+      
+      <div className="flex-1 flex flex-col w-2/3 gap-4 h-full ">
+        <div className="flex items-center justify-start m-1">
+          <AddProductBtn />
+        </div>
+        <div className="flex-1 flex flex-col justify-center items-center overflow-y-scroll scrollbar-hide">
+          <div className="flex flex-col gap-4 h-full">
+            <ProductList />
+          </div>
         </div>
       </div>
 

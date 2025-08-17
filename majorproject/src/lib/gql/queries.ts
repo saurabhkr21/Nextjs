@@ -14,6 +14,7 @@ export const GET_ALL_USERS = gql`
       email
       username
       role
+      avatar
     }
   }
 `;
@@ -66,6 +67,7 @@ export const GET_USER = gql`
       email
       username
       role
+      avatar
     }
   }
 `;

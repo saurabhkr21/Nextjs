@@ -10,7 +10,7 @@ import UserCard from "../Cards/UserCard";
 
 export default function StaffDashboard() {
   return (
-    <div className="flex justify-between p-4 w-full h-screen bg-gradient-to-br from-blue-50 via-white to-pink-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div className="flex p-4 w-full h-screen">
       <div className="flex-1 flex flex-col gap-4 h-full ">
         <div className="flex-1 flex flex-col justify-center items-center">
           <ProductList />

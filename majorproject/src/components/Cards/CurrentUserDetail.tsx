@@ -15,9 +15,9 @@ export default function CurrentUserDetail({ user }: { user: User }) {
     );
   }
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center py-10 px-4 bg-gradient-to-br from-blue-100 via-slate-100 to-blue-200 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div className="min-h-screen flex flex-col items-center justify-center py-10 px-4 ">
       {/* Card Container */}
-      <div className="w-full max-w-3xl rounded-3xl shadow-2xl border border-blue-200 dark:border-slate-700 bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 p-10 transition-all duration-300 hover:scale-[1.01]">
+      <div className="w-full max-w-3xl rounded-3xl shadow-2xl border border-blue-200 dark:border-slate-700  p-10 transition-all duration-300 hover:scale-[1.01]">
         {/* Header */}
         <div className="flex flex-col items-center border-b border-blue-100 dark:border-slate-700 pb-8 mb-8">
           <div className="relative group">
@@ -30,34 +30,30 @@ export default function CurrentUserDetail({ user }: { user: User }) {
               Current User
             </span>
           </div>
-          <h1 className="mt-6 text-3xl font-extrabold text-gray-800 dark:text-white tracking-tight text-center">
+          <h1 className="mt-6 text-3xl font-extrabold  tracking-tight text-center">
             {current.name}
           </h1>
-          <p className="text-base text-blue-500 dark:text-blue-300 font-medium mt-1">
-            @{current.username}
-          </p>
+          <p className="text-base  font-medium mt-1">@{current.username}</p>
         </div>
 
         {/* Details Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-gray-700 dark:text-white">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <div className="flex flex-col gap-2">
-            <span className="text-sm text-gray-500 dark:text-slate-400">
-              Email
-            </span>
+            <span className="text-sm ">Id</span>
+            <span className="text-lg font-medium">{current.id}</span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-sm">Email</span>
             <span className="text-lg font-medium break-all">
               {current.email}
             </span>
           </div>
           <div className="flex flex-col gap-2">
-            <span className="text-sm text-gray-500 dark:text-slate-400">
-              Password
-            </span>
+            <span className="text-sm ">Password</span>
             <span className="text-lg font-medium">••••••••</span>
           </div>
           <div className="flex flex-col gap-2">
-            <span className="text-sm text-gray-500 dark:text-slate-400">
-              Role
-            </span>
+            <span className="text-sm ">Role</span>
             <span className="text-lg font-medium">{current.role}</span>
           </div>
         </div>
