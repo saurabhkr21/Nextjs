@@ -16,6 +16,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import EditBlog from "./Button/EditBlog";
+import { blog } from "../../generated/prisma";
 
 const DELETE_BLOG = gql`
   mutation DeleteBlog($deleteBlogId: String!) {
@@ -23,7 +24,7 @@ const DELETE_BLOG = gql`
   }
 `;
 
-export default function BlogDetail({ blog }) {
+export default function BlogDetail({ blog }:{ blog: blog }) {
   const darkMode = true;
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);

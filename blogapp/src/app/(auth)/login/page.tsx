@@ -43,29 +43,6 @@ export default function page() {
 
     setError({});
 
-    // try {
-    //   const res = await fetch("/api/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       email,
-    //       password,
-    //     }),
-    //   });
-    //   const data = await res.json();
-    //   if (data.success) {
-    //     document.cookie = `token=${data.data.token}; path=/; max-age=3600`;
-    //     router.push("/");
-    //     router.refresh();
-    //   } else {
-    //     setError({ message: data.message });
-    //   }
-    // } catch (error) {
-    //   setError({ message: "Login failed. Please try again." });
-    // }
-
     try{
       const data: any = await gqlClient.request(LOGIN_USER, {
         email,

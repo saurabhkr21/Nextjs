@@ -1,6 +1,7 @@
 import BlogCard from "@/components/BlogCard";
 import Header from "@/components/Header";
 import { gql, GraphQLClient } from "graphql-request";
+import { blog } from "../../../generated/prisma";
 
 const gqlClient = new GraphQLClient("http://localhost:3000/api/graphql");
 const GET_BLOGS = gql`
@@ -22,8 +23,7 @@ const GET_BLOGS = gql`
 `;
 
 export default async function Home() {
-  //@ts-ignore
-  const data: { blogs: Blog[] } = await gqlClient.request(GET_BLOGS);
+  const data: { blogs: blog[] } = await gqlClient.request(GET_BLOGS);
   const blogs = data.blogs;
   if (!blogs || blogs.length === 0) {
     return (
@@ -35,7 +35,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col px-3 py-5 max-w-6xl mx-auto">
       <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {blogs.map((blog: any) => (
+        {blogs.map((blog) => (
           <div key={blog.id}>
             <BlogCard item={blog} />
           </div>

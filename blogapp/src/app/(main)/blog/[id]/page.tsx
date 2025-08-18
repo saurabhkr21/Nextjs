@@ -10,7 +10,7 @@ const GET_BLOG = gql`
       content
       image_url
       createdAt
-      User{
+      User {
         id
         name
         email

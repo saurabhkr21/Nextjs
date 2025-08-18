@@ -15,7 +15,6 @@ const DELETE_BLOG = gql`
 
 export default function BlogCard({ item }: { item: blog }) {
   const { id, title, content, image_url, createdAt } = item;
-  // Ensure createdAt is a string in ISO format for Date parsing
   const formatDate = (dateInput: string | Date) => {
     const date = new Date(Number(dateInput));
     if (isNaN(date.getTime()))

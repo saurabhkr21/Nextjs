@@ -1,9 +1,9 @@
 import gqlClient from "@/services/gql";
 import { gql, GraphQLClient } from "graphql-request";
-import { blog } from "../../../generated/prisma";
 import BlogCard from "@/components/BlogCard";
 import { ArrowBigLeft } from "lucide-react";
 import Link from "next/link";
+import { blog } from "../../../../generated/prisma";
 
 const SEARCH_QUERY = gql`
   query Blogs($q: String) {

@@ -38,11 +38,6 @@ export default function MyBlogPage() {
   }, []);
 
   async function handleDelete(blogId: string) {
-    // Implement your delete mutation here
-    // After delete, refresh the blog list
-    // Example:
-    // await gqlClient.request(DELETE_BLOG, { id: blogId });
-    // setUserBlog(userBlog.filter(b => b.id !== blogId));
     alert("Delete functionality not implemented.");
   }
 
