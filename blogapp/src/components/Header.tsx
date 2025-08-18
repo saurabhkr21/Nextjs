@@ -8,7 +8,6 @@ export default function Header() {
     >
       <Link href="/" className="ml-4 flex items-center">
         <img src="/blog.svg" alt="Blog Logo" width={65} />
-        Blog Exploring
       </Link>
 
       <form

@@ -16,7 +16,6 @@ export default function DialogMenu() {
   const { user } = useContext(UserContext);
   
   const tag = user?.name?.split(" ")[0]?.charAt(0) || "U";
-  console.log("DialogMenu user", tag, "user",{ user });
   function handleLogout() {
     if (confirm("Are you sure you want to log out?")) {
       // Delete token cookie

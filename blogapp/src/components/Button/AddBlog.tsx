@@ -36,7 +36,7 @@ export default function AddBlog({ onAdd }: { onAdd?: () => void }) {
         content,
         imageUrl: imageUrl ? imageUrl : null,
       });
-      console.log("Blog Data", blogData);
+      // console.log("Blog Data", blogData);
 
       if (blogData.createBlog) {
         setMessage("Blog post added!");

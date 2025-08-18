@@ -7,6 +7,7 @@ import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import SearchInput from "./SearchInput";
+import Image from "next/image";
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
@@ -36,7 +37,7 @@ export default function Header() {
     }
     fetchUser();
   }, []);
-  
+
   function handleThemeToggle() {
     setTheme(theme === "dark" ? "light" : "dark");
   }
@@ -83,7 +84,18 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm">
       <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
         {/* Left Section - User Controls & Navigation */}
+        {/* Primary Navigation (hide on mobile) */}
         <div className="flex items-center gap-3">
+          <nav className="hidden sm:flex items-center gap-2">
+            <Link href="/">
+              <Image
+                src="https://i.pinimg.com/736x/11/44/2d/11442d9e81e2be5f3bbeddada3d6eddd.jpg"
+                alt="Logo"
+                width={40}
+                height={40}
+              />
+            </Link>
+          </nav>
           {/* User Profile Dropdown */}
           <div className="relative hidden sm:flex rounded-3xl">
             <select
@@ -115,15 +127,6 @@ export default function Header() {
               </svg>
             </div>
           </div>
-
-          {/* Primary Navigation (hide on mobile) */}
-          <nav className="hidden sm:flex items-center gap-2">
-            <Link href="/">
-              <button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-2 py-2 rounded-lg text-sm font-medium transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg">
-                Home
-              </button>
-            </Link>
-          </nav>
         </div>
 
         {/* Center Section - Search */}
