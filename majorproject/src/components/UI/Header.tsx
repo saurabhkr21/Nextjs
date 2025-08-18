@@ -7,9 +7,10 @@ import Link from "next/link";
 import { useContext, useContext as useReactContext } from "react";
 import { ThemeContext } from "../contexts/theme-context";
 import { UserContext } from "../contexts/UserContextProvider";
+import { UserWithoutPassword } from "@/type";
 
 export default function Header() {
-  const { user } = useContext(UserContext);
+  const { user }:{ user?: UserWithoutPassword } = useContext(UserContext);
   const { isDark, setIsDark } = useReactContext(ThemeContext);
   function handleLogOut() {
     if (confirm("Are you sure to log out...")) {

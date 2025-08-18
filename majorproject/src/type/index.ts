@@ -32,3 +32,5 @@ export type CurrentUser = {
     role: RoleType;
   } | null;
 };
+
+export type UserWithoutPassword = Omit<User, "password"> | null;
