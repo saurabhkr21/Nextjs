@@ -7,6 +7,7 @@ import { createBlog, deleteBlog, getBlogUser, updateBlog } from "./resolvers/blo
 import { getBlogById, getBlogs } from "./resolvers/route";
 import { currentUser, loginUser, signUpUser } from "./resolvers/user";
 import typeDefs from "./typeDefs";
+import { blog } from "../../../../generated/prisma";
 
 
 const resolvers = {
@@ -31,7 +32,7 @@ const resolvers = {
   },
 
   User:{
-    blogs:async (blog:any) => {
+    blogs:async (blog:blog) => {
       const userId = blog.userId;
       return await prismaClient.blog.findMany({
         where: {

@@ -1,6 +1,7 @@
 import prismaClient from "@/services/prisma";
+import { blog } from "../../../../../generated/prisma";
 
-export async function getBlogById(parent: any, args: any) {
+export async function getBlogById(parent: any, args: { id: string }) {
   const id = args.id;
   const blog = await prismaClient.blog.findUnique({
     where: {
@@ -10,7 +11,7 @@ export async function getBlogById(parent: any, args: any) {
   return blog;
 }
 
-export async function getBlogs(blog: any, args: any) {
+export async function getBlogs(blog: any, args: { q: string }) {
   const q = args?.q || "";
   const blogs = await prismaClient.blog.findMany({
     where: {

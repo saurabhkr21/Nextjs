@@ -57,13 +57,17 @@ export default function page() {
       password,
     };
 
-    const data: any = await gqlClient.request(SIGN_UP, user);
+    try {
+      const data: { signUpUser: boolean } = await gqlClient.request(SIGN_UP, user);
 
-    if (data.errors) {
-      setError({ message: data.errors[0].message });
-    } else {
-      alert("User created successfully!");
-      router.push("/login");
+      if (data.signUpUser) {
+        alert("User created successfully!");
+        router.push("/login");
+      } else {
+        setError({ message: "Failed to create user. Please try again." });
+      }
+    } catch (err: any) {
+      setError({ message: err?.message || "An error occurred. Please try again." });
     }
     setLoading(false);
   }

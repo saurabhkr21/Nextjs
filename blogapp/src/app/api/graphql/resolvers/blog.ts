@@ -10,7 +10,7 @@ export async function createBlog(
   }
 ) {
   const user = await getUserFromCookies();
-  console.log("User from cookies in createBlog:", user); // Add this log
+  console.log("User from cookies in createBlog:", user);
 
   if (!user || !user.id) {
     console.error("No authenticated user found. Cannot set userId.");
@@ -34,7 +34,7 @@ export async function createBlog(
   }
 }
 
-export async function deleteBlog(x: any, args: any) {
+export async function deleteBlog(x: any, args: { id: string }) {
   const { id } = args;
   console.log("Deleting blog with ID:", id);
   try {
@@ -79,7 +79,7 @@ export async function updateBlog(
   }
 }
 
-export async function getBlogUser(blog: any) {
+export async function getBlogUser(blog: { userId: string }) {
   const userId = blog.userId;
   try {
     const user = await prismaClient.user.findUnique({

@@ -119,12 +119,9 @@ export default function page() {
       </Box>
 
       <div className="mt-8 w-full flex h-auto">
-        {user?.role === "manager" ||
-          (user?.role === "admin" && (
-            <div className="w-full max-w-3xl h-120">
-              <ProductSaleChart data={chartData} />
-            </div>
-          ))}
+        <div className="w-full max-w-3xl h-120">
+          <ProductSaleChart data={chartData} />
+        </div>
       </div>
     </div>
   );

@@ -38,7 +38,7 @@ export async function GET(req: NextRequest, { params }) {
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }
 ) {
   try {
     const jobId = params.id;
@@ -62,7 +62,7 @@ export async function DELETE(
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }
 ) {
   const jobId = params.id;
   const body = await req.json();

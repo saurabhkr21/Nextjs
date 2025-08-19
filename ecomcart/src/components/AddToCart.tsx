@@ -12,16 +12,15 @@ export default function AddToCart({ item }) {
   useEffect(() => {
     let prevItems = localStorage.getItem("cart");
     prevItems = prevItems ? JSON.parse(prevItems) : [];
-    let existingItem = prevItems.find((cartItem) => cartItem.id === item.id);
+    let existingItem = prevItems?.find((cartItem) => cartItem.id === item.id);
     if (existingItem) setInCart(true);
-    setCount(prevItems.length);
+    setCount(prevItems?.length);
   }, [item.id]);
 
   function handleAdd() {
     let prevItem = localStorage.getItem("cart");
     prevItem = prevItem ? JSON.parse(prevItem) : [];
 
-    // Check if item already exists to prevent duplicates
     const exists = prevItem.find((cartItem) => cartItem.id === item.id);
     if (!exists) {
       prevItem.push(item);
@@ -29,7 +28,6 @@ export default function AddToCart({ item }) {
       setInCart(true);
       setCount(prevItem.length);
     }
-    //  Update count after adding
   }
 
   return (

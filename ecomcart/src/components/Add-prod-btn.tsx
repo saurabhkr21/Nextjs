@@ -32,7 +32,6 @@ export default function AddProdBtn() {
     const res = await addProductToDb(data);
     if (res.success) {
       alert("Product added successfully!");
-      // Reset form
       setTitle("");
       setDescription("");
       setPrice("");

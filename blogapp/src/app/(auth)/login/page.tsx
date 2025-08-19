@@ -43,16 +43,16 @@ export default function page() {
 
     setError({});
 
-    try{
-      const data: any = await gqlClient.request(LOGIN_USER, {
+    try {
+      const data: { loginUser: boolean } = await gqlClient.request(LOGIN_USER, {
         email,
         password
       });
-      if(data.loginUser) {
+      if (data.loginUser) {
         router.push("/");
         router.refresh();
       } else {
-        setError({ message: data.message });
+        setError({ message: "Invalid email or password." });
       }
     }catch (error) {
       setError({ message: "Login failed. Please try again." });

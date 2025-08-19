@@ -3,12 +3,11 @@ import prismaClient from "./services/prisma";
 
 export async function getUserFromCookies() {
   const userCookies = await cookies();
-  const id = userCookies.get("token1")?.value;
+  const id = userCookies.get("token")?.value;
 
   if (!id) {
     return null;
   }
-  
 
   const user = await prismaClient.user.findUnique({
     where: {
@@ -25,3 +24,4 @@ export async function getUserFromCookies() {
   const { password, ...safeUser } = user;
   return safeUser;
 }
+

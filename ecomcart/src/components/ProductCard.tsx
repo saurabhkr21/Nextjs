@@ -30,36 +30,34 @@ const ProductCard = ({ item }) => {
 
   return (
     <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden max-w-sm">
-      {/* Image Container */}
       <div className="relative group">
         <Link href={href}>
           <div className="relative h-54 w-full bg-gray-100">
-            {/* <Image
-                            src={item.image_url}
-                            alt={item.title}
-                            fill
-                            className="object-center group-hover:scale-105 transition-transform duration-300"
-                        /> */}
-            {/* <div className="w-[200px] h-[200px]">
-              <img src={item.image_url} alt="image" className="object-fill" />
-            </div> */}
             {!imageError ? (
-                            <Image
-                                src={item.image_url}
-                                alt={item.title}
-                                fill
-                                // width={100}
-                                // height={100}
-                                className="object-contain group-hover:scale-105 transition-transform duration-300"
-                                onError={() => setImageError(true)}
-                            />
-                        ) : (
-                            <div className="flex items-center justify-center h-full text-gray-400">
-                                <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-                                </svg>
-                            </div>
-                        )}
+              <Image
+                src={item.image_url}
+                alt={item.title}
+                fill
+                // width={100}
+                // height={100}
+                className="object-contain group-hover:scale-105 transition-transform duration-300"
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full text-gray-400">
+                <svg
+                  className="w-16 h-16"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            )}
           </div>
         </Link>
         <div className="flex gap-2 mt-3 overflow-x-auto">
@@ -162,16 +160,13 @@ const ProductCard = ({ item }) => {
         <p className="text-sm text-gray-600 mb-4 line-clamp-2">
           {item.description}
         </p>
-        <DeleteItem id={item.id}/>
-        <EditProdBtn item={item}/>
-        <div className="flex space-x-2 justify-between">
+
+        <div className="flex  justify-between">
           <AddToCart item={item} />
-          <Link
-            href={href}
-            className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
-          >
-            View
-          </Link>
+          <div className="flex justify-end gap-1">
+            <EditProdBtn item={item} />
+            <DeleteItem id={item.id} />
+          </div>
         </div>
       </div>
     </div>

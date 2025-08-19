@@ -36,8 +36,7 @@ export async function loginUser(
       },
     });
     if (user && user.password === args.password) {
-      cookieStore.set("token1", user.id);
-      // cookieStore.set("token1", user.name);
+      cookieStore.set("token", user.id);
 
       return true;
     } else {

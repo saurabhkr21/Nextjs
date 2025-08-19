@@ -23,10 +23,8 @@ export default function Layout({ children }) {
   return (
     <div>
       <UserContext.Provider value={{ user, setUser }}>
-       
-            <Header />
-            {children}
-          
+        <Header />
+        {children}
       </UserContext.Provider>
     </div>
   );

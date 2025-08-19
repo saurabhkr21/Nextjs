@@ -20,7 +20,7 @@ export default function DialogMenu() {
     if (confirm("Are you sure you want to log out?")) {
       // Delete token cookie
       document.cookie =
-        "token1=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       router.push("/login");
       router.refresh();
     }

@@ -1,8 +1,8 @@
 //@ts-nocheck
 "use client";
-import { addProductToDb, UpdateProdInDb } from "@/actions/productions";
-import { POST } from "@/app/api/products/route";
+import { UpdateProdInDb } from "@/actions/productions";
 import { Button, Dialog, Flex, Text, TextField } from "@radix-ui/themes";
+import { EditIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -23,7 +23,7 @@ export default function EditProdBtn({ item }:{item:any}) {
       category,
       image_url: imageUrl,
     };
-    console.log("Submitting data:", data);
+    // console.log("Submitting data:", data);
 
     const res = await UpdateProdInDb(data,item.id);
     if (res.success) {
@@ -33,35 +33,18 @@ export default function EditProdBtn({ item }:{item:any}) {
       console.error("Error updating product:", res.error);
       alert(`Error: ${res.error}`);
     }
-// const res = await fetch('/api/products/update', {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json'
-//   },
-
-  //   const res =await fetch("https://localhost:3000/api/products/update", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       ...data,
-  //       id: item.id,
-  //     }),
-  //   });
-  //   const pro =await res.json();
-  //   if(pro.success){
-  //     alert("updated")
-  //   }
   }
 
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button>Update Product</Button>
+        <Button><EditIcon size={20} height={25}/></Button>
       </Dialog.Trigger>
 
       <Dialog.Content maxWidth="450px">
-        <Dialog.Title>Add Products</Dialog.Title>
+        <Dialog.Title>Update Products</Dialog.Title>
         <Dialog.Description size="2" mb="4">
-          Add your products.
+          Update your products.
         </Dialog.Description>
 
         <Flex direction="column" gap="3">

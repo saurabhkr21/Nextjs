@@ -30,27 +30,6 @@ export default function SearchInput() {
     };
   }, [input]);
 
-  // useEffect(() => {
-  //   if (!input) {
-  //     setSuggestions([]);
-  //     return;
-  //   }
-  //   const handler = setTimeout(() => {
-  //     fetch("/api/search/suggestions?q=" + encodeURIComponent(input))
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         if (data.success) {
-  //           setSuggestions(data.suggestion);
-  //         } else {
-  //           setSuggestions([]);
-  //         }
-  //       })
-  //       .catch(() => setSuggestions([]));
-  //   }, 500);
-
-  //   return () => clearTimeout(handler);
-  // }, [input]);
-
   return (
     <form action="/jobs" className="relative">
       <div className="relative">

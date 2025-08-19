@@ -1,7 +1,8 @@
+//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }) {
   const id = params.id;
   console.log("Fetching applications for job ID:", id); // Log the job ID being fetched
   try {

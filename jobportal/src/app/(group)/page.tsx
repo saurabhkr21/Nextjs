@@ -11,16 +11,10 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-black">
-      {/* Main Container */}
       <div className="flex">
-        {/* Main Content Area */}
         <div className="flex-1">
           <div className="p-4 lg:p-6">
-            {/* Jobs Grid */}
             <div className="relative">
-              {/* Background Pattern */}
-
-              {/* Jobs Container */}
               <div className="relative text-black  backdrop-blur-sm rounded-2xl p-4 lg:p-6 shadow-lg dark:text-white">
                 <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 lg:gap-6">
                   {data.map((item, index) => (
@@ -37,7 +31,6 @@ export default async function Home() {
                   ))}
                 </div>
 
-                {/* Empty State (if no jobs) */}
                 {data.length === 0 && (
                   <div className="text-center py-12">
                     <div className="text-6xl mb-4">🔍</div>

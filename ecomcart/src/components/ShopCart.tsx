@@ -9,7 +9,6 @@ export default function ShopCart({
 }) {
   const [quantity, setQuantity] = useState(item.quantity || 1);
 
-  // Sync localStorage on quantity change
   const updateCartInLocalStorage = (newQuantity) => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     cart[index].quantity = newQuantity;
@@ -38,7 +37,7 @@ export default function ShopCart({
       <div className="flex shadow-amber-100 shadow-2xl rounded-md overflow-hidden">
         <div className="w-80 flex-shrink-0">
           <img
-            src={item.thumbnail}
+            src={item.image_url}
             alt="product Image"
             className="w-full h-full object-cover"
           />

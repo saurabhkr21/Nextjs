@@ -1,6 +1,7 @@
 import BlogDetail from "@/components/BlogDetail";
 import gqlClient from "@/services/gql";
 import { gql } from "graphql-request";
+import { blog } from "../../../../../generated/prisma";
 
 const GET_BLOG = gql`
   query Blog($blogId: String) {
@@ -19,13 +20,12 @@ const GET_BLOG = gql`
   }
 `;
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
-  const data: any = await gqlClient.request(GET_BLOG, {
+export default async function Page({params}: { params: { id: string } }) {
+  const { id } = params;
+  const data: { blog: blog } = await gqlClient.request(GET_BLOG, {
     blogId: id,
   });
   const blog = data.blog;
-  console.log("data blog:", data);
 
   return (
     <div>

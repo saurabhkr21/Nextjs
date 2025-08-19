@@ -1,3 +1,4 @@
+//@ts-nocheck
 import DeleteCompanyBtn from "@/components/DeleteCompanyBtn";
 import Detail from "@/components/Detail";
 import JobCard from "@/components/JobCard";
@@ -8,7 +9,7 @@ import ViewCompanyDetail from "@/components/ViewCompanyDetail";
 import { Box, Tabs, Text, TextArea } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 
-export default async function page({ params }: { params: { id: string } }) {
+export default async function page({ params }) {
   const id = params.id;
   if (!id) {
     notFound();

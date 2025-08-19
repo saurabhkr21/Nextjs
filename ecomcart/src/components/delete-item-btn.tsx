@@ -1,6 +1,7 @@
 //@ts-nocheck
 "use client";
 import { deleteProdFromDb } from "@/actions/productions";
+import { DeleteIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function DeleteItem({ id }: { id: string }) {
@@ -16,8 +17,8 @@ export default function DeleteItem({ id }: { id: string }) {
 }
 
   return (
-    <button onClick={handleDelete} className="border rounded-2xl bg-amber-200">
-        Delete
+    <button onClick={handleDelete} className="p-2 rounded bg-red-500 text-white hover:bg-red-600 transition-colors">
+        <DeleteIcon />
     </button>
   );
 }

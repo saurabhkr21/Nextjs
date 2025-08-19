@@ -6,6 +6,7 @@ import { gql } from "graphql-request";
 import { CalendarIcon, ImageIcon, Trash2Icon, UserIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { blog } from "../../../../generated/prisma";
 
 const CURRENT_USER_BLOG = gql`
   query CurrentUserBlogs {
@@ -20,7 +21,7 @@ const CURRENT_USER_BLOG = gql`
 `;
 
 export default function MyBlogPage() {
-  const [userBlog, setUserBlog] = useState<any[]>([]);
+  const [userBlog, setUserBlog] = useState<blog[]>([]);
   const router = useRouter();
 
   useEffect(() => {

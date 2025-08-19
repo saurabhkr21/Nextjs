@@ -83,8 +83,6 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm">
       <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
-        {/* Left Section - User Controls & Navigation */}
-        {/* Primary Navigation (hide on mobile) */}
         <div className="flex items-center gap-3">
           <nav className="hidden sm:flex items-center gap-2">
             <Link href="/">
@@ -93,6 +91,7 @@ export default function Header() {
                 alt="Logo"
                 width={40}
                 height={40}
+                className="rounded-full"
               />
             </Link>
           </nav>
@@ -149,7 +148,7 @@ export default function Header() {
 
         {/* Mobile Menu Icon */}
         <button
-          className="sm:hidden p-2 rounded-lg  hover:bg-gray-500 transition-colors duration-200 absolute left-4 top-4 z-50"
+          className="sm:hidden p-1 rounded-lg  hover:bg-gray-500 transition-colors duration-200 absolute left-1 top-4 z-50"
           onClick={() => setMobileMenuOpen(true)}
           aria-label="Open menu"
         >

@@ -39,7 +39,6 @@ const RelatedProducts = ({ param }) => {
     }
   };
 
-  // 🔽 Fetch & Filter Data
   useEffect(() => {
     const fetchRelatedProducts = async () => {
       try {

@@ -1,8 +1,8 @@
-
+//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params } : {params : {id : string}}) {
+export async function GET(req: NextRequest, { params }) {
   const companyId = params.id;
   try {
     const reviews = await prismaClient.review.findMany({

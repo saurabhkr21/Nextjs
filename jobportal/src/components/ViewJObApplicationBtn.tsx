@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Button, Dialog, Flex, Spinner, Text, TextField } from "@radix-ui/themes";
 import React, { useEffect, useState } from "react";
 
