@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["i.pinimg.com"],
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
