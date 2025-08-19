@@ -5,11 +5,14 @@ import AddToCart from "./AddToCart";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/Context";
 import AddProdBtn from "./Add-prod-btn";
+import { getUserFromCookies } from "@/helper";
+import { cookies } from "next/headers";
 
 export default function Header() {
   const [userInput, setUserInput] = useState("");
   const [suggestion, setSuggestion] = useState([]);
   const { count } = useContext(CartContext);
+  
   function handleClick(e) {
     setUserInput(e.target.value);
     console.log(userInput);
@@ -98,11 +101,11 @@ export default function Header() {
       </div>
       <AddProdBtn/>
       <div className="flex gap-1">
-        <Link href="/login">
+        {/* <Link href="/login">
           <button className="w-15 hover:border-white  border-transparent text-md  text-white rounded-md h-10 border">
             Login
           </button>
-        </Link>
+        </Link> */}
         <Link href="/cart">
           <button className="flex w-15 text-md hover:border-white  border-transparent text-white rounded-md h-10 border items-center justify-center">
             <img

@@ -24,7 +24,7 @@ model Product {
 }
 
 model Products {
-  id                  String    @id @default(auto()) @map("_id") @db.ObjectId
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   image_url           String?
   title               String?
   description         String?
@@ -49,10 +49,10 @@ model Products {
 //   category    String?
 // }
 
-// model User {
-//   id      String   @id @default(auto()) @map("_id") @db.ObjectId
-//   email   String   @unique
-//   name    String?
-//   // address Address?
-//   posts   Product[]
-// }
+model User {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String?
+  email    String  @unique
+  password String
+  // address Address?
+}
