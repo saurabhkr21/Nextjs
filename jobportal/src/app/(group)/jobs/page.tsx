@@ -2,9 +2,9 @@
 
 import prismaClient from "@/services/prisma";
 // import JobCard from "../../components/JobCard";
-import data from "../../constraints/data";
-import NextPage from "@/components/NextPage";
 import JobCard from "@/components/JobCard";
+import JobsPageClient from "@/components/JobsPageClient";
+import { Suspense } from "react";
 
 export default async function Page({ searchParams }) {
   const query = searchParams?.q?.toLowerCase() || "";
@@ -30,8 +30,8 @@ export default async function Page({ searchParams }) {
       },
     },
     include: {
-        company: true,
-      },
+      company: true,
+    },
   });
   if (!jobs) {
     return (
@@ -49,7 +49,9 @@ export default async function Page({ searchParams }) {
           No jobs found matching your filters.
         </div>
       )}
-      {/* <NextPage disabled={jobs.length < 10} /> */}
+      <Suspense fallback={<div>Loading...</div>}>
+        <JobsPageClient disabled={jobs.length < 10} />
+      </Suspense>
     </div>
   );
 }
