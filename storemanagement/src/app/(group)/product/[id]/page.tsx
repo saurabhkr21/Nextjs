@@ -119,7 +119,7 @@ export default function page() {
       </Box>
 
       <div className="mt-8 w-full flex h-auto">
-        <div className="w-full max-w-3xl h-120">
+        <div className="w-full max-w-3xl h-120 flex items-center justify-center">
           <ProductSaleChart data={chartData} />
         </div>
       </div>
