@@ -1,7 +1,7 @@
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function Get(req:NextRequest){
+export async function GET(req:NextRequest){
     // const res=await prismaClient.product.findMany();
     const url=req.url;
     const urlObj=new URL(url);

@@ -1,8 +1,9 @@
+//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { title } from "process";
 
-export async function Get(req) {
+export async function GET(req) {
   const res = await prismaClient.product.findMany();
   return NextResponse.json({
     success: true,
