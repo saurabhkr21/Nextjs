@@ -18,7 +18,7 @@ export default function UserContextProvider({
 
   useEffect(() => {
     async function getData() {
-      const res = await fetch("http://localhost:3000/api/current-user");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/current-user`);
       const data = await res.json();
       if (data.success) {
         setUserData(data.data);

@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react";
 import {
   Moon,
@@ -7,8 +8,6 @@ import {
   MapPin,
   DollarSign,
   Building,
-  Link,
-  User,
 } from "lucide-react";
 
 export default function AddJob() {
@@ -48,7 +47,7 @@ export default function AddJob() {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/api/job", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/job`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
@@ -83,14 +82,14 @@ export default function AddJob() {
     <div className={theme}>
       <div className="flex items-center gap-3">
         <button
-          className={`relative group overflow-hidden px-3 py-1.5 rounded-xl border-2 font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl ${
+          className={`relative group overflow-hidden rounded-xl  text-md transition-all duration-300 transform hover:scale-105 ${
             isDark ? "text-white border-gray-700 " : "border-gray-300"
           }`}
           onClick={() => setShowModal(true)}
         >
-          <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-          <div className="relative flex items-center gap-2">
-            <Briefcase size={16} />
+          <div className="absolute inset-0 bg-white opacity-0 hover:text-blue-600 transition-opacity duration-300"></div>
+          <div className="relative flex items-center gap-2 hover:text-blue-400">
+            {/* <Briefcase size={16} /> */}
             Add Job
           </div>
         </button>

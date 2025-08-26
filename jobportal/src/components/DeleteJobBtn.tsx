@@ -1,11 +1,10 @@
-// @ts-nocheck
 "use client";
 import { useUserContext } from "@/contexts/UserContextProvider";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function DeleteJobBtn({ job, jobId }) {
-  const {userData} = useUserContext();
+export default function DeleteJobBtn({ job, jobId }: { job: any; jobId: string }) {
+  const { userData } = useUserContext();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -13,13 +12,13 @@ export default function DeleteJobBtn({ job, jobId }) {
   async function handleDelete() {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/api/job/" + jobId, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/job/${jobId}`, {
         method: "DELETE",
       });
       const data = await res.json();
       alert(data.message);
       router.push("/jobs");
-    } catch (err) {
+    } catch (err: any) {
       alert("Error: " + err.message);
     } finally {
       setLoading(false);

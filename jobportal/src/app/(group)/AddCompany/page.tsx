@@ -80,22 +80,22 @@ const AddCompany = () => {
     );
   }
 
-  if (userData?.company) {
-    return (
-      <div className="max-w-md mx-auto mt-8 p-6 bg-white dark:bg-black rounded-lg shadow-md text-center">
-        <h2 className="text-2xl font-bold text-gray-200 dark:text-gray-800 mb-4">
-          You Already Own a Company
-        </h2>
-        <p className="text-gray-200 dark:text-gray-600 mb-6">
-          You cannot add another company. You can view your existing company
-          details.
-        </p>
-        <Link href="/company" className="text-blue-500 hover:underline">
-          View My Company
-        </Link>
-      </div>
-    );
-  }
+  // if (userData?.company) {
+  //   return (
+  //     <div className="max-w-md mx-auto mt-8 p-6 bg-white dark:bg-black rounded-lg shadow-md text-center">
+  //       <h2 className="text-2xl font-bold text-gray-200 dark:text-gray-800 mb-4">
+  //         You Already Own a Company
+  //       </h2>
+  //       <p className="text-gray-200 dark:text-gray-600 mb-6">
+  //         You cannot add another company. You can view your existing company
+  //         details.
+  //       </p>
+  //       <Link href="/company" className="text-blue-500 hover:underline">
+  //         View My Company
+  //       </Link>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white dark:bg-slate-800 text-slate-900 dark:text-gray-200 rounded-lg shadow-md">

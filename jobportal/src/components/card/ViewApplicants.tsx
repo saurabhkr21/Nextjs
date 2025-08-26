@@ -1,18 +1,15 @@
-//@ts-nocheck
 "use client";
 
 import { useUserContext } from "@/contexts/UserContextProvider";
 import { DeleteIcon, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
-import { application } from "../../generated/prisma";
-import { useRouter } from "next/navigation";
+import { Application, CompanyWithDetails, Job } from "@/lib/type";
 
-export default function ViewApplicants({ job }) {
+export default function ViewApplicants({ job }:{ job: CompanyWithDetails }) {
   const { userData } = useUserContext();
-  const [applicants, setApplicants] = useState<application[]>();
+  const [applicants, setApplicants] = useState<Application[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     async function getApplicants() {
@@ -52,7 +49,7 @@ export default function ViewApplicants({ job }) {
 
       {open && (
         <div
-          className="fixed inset-30 z-50 flex items-center justify-center bg-black bg-opacity-60 dark:bg-opacity-80"
+          className="fixed z-50 flex items-center bg-opacity-60 dark:bg-opacity-80"
           onClick={() => setOpen(false)}
         >
           <div
@@ -70,8 +67,8 @@ export default function ViewApplicants({ job }) {
                 <DeleteIcon />
               </button>
             </div>
-            
-              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
               List of top Applicants
             </p>
 

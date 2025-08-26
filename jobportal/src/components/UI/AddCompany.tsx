@@ -18,7 +18,7 @@ export default function AddCompany() {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/api/company", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/company`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
@@ -46,10 +46,10 @@ export default function AddCompany() {
   return (
     <>
       <button
-        className="bg-slate-100 hover:bg-gray-50 border border-gray-200 hover:border-gray-300 px-3 py-2 rounded-lg text-xs md:text-sm font-medium text-gray-700 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
+        className=" hover:bg-gray-50 border border-gray-200 hover:border-gray-300 px-3 py-2 rounded-lg text-xs md:text-sm font-medium text-gray-700 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
         onClick={() => setShowModal(true)}
       >
-        🏢 Add Company
+        Add Company
       </button>
 
       {showModal && (

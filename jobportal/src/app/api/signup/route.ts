@@ -1,72 +1,39 @@
 import { createToken } from "@/services/jwt";
 import prismaClient from "@/services/prisma";
-import bcrypt from "bcryptjs";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
+  const body = await req.json();
   try {
-    const body = await req.json();
-    const { email, password } = body;
-
-    if (!email || !password) {
-      return NextResponse.json(
-        { success: false, message: "Email and password are required" },
-        { status: 400 }
-      );
-    }
-
-    const existingUser = await prismaClient.user.findUnique({
-      where: { email },
-    });
-
-    if (existingUser) {
-      return NextResponse.json(
-        { success: false, message: "User with this email already exists" },
-        { status: 400 }
-      );
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     const user = await prismaClient.user.create({
-      data: {
-        email,
-        password: hashedPassword,
-      },
+      data: body,
     });
 
-    const userTokenData = {
-      id: user.id,
-    };
-    const token = createToken(userTokenData);
+    if (user) {
+      const userTokenData = {
+        id: user.id,
+      };
+      const token = createToken(userTokenData);
+      const userCookies = await cookies();
+      userCookies.set("userIdToken", token);
 
-    const res = NextResponse.json({
-      success: true,
-      message: "User created successfully",
-      data: {
-        user: {
-          id: user.id,
-          email: user.email,
-          role: user.role,
-        },
-        token,
-      },
-    });
-
-    res.cookies.set("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 3600,
-    });
-
-    return res;
-  } catch (err) {
-    console.error("Error creating user:", err);
+      return NextResponse.json({
+        success: true,
+        message: "user registered successfully",
+      });
+    } else {
+      return NextResponse.json({
+        success: false,
+        message: "Something went wrong",
+      });
+    }
+  } catch (err: any) {
+    console.error("error in cerating error : ", err.message);
     return NextResponse.json(
       {
         success: false,
-        message: "Error creating user",
+        message: "error creating user",
       },
       { status: 500 }
     );

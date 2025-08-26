@@ -1,4 +1,3 @@
-//@ts-nocheck
 import Detail from "@/components/Detail";
 import JobActionsClient from "@/components/JobActionsClient";
 import { getUserFromCookies } from "@/helper";
@@ -7,10 +6,12 @@ import { notFound } from "next/navigation";
 
 export default async function JobDetailPage({
   params,
+}: {
+  params: { id: string };
 }) {
   const user = await getUserFromCookies();
   const { id } = params;
-  const res = await fetch(`http://localhost:3000/api/job/` + id);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/job/` + id);
   console.log("Fetching job details for ID:", id);
   const data = await res.json();
   console.log("Job details data:", data);

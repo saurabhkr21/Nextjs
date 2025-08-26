@@ -1,5 +1,5 @@
 "use client";
-import ViewApplicants from "@/components/ViewApplicants";
+import ViewApplicants from "./card/ViewApplicants";
 import EditDeleteJob from "./Edit-DeleteJob";
 
 export default function JobActionsClient({
@@ -12,7 +12,7 @@ export default function JobActionsClient({
   return (
     <>
       <EditDeleteJob job={job} jobId={jobId} />
-      {/* <ViewApplicants job={job} /> */}
+      <ViewApplicants job={job} />
     </>
   );
 }

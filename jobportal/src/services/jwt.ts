@@ -1,19 +1,20 @@
-//@ts-nocheck
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
-export const createToken = (data) => {
-    //@ts-ignore
-    const token=jwt.sign(data, process.env.JWT_SECRET, {
-        expiresIn: '1h',
-    });
-    return token;
-}
-export const verifyToken=(token:string)=>{
-    try {
-        //@ts-ignore
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        return decoded;
-    } catch (err) {
-        return null;
-    }
-}
+type Data = {
+  id: string;
+};
+
+export const createToken = (data: Data) => {
+  const token = jwt.sign(data, process.env.JWT_SECRET as string);
+  return token;
+};
+
+
+export const verifyToken = (token: string) => {
+  try {
+    const data = jwt.verify(token, process.env.JWT_SECRET as string);
+    return data as Data;
+  } catch (err) {
+    return null;
+  }
+};

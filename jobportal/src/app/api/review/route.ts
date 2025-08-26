@@ -1,4 +1,3 @@
-
 import { getUserFromCookies } from "@/helper";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
@@ -6,7 +5,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const user = await getUserFromCookies();
-  console.log("User in review route:", user);
 
   const reviewToSave = {
     ...body,

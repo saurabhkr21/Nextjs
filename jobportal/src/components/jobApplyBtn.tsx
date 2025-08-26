@@ -1,10 +1,8 @@
 import React from 'react'
-import { Button } from '@radix-ui/themes';
 import {SendIcon} from 'lucide-react';
 
 export default function JobApplyBtn({job}:{job: {id: string}}) {
     async function handleApply() {
-        // Logic to handle job application
         try{
             const response = await fetch(`/api/job/apply/${job?.id}`, {
                 method: 'GET',

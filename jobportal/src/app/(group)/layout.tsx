@@ -1,13 +1,31 @@
-//@ts-nocheck
 "use client";
-import Header from "@/components/Header";
 
-import { createContext, useEffect, useState } from "react";
+import Header from "@/components/card/Header";
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
-export const UserContext = createContext();
+type User = {
+  name?: string;
+  email?: string;
+  role?: string;
+};
 
-export default function Layout({ children }) {
-  const [user, setUser] = useState(null);
+type UserContextType = {
+  user: User | null;
+  setUser: Dispatch<SetStateAction<User | null>>;
+};
+
+export const UserContext = createContext<UserContextType | undefined>(
+  undefined
+);
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     async function getUser() {

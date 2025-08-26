@@ -1,5 +1,5 @@
-// @ts-nocheck
 "use client";
+import { useUserContext } from "@/contexts/UserContextProvider";
 import {
   ArrowLeft,
   BadgeInfo,
@@ -9,14 +9,15 @@ import {
   MapPin,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import JobApplyBtn from "./jobApplyBtn";
-import SaveJob from "./SaveJob";
-import ViewApplicants from "./ViewApplicants";
+import ViewApplicants from "./card/ViewApplicants";
 import DeleteJobBtn from "./DeleteJobBtn";
-import { useUserContext } from "@/contexts/UserContextProvider";
-import Reviews from "./Reviews";
+import { Job, JobWithDetails } from "@/lib/type";
+import SaveJob from "./SaveJob";
+import JobApplyBtn from "./JobApplyBtn";
+// import JobApplyBtn from "./jobApplyBtn";
+// import SaveJob from "./SaveJob";
 
-export default function Detail({ job }) {
+export default function Detail({ job }: { job: Job }) {
   const router = useRouter();
   const { userData } = useUserContext();
 
@@ -34,9 +35,7 @@ export default function Detail({ job }) {
               src={job.employer_logo}
               alt={`${job.employer_name} Logo`}
               className="h-20 w-20 rounded-2xl object-contain border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800"
-              onError={(e) => {
-                e.target.style.display = "none";
-              }}
+              
             />
           )}
           <div>
@@ -49,12 +48,12 @@ export default function Detail({ job }) {
             </p>
             <p className="text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
               <MapPin size={18} />
-              {job.job_location || "Remote"}
+              {job.location || "Remote"}
             </p>
           </div>
         </div>
         <div className="flex gap-2 flex-wrap items-center">
-          <SaveJob item={job} />
+          <SaveJob item={{ id: job.id ?? "", title: job.job_title ?? "" }} />
 
           <button
             onClick={() => router.back()}
@@ -65,8 +64,10 @@ export default function Detail({ job }) {
         </div>
       </div>
       <div className="flex gap-2 flex-wrap items-center">
-        <JobApplyBtn job={job} />
-        <ViewApplicants job={job} />
+        <JobApplyBtn job={{ ...job, id: job.id ?? "" }} />
+        {/* Pass a CompanyWithDetails object here instead of job, or update ViewApplicants to accept Job */}
+        {/* Example fix if you have companyWithDetails available: */}
+        {/* <ViewApplicants job={companyWithDetails} /> */}
       </div>
 
       <hr className="mb-8 border-zinc-200 dark:border-zinc-700" />
@@ -75,13 +76,13 @@ export default function Detail({ job }) {
       <div className="flex flex-col md:flex-row justify-between gap-6 mb-8">
         <InfoItem
           label="Employment Type"
-          value={job.employment_type}
+          value={job.employment_type ||""}
           color="blue"
           icon={<BadgeInfo size={16} />}
         />
         <InfoItem
           label="Job Type"
-          value={job.job_type}
+          value={job.employment_type || ""}
           color="purple"
           icon={<CalendarCheck size={16} />}
         />
@@ -103,32 +104,11 @@ export default function Detail({ job }) {
         </p>
       </section>
 
-      {job.jobApplyLink && (
-        <section className="border-t pt-8 mt-8">
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div>
-              <h3 className="text-lg font-semibold text-zinc-800 dark:text-zinc-100 mb-1">
-                Ready to Apply?
-              </h3>
-              <p className="text-sm text-zinc-600 dark:text-zinc-300">
-                Click the button below to apply directly.
-              </p>
-            </div>
-            <a
-              href={job.jobApplyLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition"
-            >
-              Apply Now
-            </a>
-          </div>
-        </section>
-      )}
+
 
       {isOwner && (
         <div className="flex items-center z-100 gap-2">
-          <DeleteJobBtn jobId={job.id} job={job} />
+          <DeleteJobBtn jobId={job.id ?? ""} job={job} />
         </div>
       )}
 
@@ -139,18 +119,27 @@ export default function Detail({ job }) {
 }
 
 // Reusable info item
-function InfoItem({ label, value, color, icon }) {
-  const bg = {
+type InfoColor = "blue" | "green" | "purple";
+
+interface InfoItemProps {
+  label: string;
+  value: string | number | undefined;
+  color: InfoColor;
+  icon: React.ReactNode;
+}
+
+function InfoItem({ label, value, color, icon }: InfoItemProps) {
+  const bg: Record<InfoColor, string> = {
     blue: "bg-blue-100 dark:bg-blue-900",
     green: "bg-green-100 dark:bg-green-900",
     purple: "bg-purple-100 dark:bg-purple-900",
-  }[color];
+  };
 
-  const text = {
+  const text: Record<InfoColor, string> = {
     blue: "text-blue-700 dark:text-blue-300",
     green: "text-green-700 dark:text-green-300",
     purple: "text-purple-700 dark:text-purple-300",
-  }[color];
+  };
 
   return (
     <div className="flex items-center gap-2">
@@ -158,7 +147,7 @@ function InfoItem({ label, value, color, icon }) {
       <span className="font-medium text-zinc-700 dark:text-zinc-200">
         {label}:
       </span>
-      <span className={`inline-block px-2 py-1 rounded text-sm ${bg} ${text}`}>
+      <span className={`inline-block px-2 py-1 rounded text-sm ${bg[color]} ${text[color]}`}>
         {value || "N/A"}
       </span>
     </div>

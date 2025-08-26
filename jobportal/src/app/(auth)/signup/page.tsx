@@ -4,19 +4,26 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function SignupPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<{
+    name?: string;
     email?: string;
     password?: string;
+    confirmPassword?: string;
     message?: string;
   }>({});
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const errorObj: { email?: string; password?: string; message?: string } =
+    const errorObj: { name?: string; email?: string; password?: string; confirmPassword?: string; message?: string } =
       {};
+    if (!name) {
+      errorObj.name = "Name is required.";
+    }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       errorObj.email = "Please enter a valid email address.";
     }
@@ -24,7 +31,11 @@ export default function SignupPage() {
       errorObj.password = "Password should be at least 8 characters long";
     }
 
-    if (errorObj.email || errorObj.password) {
+    if (confirmPassword !== password) {
+      errorObj.confirmPassword = "Passwords do not match.";
+    }
+
+    if (errorObj.email || errorObj.password || errorObj.confirmPassword) {
       setError(errorObj);
       return;
     }
@@ -32,6 +43,7 @@ export default function SignupPage() {
     setError({});
 
     const user = {
+      name,
       email,
       password,
     };
@@ -69,6 +81,15 @@ export default function SignupPage() {
             Sign Up
           </h1>
           <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 transition bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            autoComplete="name"
+          />
+          {error.name && <p className="text-red-500 text-sm">{error.name}</p>}
+          <input
             type="email"
             placeholder="Enter your email"
             value={email}
@@ -87,6 +108,17 @@ export default function SignupPage() {
           />
           {error.password && (
             <p className="text-red-500 text-sm">{error.password}</p>
+          )}
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 transition bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            autoComplete="new-password"
+          />
+          {error.confirmPassword && (
+            <p className="text-red-500 text-sm">{error.confirmPassword}</p>
           )}
           <button
             type="submit"

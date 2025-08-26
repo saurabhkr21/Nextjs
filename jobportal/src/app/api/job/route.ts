@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import { getUserFromCookies } from "@/helper";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
@@ -6,10 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const user = await getUserFromCookies();
-    // const dataToSave={
-    //   ...body,
-    //   companyid: user?.company.id
-    // }
+    
     if (!user) {
       return NextResponse.json(
         { success: false, message: "Unauthorized" },
@@ -88,11 +85,11 @@ export async function GET(req: NextRequest) {
   const urlObj = new URL(url);
   const query = urlObj.searchParams.get("q") || "";
   const jobType = urlObj.searchParams.get("type") || "";
-  const minSalary = urlObj.searchParams.get("ms")
-    ? parseFloat(urlObj.searchParams.get("ms"))
+  const minSalary = urlObj.searchParams.get("ms") !== null
+    ? parseFloat(urlObj.searchParams.get("ms") || "0")
     : undefined;
-  const maxSalary = urlObj.searchParams.get("max")
-    ? parseFloat(urlObj.searchParams.get("max"))
+  const maxSalary = urlObj.searchParams.get("max") !== null
+    ? parseFloat(urlObj.searchParams.get("max") || "0")
     : undefined;
 
   const where: any = {

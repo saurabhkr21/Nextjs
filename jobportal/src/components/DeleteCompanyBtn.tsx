@@ -15,7 +15,7 @@ export default function DeleteCompanyBtn({
   const router = useRouter();
 
   async function handleDelete() {
-    const res = await fetch("http://localhost:3000/api/company/" + id, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/company/${id}`, {
       method: "DELETE",
     });
     const data = await res.json();

@@ -1,6 +1,7 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import SearchBarInput from "../SearchBarInput";
 
 export default function SideBarSort() {
   const router = useRouter();
@@ -32,24 +33,25 @@ export default function SideBarSort() {
 
   return (
     <aside className="w-full bg-gray-50 dark:bg-gray-900 rounded-xl p-10 shadow-2xl flex flex-col gap-4 border border-gray-200 dark:border-gray-700">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-        <h2 className="text-3xl font-extrabold text-blue-500 dark:text-blue-400 mb-2 tracking-tight flex items-center gap-2">
-          <svg
-            className="w-7 h-7 text-blue-400 dark:text-blue-300"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 7h18M3 12h18M3 17h18"
-            />
-          </svg>
-          Filter Jobs
-        </h2>
+      <h2 className="text-3xl font-extrabold text-blue-500 dark:text-blue-400 mb-2 tracking-tight flex items-center gap-2">
+        <svg
+          className="w-7 h-7 text-blue-400 dark:text-blue-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M3 7h18M3 12h18M3 17h18"
+          />
+        </svg>
+        Filter Jobs
+      </h2>
+      <SearchBarInput />
 
+      <form onSubmit={handleSubmit} className="flex flex-col gap-8">
         {/* Salary Range */}
         <div className="flex flex-col gap-4">
           <div>

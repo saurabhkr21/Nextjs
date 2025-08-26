@@ -14,19 +14,23 @@ export async function GET(req: NextRequest) {
 
   const suggest = await prismaClient.job.findMany({
     where: {
-      title: {
+      job_title: {
         contains: q,
         mode: "insensitive",
       },
     },
     select: {
       id: true,
-      title: true,
+      job_title: true,
     },
-    take:10,
+    take: 10,
   });
+  const suggestions = suggest.map((item) => ({
+    id: item.id,
+    title: item.job_title,
+  }));
   return NextResponse.json({
-    success:true,
-    suggestion:suggest
-  })
+    success: true,
+    suggestion: suggestions,
+  });
 }

@@ -1,4 +1,3 @@
-// app/api/user/route.ts
 import { verifyToken } from "@/services/jwt";
 import prismaClient from "@/services/prisma";
 import { cookies } from "next/headers";
@@ -11,7 +10,14 @@ export async function GET() {
     if (!token) return NextResponse.json({ user: null });
     const data = verifyToken(token) as { id?: string } | null;
     if (!data || !data.id) return NextResponse.json({ user: null });
-    const user = await prismaClient.user.findUnique({ where: { id: data.id } });
+    const user = await prismaClient.user.findUnique({
+      where: {
+        id: data.id,
+      },
+      include: {
+        company: true,
+      },
+    });
     return NextResponse.json({ user });
   } catch (error) {
     console.error("Prisma error:", error);

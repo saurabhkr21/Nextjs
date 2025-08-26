@@ -1,13 +1,11 @@
-//@ts-nocheck
 "use client";
 import { Button, Dialog, Flex, Text, TextField } from "@radix-ui/themes";
-import { use, useState } from "react";
-import { AddJob } from "../../../generated/prisma";
-import { useUserContext } from "@/contexts/UserContextProvider";
+import {  useState } from "react";
 import { Edit } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { EditJob } from "@/lib/type";
 
-export default function EditJobBtn({ job }) {
+export default function EditJobBtn({ job }: { job: EditJob }) {
   const [job_title, setTitle] = useState<string>(job.job_title);
   const [job_type, setJobType] = useState<string>(job.job_type);
   const [job_description, setDescription] = useState<string>(
@@ -23,7 +21,7 @@ export default function EditJobBtn({ job }) {
   const router = useRouter();
   async function handleEditJob() {
     const parsedSalary = parseFloat(job_salary) || 0;
-    const jobData: EditJob = {
+    const jobData = {
       job_title,
       job_type,
       job_description,
@@ -33,13 +31,13 @@ export default function EditJobBtn({ job }) {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/api/job/" + job.id, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/job/${job.id}`, {
         method: "POST",
         body: JSON.stringify(jobData),
       });
       const data = await res.json();
       alert(data.message);
-    } catch (err) {
+    } catch (err: any) {
       alert(err.message);
     }
 
@@ -82,7 +80,7 @@ export default function EditJobBtn({ job }) {
               placeholder="Enter job description"
             />
           </label>
-          {/* <label>
+          <label>
             <Text as="div" size="2" mb="1" weight="bold">
               Job Type
             </Text>
@@ -98,7 +96,7 @@ export default function EditJobBtn({ job }) {
               <option value="On site">On-site</option>
               <option value="Remote">Remote</option>
             </select>
-          </label> */}
+          </label>
 
           <label>
             <Text as="div" size="2" mb="1" weight="bold">

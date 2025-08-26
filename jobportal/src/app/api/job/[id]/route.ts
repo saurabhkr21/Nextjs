@@ -1,11 +1,10 @@
-//@ts-nocheck
 import data from "@/components/JobFetcher";
 import { getUserFromCookies } from "@/helper";
 import prismaClient from "@/services/prisma";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   const id = params.id;
   console.log("Fetching job details show for ID in routes:", id);
   try {
@@ -38,7 +37,7 @@ export async function GET(req: NextRequest, { params }) {
 
 export async function DELETE(
   req: NextRequest,
-  { params }
+  { params }: { params: { id: string } }
 ) {
   try {
     const jobId = params.id;
@@ -62,7 +61,7 @@ export async function DELETE(
 
 export async function POST(
   req: NextRequest,
-  { params }
+  { params }: { params: { id: string } }
 ) {
   const jobId = params.id;
   const body = await req.json();

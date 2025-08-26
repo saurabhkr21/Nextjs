@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -29,9 +28,7 @@ export default function Page() {
       setError(errorObj);
       return;
     }
-
     setError({});
-
     try {
       const res = await fetch("/api/login", {
         method: "POST",
@@ -45,9 +42,8 @@ export default function Page() {
       });
       const data = await res.json();
       if (data.success) {
-        document.cookie = `token=${data.data.token}; path=/; max-age=3600`;
+        alert("Login successful!");
         router.push("/");
-        router.refresh();
       } else {
         setError({ message: data.message });
       }

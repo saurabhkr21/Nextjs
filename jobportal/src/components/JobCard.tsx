@@ -1,13 +1,12 @@
-// @ts-nocheck
 "use client";
+import { Job } from "@/lib/type";
+import { InfoIcon } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import SaveJob from "./SaveJob";
-import DeleteJobBtn from "./DeleteJobBtn";
-import { InfoIcon } from "lucide-react";
-import Link from "next/link";
 
-export default function JobCard({ item }) {
+export default function JobCard({ item }: { item: Job }) {
   const router = useRouter();
   const [isNavigating, setIsNavigating] = useState(false);
 
@@ -38,11 +37,10 @@ export default function JobCard({ item }) {
       {item.employer_logo ? (
         <img
           src={item.employer_logo}
-          alt={`${item.title || "Company"} logo`}
+          alt={`${item.job_title || "Company"} logo`}
           width={40}
           height={40}
           className="h-12 w-12 rounded-xl object-contain"
-          onError={(e) => (e.target.style.display = "none")}
         />
       ) : (
         <div className="h-12 w-12 rounded-xl flex items-center justify-center text-xs text-gray-600 dark:text-gray-200">
@@ -56,7 +54,7 @@ export default function JobCard({ item }) {
         <div className="flex justify-between items-start">
           <h2
             className="text-lg font-semibold truncate text-black dark:text-white"
-            title={item.job_title}
+            title={item.job_title ?? undefined}
           >
             {item.job_title || "Untitled Job"}
           </h2>
@@ -104,7 +102,13 @@ export default function JobCard({ item }) {
             >
               {isNavigating ? "Loading..." : <InfoIcon size={14} />}
             </button>
-            <SaveJob key={item.id} item={item} />
+            <SaveJob
+              key={item.id ?? "unknown"}
+              item={{
+                id: item.id ?? "unknown",
+                title: item.job_title ?? undefined,
+              }}
+            />
           </div>
           <Link
             href={"/company/" + item.company.id}

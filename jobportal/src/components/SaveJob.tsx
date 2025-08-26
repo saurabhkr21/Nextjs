@@ -1,16 +1,19 @@
-//@ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { useJobContext } from "../context";
-import { title } from "process";
 import { BookCheck, Bookmark, Loader } from "lucide-react";
+type SaveJobProps = {
+  item: {
+    id: string;
+    title?: string;
+  };
+};
 
-export default function SaveJob({ item }) {
+export default function SaveJob({ item }: SaveJobProps) {
   const { savedJobs, saveJob, removeJob, isLoading } = useJobContext();
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // Check if job is already saved
   const isSaved = savedJobs.some((job) => job.id === item?.id);
 
   async function handleClick() {
