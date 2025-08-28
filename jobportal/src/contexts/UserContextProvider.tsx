@@ -1,13 +1,19 @@
 "use client";
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { company, user } from "../../generated/prisma";
 
-type UwC = user  & {company : company | null}
+type UwC = user & { company: company | null };
 
 const userContext = createContext<{
-  userData? : UwC | null,
-  setUserData? : (value : UwC)=>void
-}>({ });
+  userData?: UwC | null;
+  setUserData?: (value: UwC) => void;
+}>({});
 
 export default function UserContextProvider({
   children,
@@ -18,7 +24,7 @@ export default function UserContextProvider({
 
   useEffect(() => {
     async function getData() {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/current-user`);
+      const res = await fetch(`http://localhost:3000/api/current-user`);
       const data = await res.json();
       if (data.success) {
         setUserData(data.data);
@@ -30,7 +36,9 @@ export default function UserContextProvider({
   }, []);
 
   return (
-    <userContext.Provider value={{ userData , setUserData }}>{children}</userContext.Provider>
+    <userContext.Provider value={{ userData, setUserData }}>
+      {children}
+    </userContext.Provider>
   );
 }
 

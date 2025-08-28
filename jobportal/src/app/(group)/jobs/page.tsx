@@ -15,7 +15,7 @@ interface SearchParams {
 export default async function Page({ searchParams }: { searchParams?: SearchParams }) {
   const query = searchParams?.query?.toLowerCase() || "";
   const ms = parseInt(searchParams?.ms || "0");
-  const max = parseInt(searchParams?.max || "100000");
+  const max = parseInt(searchParams?.max || "10000000");
   const jobType = searchParams?.type?.toLowerCase() || "";
   const page = parseInt(searchParams?.page || "1");
 
@@ -38,6 +38,7 @@ export default async function Page({ searchParams }: { searchParams?: SearchPara
       company: true,
     },
   });
+  console.log("jobs in jobs main:", jobs);
   if (!jobs) {
     return (
       <div className="text-center text-gray-500">

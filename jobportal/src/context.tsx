@@ -1,9 +1,10 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { Job } from "./lib/type";
 
 type JobContextType = {
-  savedJobs: any[];
-  saveJob: (job: any) => boolean;
+  savedJobs: Job[];
+  saveJob: (job: Job) => boolean;
   removeJob: (id: string) => boolean;
   clearAllSavedJobs: () => void;
   isLoading: boolean;
@@ -12,7 +13,7 @@ type JobContextType = {
 const JobContext = createContext<JobContextType | undefined>(undefined);
 
 export function JobProvider({ children }: { children: React.ReactNode }) {
-  const [savedJobs, setSavedJobs] = useState<any[]>([]);
+  const [savedJobs, setSavedJobs] = useState<Job[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

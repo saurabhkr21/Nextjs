@@ -1,9 +1,9 @@
 "use client";
-import { CompanyWithDetails, ReviewWithDetails } from "@/lib/type";
+import { ReviewWithDetails } from "@/lib/type";
 import { Tabs, TextArea } from "@radix-ui/themes";
 import { SendIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { company, Review } from "../../../generated/prisma";
+import { company } from "../../../generated/prisma";
 
 export default function Reviews({
   company,
@@ -13,14 +13,16 @@ export default function Reviews({
   reviews: ReviewWithDetails[];
 }) {
   const [content, setContent] = useState("");
-  const [reviewsList, setReviewsList] = useState<ReviewWithDetails[]>(reviews || []);
+  const [reviewsList, setReviewsList] = useState<ReviewWithDetails[]>(
+    reviews || []
+  );
   const [isPosting, setIsPosting] = useState(false);
 
   useEffect(() => {
     async function fetchReviews() {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/review/${company.id}`
+          `http://localhost:3000/api/review/${company.id}`
         );
         const data = await res.json();
         if (data.success && Array.isArray(data.data)) {
@@ -41,7 +43,7 @@ export default function Reviews({
       company_id: company.id,
     };
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/review`, {
+      const res = await fetch(`http://localhost:3000/api/review`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(review),
@@ -85,9 +87,7 @@ export default function Reviews({
       <div className="flex flex-col gap-2 m-3">
         {(Array.isArray(reviewsList) ? reviewsList : []).map((review, idx) => (
           <div key={review.id || idx} className="shadow-md pb-2">
-            <p className="font-semibold text-slate-500 ">
-              {review.user?.name}
-            </p>
+            <p className="font-semibold text-slate-500 ">{review.user?.name}</p>
             <p>{review.content}</p>
           </div>
         ))}

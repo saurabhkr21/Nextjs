@@ -13,7 +13,6 @@ export default function DialogCard() {
   };
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  console.log("User data:", user);
 
   useEffect(() => {
     async function fetchUser() {

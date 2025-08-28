@@ -56,6 +56,13 @@ export type JobWithDetails = {
   company: CompanyWithDetails;
 };
 
+export type JJobWithCompanyId = Job & {
+  company:{
+    id: string;
+    name: string;
+  }
+};
+
 export type Job = {
   id: string | null;
   job_title: string | null;

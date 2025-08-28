@@ -11,7 +11,7 @@ export default async function JobDetailPage({
 }) {
   const user = await getUserFromCookies();
   const { id } = params;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/job/` + id);
+  const res = await fetch(`http://localhost:3000/api/job/` + id);
   console.log("Fetching job details for ID:", id);
   const data = await res.json();
   console.log("Job details data:", data);

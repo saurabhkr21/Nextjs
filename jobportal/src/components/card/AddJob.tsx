@@ -1,14 +1,6 @@
-"use client"
+"use client";
+import { Briefcase, Building, DollarSign, MapPin, X } from "lucide-react";
 import { useState } from "react";
-import {
-  Moon,
-  Sun,
-  X,
-  Briefcase,
-  MapPin,
-  DollarSign,
-  Building,
-} from "lucide-react";
 
 export default function AddJob() {
   const [isDark, setIsDark] = useState(false);
@@ -47,7 +39,7 @@ export default function AddJob() {
     };
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/job`, {
+      const res = await fetch(`http://localhost:3000/api/job`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
@@ -316,8 +308,6 @@ export default function AddJob() {
                     }`}
                   />
                 </div>
-
-                
               </div>
 
               <div

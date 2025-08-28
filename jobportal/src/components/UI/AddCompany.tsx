@@ -18,14 +18,14 @@ export default function AddCompany() {
     };
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/company`, {
+      const res = await fetch(`http://localhost:3000/api/company`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
       });
-      
+
       const result = await res.json();
-      
+
       if (result.success) {
         alert("Company added successfully!");
         setShowModal(false);
@@ -66,7 +66,9 @@ export default function AddCompany() {
             <p className="mb-4 text-gray-600">Add your company details.</p>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block font-semibold mb-1">Company Name *</label>
+                <label className="block font-semibold mb-1">
+                  Company Name *
+                </label>
                 <input
                   type="text"
                   value={companyName}
@@ -77,7 +79,9 @@ export default function AddCompany() {
                 />
               </div>
               <div>
-                <label className="block font-semibold mb-1">Description *</label>
+                <label className="block font-semibold mb-1">
+                  Description *
+                </label>
                 <textarea
                   value={companyDescription}
                   onChange={(e) => setCompanyDescription(e.target.value)}
@@ -88,7 +92,9 @@ export default function AddCompany() {
                 />
               </div>
               <div>
-                <label className="block font-semibold mb-1">Company Logo URL</label>
+                <label className="block font-semibold mb-1">
+                  Company Logo URL
+                </label>
                 <input
                   type="url"
                   value={companyImageUrl}

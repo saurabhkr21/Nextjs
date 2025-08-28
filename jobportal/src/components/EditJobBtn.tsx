@@ -1,9 +1,9 @@
 "use client";
+import { EditJob } from "@/lib/type";
 import { Button, Dialog, Flex, Text, TextField } from "@radix-ui/themes";
-import {  useState } from "react";
 import { Edit } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { EditJob } from "@/lib/type";
+import { useState } from "react";
 
 export default function EditJobBtn({ job }: { job: EditJob }) {
   const [job_title, setTitle] = useState<string>(job.job_title);
@@ -31,7 +31,7 @@ export default function EditJobBtn({ job }: { job: EditJob }) {
     };
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/job/${job.id}`, {
+      const res = await fetch(`http://localhost:3000/api/job/${job.id}`, {
         method: "POST",
         body: JSON.stringify(jobData),
       });
@@ -42,7 +42,6 @@ export default function EditJobBtn({ job }: { job: EditJob }) {
     }
 
     router.refresh();
-
   }
 
   return (

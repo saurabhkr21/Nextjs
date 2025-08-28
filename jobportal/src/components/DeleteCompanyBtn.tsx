@@ -1,8 +1,8 @@
 "use client";
+import { useUserContext } from "@/contexts/UserContextProvider";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { company } from "../../generated/prisma";
-import { useUserContext } from "@/contexts/UserContextProvider";
 
 export default function DeleteCompanyBtn({
   id,
@@ -15,7 +15,7 @@ export default function DeleteCompanyBtn({
   const router = useRouter();
 
   async function handleDelete() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/company/${id}`, {
+    const res = await fetch(`http://localhost:3000/api/company/${id}`, {
       method: "DELETE",
     });
     const data = await res.json();

@@ -10,7 +10,7 @@ export default async function page({ params }: { params: { id: string } }) {
   if (!id) {
     notFound();
   }
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/company/${id}`);
+  const res = await fetch(`http://localhost:3000/api/company/${id}`);
   const data = await res.json();
   const company = data.data;
   if (!company) {
