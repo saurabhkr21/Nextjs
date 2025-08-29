@@ -1,12 +1,14 @@
 "use client";
 import { Avatar, Box, DropdownMenu, Flex, Text } from "@radix-ui/themes";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+
 export default function DialogCard() {
   type User = {
     name?: string;
     email?: string;
     role?: string;
-    company:{
+    company: {
       id: string;
       name: string;
     };
@@ -88,38 +90,53 @@ export default function DialogCard() {
         >
           Profile
         </DropdownMenu.Item>
-        {
-          user?.company && (
-            <DropdownMenu.Item
-              className="px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer"
-              onClick={() => {
-                window.location.href = `/company/${user.company.id}`;
-              }}
-            >
-              {user.company.name}
+        <div className="border-b border-gray-200 dark:border-slate-700 my-1" />
+        <div className="flex flex-col sm:hidden">
+          <Link href="/add-job">
+            <DropdownMenu.Item className="px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer">
+              Add Job
             </DropdownMenu.Item>
-          )
-        }
-        {
-          !user?.company && (
-            <DropdownMenu.Item
-              className="px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer"
-              onClick={() => {
-                window.location.href = "/AddCompany";
-              }}
-            >
-              Add Company
-            </DropdownMenu.Item>
-          )
-        }
-        <DropdownMenu.Item
-          className="px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer"
-          onClick={() => {
-            window.location.href = "/company";
-          }}
-        >
-          Company
-        </DropdownMenu.Item>
+          </Link>
+          <DropdownMenu.Item
+            className="px-3 hidden py-2 rounded hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer"
+            onClick={() => {
+              window.location.href = "/saved";
+            }}
+          >
+            Saved Jobs
+          </DropdownMenu.Item>
+          <div className="border-b border-gray-200 dark:border-slate-700 my-1" />
+          <DropdownMenu.Item
+            className="px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer"
+            onClick={() => {
+              window.location.href = "/company";
+            }}
+          >
+            Company
+          </DropdownMenu.Item>
+          <div className="border-b border-gray-200 dark:border-slate-700 my-1" />
+        </div>
+        {user?.company && (
+          <DropdownMenu.Item
+            className="px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer"
+            onClick={() => {
+              window.location.href = `/company/${user.company.id}`;
+            }}
+          >
+            {user.company.name}
+          </DropdownMenu.Item>
+        )}
+        {!user?.company && (
+          <DropdownMenu.Item
+            className="px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer"
+            onClick={() => {
+              window.location.href = "/AddCompany";
+            }}
+          >
+            Add Company
+          </DropdownMenu.Item>
+        )}
+        <div className="border-b border-gray-200 dark:border-slate-700 my-1" />
         <DropdownMenu.Item
           onClick={handleLogOut}
           className="px-3 py-2 rounded hover:bg-red-100 dark:hover:bg-red-900 text-red-600 dark:text-red-400 hover:text-white cursor-pointer"

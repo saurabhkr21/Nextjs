@@ -1,10 +1,10 @@
 "use client";
+import UserContextProvider from "@/contexts/UserContextProvider";
 import { Theme } from "@radix-ui/themes";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
 import { JobProvider } from "../context";
 import "./globals.css";
-import UserContextProvider from "@/contexts/UserContextProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,13 +26,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-
-        <ThemeProvider attribute="class" defaultTheme="light" >
-        <UserContextProvider>
-          <JobProvider>
-            <Theme>{children}</Theme>
-          </JobProvider>
-        </UserContextProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <UserContextProvider>
+            <JobProvider>
+              <Theme>{children}</Theme>
+            </JobProvider>
+          </UserContextProvider>
         </ThemeProvider>
       </body>
     </html>

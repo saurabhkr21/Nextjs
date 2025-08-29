@@ -36,7 +36,6 @@ export default function ViewCompanyDetail({
         </div>
         <div className="flex gap-2 flex-wrap items-center">
           <ViewApplicants job={company} />
-          <SaveJob item={company} />
           <button
             onClick={() => router.back()}
             className="flex items-center gap-1 text-sm bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-100 px-4 py-2 rounded hover:bg-zinc-300 dark:hover:bg-zinc-600 transition"

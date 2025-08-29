@@ -56,8 +56,8 @@ export default function Page() {
     <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-100 dark:bg-gray-900">
       <div className="flex items-center justify-center mb-10 text-4xl font-bold italic text-blue-600 dark:text-blue-400">
         <h1>
-          Welcome to <b className="text-amber-700 dark:text-amber-500">Job</b>{" "}
-          Portal
+          Welcome to <b className="text-amber-700 dark:text-amber-500">Next</b>{" "}
+          Hire
         </h1>
       </div>
       <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 w-full max-w-md">
