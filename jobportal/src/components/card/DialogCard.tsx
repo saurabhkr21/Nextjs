@@ -91,6 +91,15 @@ export default function DialogCard() {
           Profile
         </DropdownMenu.Item>
         <div className="border-b border-gray-200 dark:border-slate-700 my-1" />
+        <DropdownMenu.Item
+            className="px-3 hidden py-2 rounded hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer"
+            onClick={() => {
+              window.location.href = "/applied-jobs";
+            }}
+          >
+            Applied Jobs
+          </DropdownMenu.Item>
+        <div className="border-b border-gray-200 dark:border-slate-700 my-1" />
         <div className="flex flex-col sm:hidden">
           <Link href="/add-job">
             <DropdownMenu.Item className="px-3 py-2 rounded hover:bg-blue-50 dark:hover:bg-slate-700 cursor-pointer">

@@ -13,7 +13,6 @@ export default function Footer({ siteName = "Blog Exploring", author = {
 } }) {
   const currentYear = new Date().getFullYear();
 
-  // Simple, client-side newsletter handler placeholder
   function handleNewsletterSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;

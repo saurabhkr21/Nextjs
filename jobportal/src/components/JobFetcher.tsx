@@ -1,4 +1,3 @@
-// //@ts-nocheck
 // export default async function data() {
 //   const url = `https://jsearch.p.rapidapi.com/search?query=developer%20jobs%20in%20chicago&page=1&num_pages=1&country=us&date_posted=all`;
 //     const options = {
@@ -10,7 +9,6 @@
 //     };
   
 //     const response = await fetch(url, options);
-//     let result = await response.text();
-//     result = JSON.parse(result);
+//     const result = await response.json();
 //     const data = result.data;
 // }

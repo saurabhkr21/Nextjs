@@ -1,7 +1,7 @@
 "use client";
 import gqlClient from "@/services/gql";
 import { gql } from "graphql-request";
-import { LockIcon, MailIcon, UserIcon } from "lucide-react"; // Add icons
+import { LockIcon, MailIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -21,12 +21,12 @@ export default function page() {
     password?: string;
     message?: string;
   }>({});
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true); // Start loading
+    setLoading(true);
     const errorObj: {
       name?: string;
       email?: string;

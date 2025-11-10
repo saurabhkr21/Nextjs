@@ -20,7 +20,7 @@ const GET_BLOG = gql`
   }
 `;
 
-export default async function Page({params}: { params: { id: string } }) {
+export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
   const data: { blog: blog } = await gqlClient.request(GET_BLOG, {
     blogId: id,

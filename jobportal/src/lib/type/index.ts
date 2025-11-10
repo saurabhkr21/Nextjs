@@ -97,3 +97,5 @@ export type EditJob = {
     image_url?: string ;
   };
 };
+
+export type setFnType = (value : boolean) => void;

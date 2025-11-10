@@ -1,5 +1,6 @@
 "use server";
 import prismaClient from "@/services/prisma";
+import { Products } from "../../generated/prisma";
 export async function addProductToDb(productData: any) {
   try {
     console.log("Attempting to create product with data:", productData);

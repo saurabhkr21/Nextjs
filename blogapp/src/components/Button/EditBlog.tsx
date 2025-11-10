@@ -72,7 +72,7 @@ export default function EditBlog({
         setImageUrl("");
         dialogRef.current?.close();
         router.refresh();
-        if (onAdd) onAdd(); // Close parent dialog
+        if (onAdd) onAdd();
       } else {
         setMessage("Something went wrong.");
       }

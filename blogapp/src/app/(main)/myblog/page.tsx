@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import EditBlog from "@/components/Button/EditBlog";
 import gqlClient from "@/services/gql";
@@ -27,7 +26,7 @@ export default function MyBlogPage() {
   useEffect(() => {
     async function getCurrentUserBlogs() {
       try {
-        const data = await gqlClient.request(CURRENT_USER_BLOG);
+        const data: { currentUserBlogs: blog[] } = await gqlClient.request(CURRENT_USER_BLOG);
         if (data && data.currentUserBlogs) {
           setUserBlog(data.currentUserBlogs);
         }

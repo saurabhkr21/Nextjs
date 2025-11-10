@@ -49,7 +49,7 @@ export default function ViewApplicants({ job }:{ job: CompanyWithDetails }) {
 
       {open && (
         <div
-          className="fixed z-50 flex items-center bg-opacity-60 dark:bg-opacity-80"
+          className="fixed top-10 z-50 flex items-center bg-opacity-60 dark:bg-opacity-80"
           onClick={() => setOpen(false)}
         >
           <div

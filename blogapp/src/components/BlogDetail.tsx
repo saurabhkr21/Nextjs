@@ -35,7 +35,7 @@ export default function BlogDetail({ blog }:{ blog: blog }) {
     const confirmed = confirm("Are you sure you want to delete this blog?");
     if (confirmed) {
       try {
-        const data = await gqlClient.request(DELETE_BLOG, {
+        const data: { deleteBlog: boolean } = await gqlClient.request(DELETE_BLOG, {
           deleteBlogId: blog.id,
         });
         if (data.deleteBlog) {
@@ -54,7 +54,6 @@ export default function BlogDetail({ blog }:{ blog: blog }) {
     window.history.back();
   }
 
-  // Calculate reading progress
   useEffect(() => {
     const handleScroll = () => {
       const totalHeight =
@@ -67,7 +66,7 @@ export default function BlogDetail({ blog }:{ blog: blog }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string) => {
     const date = new Date(dateString);
 
     return {
@@ -97,13 +96,11 @@ export default function BlogDetail({ blog }:{ blog: blog }) {
         console.log("Error sharing:", err);
       }
     } else {
-      // Fallback: copy to clipboard
       navigator.clipboard.writeText(window.location.href);
-      // You could show a toast notification here
     }
   };
 
-  const dateInfo = formatDate(Number(blog.createdAt));
+  const dateInfo = formatDate(Number(blog?.createdAt));
 
   return (
     <div
