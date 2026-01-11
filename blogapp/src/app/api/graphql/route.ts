@@ -9,6 +9,8 @@ import { currentUser, loginUser, signUpUser } from "./resolvers/user";
 import typeDefs from "./typeDefs";
 import { blog } from "../../../../generated/prisma";
 
+export const dynamic = "force-dynamic";
+
 
 const resolvers = {
 
