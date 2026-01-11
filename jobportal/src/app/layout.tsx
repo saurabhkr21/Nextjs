@@ -1,4 +1,5 @@
 "use client";
+import Chatbot from "@/components/Chatbot"; // Import the chatbot
 import UserContextProvider from "@/contexts/UserContextProvider";
 import { Theme } from "@radix-ui/themes";
 import { ThemeProvider } from "next-themes";
@@ -29,7 +30,10 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <UserContextProvider>
             <JobProvider>
-              <Theme>{children}</Theme>
+              <Theme>
+                {children}
+                <Chatbot />
+              </Theme>
             </JobProvider>
           </UserContextProvider>
         </ThemeProvider>

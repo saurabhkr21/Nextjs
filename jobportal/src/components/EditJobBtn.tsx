@@ -31,7 +31,7 @@ export default function EditJobBtn({ job }: { job: EditJob }) {
     };
 
     try {
-      const res = await fetch(`http://localhost:3000/api/job/${job.id}`, {
+      const res = await fetch(`/api/job/${job.id}`, {
         method: "POST",
         body: JSON.stringify(jobData),
       });

@@ -41,7 +41,6 @@ export type ReviewWithDetails = {
   user: {
     id: string;
     name: string;
-    email: string;
   };
   company: CompanyWithDetails;
   content: string;
@@ -57,10 +56,10 @@ export type JobWithDetails = {
 };
 
 export type JJobWithCompanyId = Job & {
-  company:{
+  company: {
     id: string;
     name: string;
-  }
+  };
 };
 
 export type Job = {
@@ -83,9 +82,9 @@ export type Job = {
 
 export type EditJob = {
   id: string;
-  job_title: string ;
-  job_type: string ;
-  job_description: string ;
+  job_title: string;
+  job_type: string;
+  job_description: string;
   job_salary: number | string;
   employment_type: string;
   job_location: string;
@@ -93,9 +92,9 @@ export type EditJob = {
   employer_logo: string;
   company?: {
     id?: string;
-    name?: string ;
-    image_url?: string ;
+    name?: string;
+    image_url?: string;
   };
 };
 
-export type setFnType = (value : boolean) => void;
+export type setFnType = (value: boolean) => void;

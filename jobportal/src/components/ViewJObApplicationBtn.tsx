@@ -21,7 +21,7 @@ export default function ViewJobApplicationBtn({
   useEffect(() => {
     async function getApplications() {
       setLoading(true);
-      const res = await fetch(`http://localhost:3000/api/applicants/${job.id}`);
+      const res = await fetch(`/api/applicants/${job.id}`);
       const data = await res.json();
       if (data?.success) {
         setApplicants(data?.data);

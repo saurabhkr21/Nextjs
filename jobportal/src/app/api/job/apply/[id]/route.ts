@@ -2,7 +2,7 @@ import { getUserFromCookies } from "@/helper";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
+export async function POST(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
@@ -34,7 +34,7 @@ export async function GET(
   } catch (err: any) {
     console.log(err.message);
     return NextResponse.json({
-      success: true,
+      success: false,
       data: {
         message: "failed to create Application",
       },

@@ -17,13 +17,12 @@ export default async function page() {
         </p>
         <p className="p-2">
           <Link
-          href="/login"
-          className="px-4 py-2 mt-10 bg-blue-600 text-white rounded-md"
-        >
-          Log in
-        </Link>
+            href="/login"
+            className="px-4 py-2 mt-10 bg-blue-600 text-white rounded-md"
+          >
+            Log in
+          </Link>
         </p>
-        
       </div>
     );
   }
@@ -51,24 +50,6 @@ export default async function page() {
       </div>
     );
   }
-  const handleDelete = async () => {
-    try {
-      const res = await fetch("/api/applications/delete", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: user.id }),
-      });
-      if (res.ok) {
-        window.location.reload();
-      } else {
-        console.error("Failed to delete applications");
-      }
-    } catch (error) {
-      console.error("Error deleting applications:", error);
-    }
-  };
   return (
     <div className="p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
       <div className="flex flex-col gap-1">

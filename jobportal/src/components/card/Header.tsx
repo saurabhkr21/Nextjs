@@ -1,23 +1,14 @@
 "use client";
 
 import { Briefcase } from "lucide-react";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import SearchBarInput from "../SearchBarInput";
 import ThemeToggle from "../UI/ThemeToggle";
 import DialogCard from "./DialogCard";
 
 export default function Header() {
-  const { theme } = useTheme();
-  const bgColor =
-    theme === "dark"
-      ? "bg-gray-800"
-      : theme === "light"
-      ? "bg-white"
-      : "bg-white"; // fallback for system
-
   return (
-    <header className={`shadow-sm sticky top-0 z-50 ${bgColor}`}>
+    <header className={`shadow-sm sticky top-0 z-50 bg-white dark:bg-gray-800`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className=" items-center space-x-2 hidden md:flex">

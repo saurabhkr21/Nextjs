@@ -6,9 +6,16 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const user = await getUserFromCookies();
 
+  if (!user) {
+    return NextResponse.json(
+      { success: false, message: "Authentication required" },
+      { status: 401 }
+    );
+  }
+
   const reviewToSave = {
     ...body,
-    user_id: user?.id,
+    user_id: user.id,
   };
 
   try {
