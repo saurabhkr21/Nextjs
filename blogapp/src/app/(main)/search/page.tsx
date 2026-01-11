@@ -5,6 +5,8 @@ import { ArrowBigLeft } from "lucide-react";
 import Link from "next/link";
 import { blog } from "../../../../generated/prisma";
 
+export const dynamic = "force-dynamic";
+
 const SEARCH_QUERY = gql`
   query Blogs($q: String) {
     blogs(q: $q) {

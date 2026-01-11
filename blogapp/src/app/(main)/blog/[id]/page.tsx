@@ -3,6 +3,8 @@ import gqlClient from "@/services/gql";
 import { gql } from "graphql-request";
 import { blog } from "../../../../../generated/prisma";
 
+export const dynamic = "force-dynamic";
+
 const GET_BLOG = gql`
   query Blog($blogId: String) {
     blog(id: $blogId) {
