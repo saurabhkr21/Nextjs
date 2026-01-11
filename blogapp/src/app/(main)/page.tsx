@@ -3,6 +3,8 @@ import Header from "@/components/Header";
 import { gql, GraphQLClient } from "graphql-request";
 import { blog } from "../../../generated/prisma";
 
+export const dynamic = "force-dynamic";
+
 const gqlClient = new GraphQLClient("http://localhost:3000/api/graphql");
 const GET_BLOGS = gql`
   query Query {

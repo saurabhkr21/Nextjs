@@ -20,7 +20,7 @@ const SEARCH_QUERY = gql`
 export default async function page({
   searchParams,
 }: {
-  searchParams: { q?: string };
+  searchParams: Promise<{ q?: string }>;
 }) {
   const query = await searchParams;
   const q = query.q;

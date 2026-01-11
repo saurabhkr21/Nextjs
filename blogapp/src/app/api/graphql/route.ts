@@ -4,14 +4,14 @@ import { ApolloServer } from "@apollo/server";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { NextRequest } from "next/server";
 import { createBlog, deleteBlog, getBlogUser, updateBlog } from "./resolvers/blog";
-import { getBlogById, getBlogs } from "./resolvers/route";
+import { getBlogById, getBlogs } from "./resolvers";
 import { currentUser, loginUser, signUpUser } from "./resolvers/user";
 import typeDefs from "./typeDefs";
 import { blog } from "../../../../generated/prisma";
 
 
 const resolvers = {
-  
+
   Query: {
     blog: getBlogById,
     blogs: getBlogs,
@@ -27,12 +27,12 @@ const resolvers = {
     loginUser,
   },
 
-  Blog:{
-    User:getBlogUser
+  Blog: {
+    User: getBlogUser
   },
 
-  User:{
-    blogs:async (blog:blog) => {
+  User: {
+    blogs: async (blog: blog) => {
       const userId = blog.userId;
       return await prismaClient.blog.findMany({
         where: {
@@ -53,4 +53,10 @@ const handler = startServerAndCreateNextHandler<NextRequest>(server, {
   context: async (req) => ({ req }),
 });
 
-export { handler as GET, handler as POST };
+export async function GET(request: NextRequest) {
+  return handler(request);
+}
+
+export async function POST(request: NextRequest) {
+  return handler(request);
+}
